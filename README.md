@@ -20,7 +20,7 @@ There are a couple of small built-in programs to show examples of what you can d
 
 A more indepth guide of each program can be found <a href="" target="_blank">here</a>.
 
-Due to the lack of time I can't add any more programs. I have however created a <a href="" target="_blank">list</a> of the programs that I wanted to add to give you some  ideas. These programs may be added in another update.
+Due to the lack of time I can't add any more programs. I have however created a <a href="https://github.com/jonassvensson4/jsfour-computer/issues/1" target="_blank">list</a> of the programs that I wanted to add to give you some  ideas. These programs may be added in another update.
 
 ### LICENSE
 Please don't sell or reupload this resource. 
