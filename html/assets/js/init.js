@@ -348,39 +348,63 @@ window.addEventListener('message', ( event ) => {
         // Opens the computer
         case 'open':
             switch( event.data.device ) {
-                case 'computer':
+                case 'tablet':
+                    $('#computer-frame').hide();
+                    $('#tablet-frame').show();
+
+                    $('#tablet-frame').animate({
+                        marginTop: '20%',
+                    });
+
+                    $('#tablet-screen').css({
+                        background: `url(${event.data.desktopBackground}) no-repeat`,
+                        backgroundSize: 'cover'
+                    });
+                    break;
+                default:
                     $('#tablet-frame').hide();
                     $('#computer-frame').show();
                     
                     // Sets the background to the specified background in the config.js, the desktop background might be overriden by the logged in user background
                     $('#computer-loading-content').css('background', `url(${event.data.loginBackground}) no-repeat`);
                     $('#computer-content').css('background', `url(${event.data.desktopBackground}) no-repeat`);
-                    $('#tablet-screen').css({
-                        background: `url(${loggedInUser.desktop}) no-repeat`,
-                        backgroundSize: 'cover'
-                    });
 
                     // Show the body
                     $('#jsfour-computer').show();
 
                     // The computer location (locations in config.js)
                     let loc = event.data.location;
-
+   
                     // Checks if the player is opening the computer in a new location
                     if ( markerLocation != loc ) {
                         markerLocation = loc;
 
                         // Checks if the player is required to sign in
                         if ( !event.data.login ) {
-                            // If that's the case > reload the programs
                             loggedInUser = null;
                             loadedPrograms = [];
 
                             loadPrograms();
 
                             $('#computer-loading').hide();
+
+                            $('#computer-frame').animate({
+                                marginTop: '5%',
+                            }, 500, () => {
+                                setTimeout(() => {
+                                    $('#computer-loading-content').fadeIn(500);
+                                    $('#login-username').select();
+                                }, 1500);
+                            });
                         } else {
+                            loggedInUser = null;
+                            loadedPrograms = [];
+
+                            loadPrograms();
+
                             sound_turnon.play();
+
+                            $('#computer-loading').show();
 
                             $('#computer-frame').animate({
                                 marginTop: '5%',
@@ -399,15 +423,7 @@ window.addEventListener('message', ( event ) => {
                             }, 50);
                         } 
                     }
-                    break;
-                case 'tablet':
-                    $('#computer-frame').hide();
-                    $('#tablet-frame').show();
-
-                    $('#tablet-frame').animate({
-                        marginTop: '20%',
-                    });
-                    break;
+                    break;  
             }
         break;
         case 'token':
@@ -635,10 +651,6 @@ $(() => {
 
     // Disable space on input
     $('.nospace').keydown(( e ) => { if ( e.which === 32) return false; });
-
-    // document.addEventListener('contextmenu', ( e ) => {
-    //     e.preventDefault();
-    // }, false);
 });
 
 // Submit the register form - register a user
