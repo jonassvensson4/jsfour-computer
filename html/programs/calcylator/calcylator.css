@@ -1,0 +1,83 @@
+.program-calcylator-header {
+    color: #000000;
+    background: url(../../assets/images/blurr.png);
+    font-size: 14px;
+}
+
+.program-calcylator {
+    height: 100%;
+    width: 100%;
+    color: #000000;
+    background: url(../../assets/images/blurr.png);
+}
+
+.program-calcylator .program-content {
+    overflow: hidden;
+    position: relative;
+}
+
+.icon-calcylator {
+    background-position: -600px 0;
+}
+
+.icon-calcylator:hover {
+    background-position: -600px -60px;
+}
+
+.icon-calcylator:active {
+    background-position: -600px -120px;
+}
+
+.icon-calcylator-small {
+    background-position: -612px -193px;
+}
+
+.program-calcylator input {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.program-calcylator h6 {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 4px;
+    text-align: right;
+    height: 27px;
+}
+
+#calcylator-numbers {
+    height: 100%;
+}
+
+.calc-numb {
+    display: inline-block;
+    background: #ffffff;
+    width: 45px;
+    height: 45px;
+    float: left;
+    text-align: center;
+    position: relative;
+    border: 1px solid rgba(219, 219, 219, 0.438);
+}
+
+.calc-numb:hover {
+    background: #dbdbdb;
+}
+
+.calc-numb:active {
+    background: #d3d3d3;
+}
+
+.c-num {
+    font-weight: bold;
+}
+
+.c-action:hover {
+    color: #ffffff;
+    background: #1a86db;
+}
+
+.c-action:active {
+    color: #ffffff;
+    background: #197fce;
+}

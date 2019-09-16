@@ -1,0 +1,120 @@
+<div class="program program-groups">
+    <div class="program-content">
+        <div class="container">
+            <div class="row">
+                <h6 class="col s12">Admin panel</h6>
+                <div class="col s4" id="test">
+                    <ul class="collapsible">
+                        <li class="active">
+                            <div class="collapsible-header"><i class="material-icons">group</i>Users</div>
+                            <div id="program-groups-users" class="collapsible-body"></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col s8">
+                    <ul class="collapsible" id="groups-register-collapsible">
+                        <li>
+                            <div class="collapsible-header"><i class="material-icons">person_add</i>Register user</div>
+                            <div class="collapsible-body">
+                                <form id="groups-register-user" class="nospace">
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <input id="groups-register-username" type="text" spellcheck="false" autocomplete="off" required>
+                                            <label for="groups-register-username">Username</label>
+                                            <span id="groups-register-helper" class="helper-text" data-error="Username already exists.." data-success="Updated!"></span>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <input id="groups-register-password" type="text" spellcheck="false" autocomplete="off" required>
+                                            <label for="groups-register-password">Password</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <input id="groups-register-firstname" type="text" spellcheck="false" autocomplete="off" required>
+                                            <label for="groups-register-firstname">Firstname</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                                <input id="groups-register-lastname" type="text" spellcheck="false" autocomplete="off" required>
+                                                <label for="groups-register-lastname">Lastname</label>
+                                            </div>
+                                        <div class="input-field col s6">
+                                            <input id="groups-register-job" type="text" spellcheck="false" autocomplete="off"r equired>
+                                            <label for="groups-register-job">Job</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <input id="groups-register-group" type="text" spellcheck="false" required autocomplete="off" value="user">
+                                            <label for="groups-register-group">Group</label>
+                                        </div>
+                                        <button class="btn waves-effect col s12 waves-effect">Register</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="collapsible" id="groups-update-collapsible">
+                        <li>
+                            <div class="collapsible-header"><i class="material-icons">edit</i>Update user</div>
+                            <div class="collapsible-body">
+                                <form id="groups-update-user" class="nospace">
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <input id="groups-update-username" type="text" spellcheck="false" autocapitalize="none">
+                                            <label for="groups-update-username">Username</label>
+                                            <span id="groups-update-helper" class="helper-text" data-error="Nothing to update.." data-success="Updated!"></span>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <input id="groups-update-password" type="password" spellcheck="false" required>
+                                            <label for="groups-update-password">Password</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <input id="groups-update-firstname" type="text" spellcheck="false" required>
+                                            <label for="groups-update-firstname">Firstname</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <input id="groups-update-lastname" type="text" spellcheck="false" required>
+                                            <label for="groups-update-lastname">Lastname</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <input id="groups-update-job" type="text" spellcheck="false" required>
+                                            <label for="groups-update-job">Job</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <input id="groups-update-group" type="text" spellcheck="false" required>
+                                            <label for="groups-update-group">Group</label>
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <input id="groups-update-avatar" type="text" spellcheck="false" required>
+                                            <label for="groups-update-avatar">Avatar image link (50x50)</label>
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <input id="groups-update-desktop" type="text" spellcheck="false" required>
+                                            <label for="groups-update-desktop">Desktop image link (1012x575)</label>
+                                        </div>
+                                        <button class="btn waves-effect col s12 waves-effect">Update</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="collapsible" id="groups-delete-collapsible">
+                        <li>
+                            <div class="collapsible-header"><i class="material-icons">delete</i>Delete user</div>
+                            <div class="collapsible-body">
+                                <form id="groups-delete-user" class="nospace">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input id="groups-delete-username" type="text" spellcheck="false" disabled required>
+                                            <label for="groups-delete-username">Select username in the list</label>
+                                            <span id="groups-delete-helper" class="helper-text" data-error="Username doesn't exists.." data-success="Deleted!"></span>
+                                        </div>
+                                        <button class="btn waves-effect col s12 waves-effect">Delete</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="programs/groups/groups.js" type="text/javascript"></script>
+<link rel="stylesheet" href="programs/groups/groups.css">

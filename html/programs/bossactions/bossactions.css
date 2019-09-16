@@ -1,0 +1,105 @@
+.program-bossactions-header {
+    background: #4039a0;
+    color: #ffffff;
+}
+
+.program-bossactions {
+    height: 100%;
+    width: 100%;
+    color: #000000;
+    background: #fdfdff;
+}
+
+.icon-bossactions {
+    background-position: -420px 0;
+}
+
+.icon-bossactions:hover {
+    background-position: -420px -60px;
+}
+
+.icon-bossactions:active {
+    background-position: -420px -120px;
+}
+
+.icon-bossactions-small {
+    background-position: -432px -193px;
+}
+
+.bossactions-menu-square {
+    margin: 20px 0 20px 0;
+    position: relative;
+    height: 100px;
+    color: #ffffff;
+    text-align: center;
+    background: linear-gradient(45deg, #303f9f, #7b1fa2) !important;
+    text-transform: uppercase;
+    font-size: 16px;
+    line-height: 10px;
+}
+
+.bossactions-menu-square:hover {
+    background: linear-gradient(45deg, #7b1fa2, #303f9f) !important;
+}
+
+.bossactions-menu-square:active {
+    background: linear-gradient(45deg, #681a8a, #273488) !important;
+}
+
+.bossactions-menu-square:nth-child(even) {
+    background: #011cb3;
+}
+
+.bossactions-menu-square p:nth-child(odd){
+    font-weight: bold;
+    font-size: 20px;
+    padding-top: 40px;
+    
+}
+
+.bossactions-menu-square p:nth-child(even){
+    padding-top: 10px;
+    font-family: 'Muli', sans-serif;
+}
+
+#bossactions-employees td p {
+    text-transform: uppercase;
+    font-size: 14px;
+    display: inline-block;
+    color: #ffffff;
+    padding: 4px 8px 4px 8px;
+}
+
+.ba-promote {
+    background: #3ca832;
+}
+
+.ba-demote {
+    background: #a87132;
+}
+
+.ba-fire {
+    background: #cf2626;
+}
+
+#bossactions-page-salary,
+#bossactions-page-bank {
+    display: none;
+}
+
+#bossactions-salary input {
+    margin-top: 10px;
+    padding-left: 10px !important;
+    height: 30px !important;
+    width: 108px !important;
+    border: 1px solid black !important;
+    box-sizing: border-box;
+}
+
+#bossactions-salary input:focus {
+    box-shadow: none !important;
+}
+
+#bossactions-salary button {
+   float: right;
+}

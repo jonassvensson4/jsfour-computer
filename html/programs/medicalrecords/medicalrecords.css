@@ -1,0 +1,186 @@
+.program-medicalrecords-header {
+    background: #466bd1;
+    color: #ffffff;
+}
+
+.program-medicalrecords {
+    height: 100%;
+    width: 100%;
+    color: #466bd1;
+    background: #f1f1f1;
+}
+
+.icon-medicalrecords {
+    background-position: 0 0;
+}
+
+.icon-medicalrecords:hover {
+    background-position: 0 -60px;
+}
+
+.icon-medicalrecords:active {
+    background-position: 0 -120px;
+}
+
+.icon-medicalrecords-small {
+    background-position: -11px -193px;
+}
+
+.program-medicalrecords .input-field .material-icons {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.program-medicalrecords .input-field .material-icons:nth-child(even) {
+    right: 30px;
+}
+
+.program-medicalrecords input,
+.program-medicalrecords input + label,
+.program-medicalrecords textarea,
+.program-medicalrecords textarea + label {
+    color: #466bd1 !important;
+}
+
+.program-medicalrecords .input-field input,
+.program-medicalrecords .input-field textarea {
+    border-bottom: 1px solid #466bd1 !important;
+    box-shadow: none !important;
+}
+
+.program-medicalrecords .input-field input:focus,
+.program-medicalrecords textarea:focus {
+    border-bottom: 1px solid #466bd1 !important;
+    box-shadow: none !important;
+}
+
+.program-medicalrecords input:focus + label,
+.program-medicalrecords textarea:focus + label {
+    color: #466bd1 !important;
+}
+
+.program-medicalrecords textarea {
+    height: 150px;
+}
+
+.search-record {
+    padding: 5px 10px 5px 10px;
+    margin-bottom: 10px;
+    background: #466bd1;
+    color: #ffffff;
+}
+
+.search-record:hover,
+.program-medicalrecords button:hover {
+    background: #3c5cb4;
+}
+
+.search-record:active,
+.program-medicalrecords button:active,
+.program-medicalrecords button:focus {
+    background: #334f9b;
+}
+
+.program-medicalrecords .input-field input.invalid  {
+    border-bottom: 1px solid red !important;
+    box-shadow: 0 1px 0 0 red !important;
+}
+
+.program-medicalrecords .input-field input.valid {
+    border-bottom: 1px solid green !important;
+    box-shadow: 0 1px 0 0 green !important;
+}
+
+.search-record .records {
+    float: right;
+}
+
+.search-record .records p {
+    font-size: 11px;
+    line-height: 14px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.search-record .records .material-icons {
+    font-size: 14px;
+}
+
+.sr-dob {
+    font-size: 12px;
+}
+
+.medicalrecords-add,
+.medicalrecords-record {
+    display: none;
+}
+
+.medicalrecords-menu {
+    position: absolute;
+    top: 22px;
+    left: 0;
+    height: 100%;
+    background: #e7e7e7;
+    color: #444444;
+}
+
+.medicalrecords-menu .material-icons {
+    padding: 8px 5px 8px 5px;
+    display: list-item;
+}
+
+.program-medicalrecords button {
+    background: #466bd1;
+}
+
+.mb {
+    margin-bottom: 40px;
+}
+
+.medicalrecords-record .collapsible-header {
+    position: relative;
+}
+
+.medicalrecords-record .collapsible-header p:nth-child(even) {
+    position: absolute;
+    right: 4rem;
+}
+
+.medicalrecords-record .collapsible-header .material-icons {
+    position: absolute;
+    right: 0;
+    color: #d14646;
+}
+
+.medicalrecords-record .collapsible-body {
+    color: #444444;
+    position: relative;
+}
+
+.medicalrecords-record .collapsible-body p:nth-child(even) {
+    white-space: pre-wrap;
+}
+
+.medicalrecords-record .collapsible-body p:nth-child(odd) {
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    font-size: 12px;
+    color: #466bd1;
+}
+
+.medicalrecords-record h6 {
+    line-height: 20px;
+}
+
+.medicalrecords-record h6 .material-icons {
+    margin-top: -6px;
+    vertical-align: middle;
+}
+
+.mr-back {
+    position: absolute;
+    left: 10%;
+    top: 35px;
+}

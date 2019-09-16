@@ -1,0 +1,30 @@
+<div class="program program-forum">
+    <div class="program-content">
+        <div class="container">
+            <div class="row">
+                <h6>Forum - </h6>
+                <form>
+                    <div class="row">
+                        <div class="input-field col s3">
+                            <select>
+                                <option selected>Message</option>
+                                <option data-icon="programs/forum/info.png" class="left">Info</option>
+                                <option data-icon="programs/forum/important.png" class="left">Important</option>
+                                <option data-icon="programs/forum/news.png" class="left">News</option>
+                            </select>
+                            <label>Category</label>
+                            <button class="btn col s12 grey darken-2 waves-effect">Post</button>
+                        </div>
+                        <div class="input-field col s9">
+                            <textarea id="forum-textarea" class="materialize-textarea" required></textarea>
+                            <label for="forum-textarea">Message</label>
+                        </div>
+                    </div>
+                </form>
+                <div id="forum-posts"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="programs/forum/forum.js" type="text/javascript"></script>
+<link rel="stylesheet" href="programs/forum/forum.css">

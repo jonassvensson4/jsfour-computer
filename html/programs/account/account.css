@@ -1,0 +1,92 @@
+.program-account-header {
+    background: rgb(26, 21, 73);
+    color: #ffffff;
+}
+
+.program-account {
+    height: 100%;
+    width: 100%;
+    color: #ffffff;
+    background: rgb(46, 41, 105);
+}
+
+.icon-account {
+    background-position: -120px 0;
+}
+
+.icon-account:hover {
+    background-position: -120px -60px;
+}
+
+.icon-account:active {
+    background-position: -120px -120px;
+}
+
+.icon-account-small {
+    background-position: -132px -193px;
+}
+
+.program-account h6 {
+    margin-bottom: 30px;
+}
+
+.program-account .input-field input {
+    color: #ffffff;
+    border-bottom: 1px solid #ffffff;
+}
+
+.program-account .input-field label {
+    color: #ffffff;
+}
+
+.program-account .input-field input[type=text]:focus + label,
+.program-account .input-field input[type=password]:focus + label,
+.program-account  textarea:focus + label {
+    color: #ffffff !important;
+}
+
+.program-account input[type=text]:disabled + label {
+    color: #ffffff !important;
+}
+
+.program-account input[type=text]:disabled {
+    color: #ffffff !important;
+    border-bottom: 1px solid #9c9c9c !important;
+}
+
+.program-account .input-field input[type=text]:focus,
+.program-account .input-field input[type=password]:focus {
+    border-bottom: 1px solid #ffffff !important;
+    box-shadow: 0 1px 0 0 #ffffff !important;
+}
+
+.program-account .input-field input[type=text].invalid,
+.program-account .input-field input[type=password].invalid  {
+    border-bottom: 1px solid red;
+    box-shadow: 0 1px 0 0 red;
+}
+
+.program-account .input-field input[type=text].valid,
+.program-account .input-field input[type=password].valid  {
+    border-bottom: 1px solid green;
+    box-shadow: 0 1px 0 0 green;
+}
+
+.program-account button {
+    background: #ffffff;
+    color: #000000;
+    margin-bottom: 40px;
+}
+
+.program-account button:hover {
+    background: #ffffff;
+}
+
+.program-account button:focus {
+    background: #ffffff;
+}
+
+.program-account .input-field .helper-text {
+    position: absolute;
+    width: 100%;
+}

@@ -1,0 +1,405 @@
+.program-mail-header {
+    margin-bottom: -22px;
+    color: #ffffff;
+    position: relative;
+    z-index: 10;
+}
+
+.program-mail {
+    height: 100%;
+    width: 100%;
+    color: #000000;
+    background: url(mail.jpg);
+}
+
+.program-mail-header .program-close,
+.program-mail-header .program-fullscreen,
+.program-mail-header .program-minimize,
+.program-mail-header .program-refresh {
+    color: #000000 !important;
+}
+
+.icon-mail {
+    background-position: -840px 0;
+}
+
+.icon-mail:hover {
+    background-position: -840px -60px;
+}
+
+.icon-mail:active {
+    background-position: -840px -120px;
+}
+
+.icon-mail-small {
+    background-position: -852px -193px;
+}
+
+#mail-menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #ffffff;
+    background: url(../../assets/images/blurr-blue.png);
+    width: 180px;
+    height: 100%;
+    text-align: left;
+    z-index: 10;
+    overflow: auto;
+}
+
+#mail-menu h6 {
+    font-size: 15px;
+    padding: 5px;
+    margin: 0;
+}
+
+#mail-menu .material-icons {
+    padding: 5px;
+}
+
+#mail-menu li {
+    width: 180px;
+}
+
+.mail-menu-content:hover,
+#mail-menu .material-icons:hover,
+#mail-menu li:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#mail-menu li .material-icons  {
+    vertical-align: middle;
+}
+
+.mail-menu-content {
+    padding: 5px 5px 5px 35px;
+    border-left: 4px solid transparent;
+    width: 180px;
+    position: relative;
+}
+
+.active-email {
+    border-left: 4px solid #ffffff !important;
+}
+
+.mail-unread-count {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.mail-menu-content p {
+    font-size: 12px;
+}
+
+.mail-menu-content p:nth-child(odd) {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#mail-inbox {
+    position: absolute;
+    top: 0;
+    left: 180px;
+    background: #ffffff;
+    width: 200px;
+    height: 100%;
+    border-right: 1px solid #eeeeee;
+    overflow: auto;
+}
+
+#mail-menu::-webkit-scrollbar,
+#mail-inbox::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+.mail-inbox-content {
+    padding: 10px;
+    border-bottom: 1px solid #eeeeee;
+    border-left: 4px solid transparent;
+    color: #5f5f5f;
+    font-size: 12px;
+}
+
+.mail-inbox-content:hover {
+    background: #f3f3f3;
+}
+
+.mail-inbox-content img {
+    float: left;
+    margin-right: 5px;
+}
+
+.inbox-name,
+.inbox-title {
+    color: #252525;
+}
+
+.inbox-unread {
+    border-left: 4px solid #0e4c81;
+}
+
+.inbox-unread .inbox-name {
+    font-weight: bold;
+}
+
+.inbox-unread .inbox-title {
+    font-weight: bold;
+    color: #135995;
+}
+
+.inbox-active {
+    background: #ddedf9 !important;
+}
+
+#mail-email {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 380px;
+    background: #ffffff;
+    width: 100%;
+    height: 100%;
+    padding: 10px 10px 10px 10px;
+}
+
+#mail-email-header {
+    margin-top: 15px;
+}
+
+#mail-email-header p {
+    color: #444444;
+    font-size: 12px;
+    display: inline-block;
+    padding: 4px 8px 4px 8px;
+}
+
+#mail-email-header p:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+#mail-email-header .material-icons {
+    vertical-align: middle;
+}
+
+#mail-email h6 {
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+}
+
+#mail-email-content {
+    padding: 15px;
+}
+
+#mail-email-sender {
+    margin-bottom: 20px;
+}
+
+#mail-email-sender img {
+    float: left;
+    margin-right: 10px;
+}
+
+#email-title {
+    font-weight: bold;
+    font-size: 10px;
+}
+
+#email-date {
+    font-size: 12px;
+}
+
+#email-to {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+#mail-send {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 380px;
+    background: #ffffff;
+    width: 100%;
+    height: 100%;
+    padding: 10px 10px 10px 10px;
+    overflow: auto;
+}
+
+#mail-send form {
+    margin-top: 35px;
+}
+
+#mail-send input {
+    width: 361px;
+    height: 15px;
+    border-bottom: 1px solid #c9c9c9;
+    box-shadow: none !important;
+}
+
+#mail-send input:focus {
+    border-bottom: 1px solid #c9c9c9;
+    box-shadow: none !important;
+}
+
+#mail-send-text {
+    position: absolute;
+    top: 187px;
+    left: 10px;
+    width: 399px;
+    resize: none;
+    border: none;
+    height: 500px;
+}
+
+#mail-send-text:focus {
+    outline: none;
+}
+
+.input-wrapper  {
+    position: relative;
+}
+
+#mail-send-from { 
+    padding-left: 40px !important;
+}
+
+#mail-send-to { 
+    padding-left: 20px !important;
+    width: 380px !important;
+}
+
+#mail-send-title {
+    width: 399px !important;
+}
+
+.input-wrapper span {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.changeFolder {
+    font-size: 12px;
+    padding: 5px 5px 5px 35px;
+    border-left: 4px solid transparent;
+}
+
+.active-folder {
+    border-left: 4px solid #ffffff !important;
+}
+
+#mail-folder-menu {
+    display: none;
+    z-index: 10;
+    position: absolute;
+    background: #efefef;
+    height: 100%;
+    width: 110px;
+    left: 180px;
+    top: 0;
+    padding: 10px;
+}
+
+#mail-folder-menu li:first-child {
+   margin-bottom: 10px;
+}
+
+#mail-folder-menu .changeFolder {
+    padding: 0;
+    float: left;
+    width: 130px;
+}
+
+#mail-send-header {
+    width: 399px;
+    background: #f7f7f7;
+    padding: 5px;
+    margin-bottom: 15px;
+}
+
+#mail-send-header li {
+    display: inline-block;
+}
+
+#mail-send-header .material-icons {
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+#mail-send-delete {
+    margin-right: 10px;
+}
+
+#mail-send-submit,
+#mail-send-delete,
+.mail-send-option {
+    padding: 5px;
+}
+
+#mail-send-submit:hover,
+#mail-send-delete:hover,
+.mail-send-option:hover {
+    background: #e6e6e6;
+}
+
+#mail-inbox-junk,
+#mail-inbox-deleted,
+#mail-inbox-sent {
+    display: none;
+}
+
+#email-text {
+    white-space: pre;
+}
+
+#email-name {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#mail-register {
+    display: none;
+    background: #0078d7;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding-top: 15%;
+}
+
+#mail-register h6 {
+    color: #f3f3f3;
+    margin-bottom: 10px;
+}
+
+#mail-register input {
+    text-align: right;
+    color:#ffffff;
+    border-bottom: 1px solid #ffffff;
+    box-shadow: none;
+}
+
+#mail-register .textleft {
+    text-align: left;
+}
+
+#mail-register p {
+    color:#ffffff;
+    margin-top: 12px;
+}
+
+.program-mail .invalid {
+    border-bottom: 1px solid red !important;
+    box-shadow: 0 1px 0 0 red !important;
+}
+
+.program-mail .valid {
+    border-bottom: 1px solid green !important;
+    box-shadow: 0 1px 0 0 green !important;
+}

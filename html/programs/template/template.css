@@ -1,0 +1,27 @@
+.program-records-header {
+    background: rgb(167, 167, 167);
+    color: #ffffff;
+}
+
+.program-records {
+    height: 100%;
+    width: 100%;
+    color: #000000;
+    background: rgb(253, 253, 255);
+}
+
+.icon-records {
+    background-position: -420px 0;
+}
+
+.icon-records:hover {
+    background-position: -420px -60px;
+}
+
+.icon-records:active {
+    background-position: -420px -120px;
+}
+
+.icon-records-small {
+    background-position: -420px -193px;
+}

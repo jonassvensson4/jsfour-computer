@@ -1,0 +1,60 @@
+<div class="program program-bossactions">
+    <div class="program-content">
+        <div class="container">
+            <div class="row">
+                <div class="col s4">
+                    <div class="bossactions-menu-square" page="#bossactions-page-employees">
+                        <p>Employees</p>
+                        <p id="employees-count"></p>
+                    </div>
+                </div>
+                <div class="col s4">
+                    <div class="bossactions-menu-square" page="#bossactions-page-salary">
+                        <p>change</p>
+                        <p>Salary</p>
+                    </div>
+                </div>
+                <div class="col s4">
+                    <div class="bossactions-menu-square" page="#bossactions-page-bank">
+                        <p>Bank</p>
+                        <p id="ba-money"></p>
+                    </div>
+                </div>
+                <div class="col s12">
+                    <div id="bossactions-page-employees">
+                        <table id="bossactions-employees" class="striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Grade</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div id="bossactions-page-salary">
+                        <table id="bossactions-salary" class="striped">
+                            <thead>
+                                <tr>
+                                    <th>Grade</th>
+                                    <th>Salary</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div id="bossactions-page-bank">
+                        <form id="bossactions-bank">
+                            <input type="text" id="ba-amount" required />
+                            <button class="btn green waves-effect" action="withdraw">Withdraw</button>
+                            <button class="btn green darken-2 waves-effect" action="deposit">Deposit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="programs/bossactions/bossactions.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="programs/bossactions/bossactions.css">

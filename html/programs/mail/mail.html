@@ -1,0 +1,105 @@
+<div class="program program-mail">
+    <div class="program-content">
+        <div id="mail-register">
+            <h6>Welcome!</h6>
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="col s4 offset-s4">
+                            <input type="text" required spellcheck="false" autocomplete="off" class="col s5" placeholder="jonas" id="mail-register-name" />
+                            <p class="col s2">@</p>
+                            <input type="text" required spellcheck="false" autocomplete="off" class="col s5 textleft" placeholder="mail.com" id="mail-register-domain" />
+                        </div>
+                        <div class="col s4 offset-s4">
+                            <button class="btn waves-effect col s12 white black-text">Create email</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="mail-content-wrapper">
+            <div id="mail-menu">
+                <h6>Mail</h6>
+                <i class="material-icons" id="mail-toggle">menu</i>
+                <ul>
+                    <li id="mail-send-page" class="waves-effect waves-light"><i class="material-icons">add</i>Send</li>
+                </ul>
+                <div id="mail-menu-emails"></div>
+                <ul>
+                    <li id="mail-folder" class="waves-effect waves-light"><i class="material-icons">folder_open</i>Folders</li>
+                    <li class="waves-effect waves-light changeFolder folder-inbox" onclick="changeFolder('inbox')">Inbox</li>
+                    <li class="waves-effect waves-light changeFolder folder-sent" onclick="changeFolder('sent')">Sent</li>
+                    <li class="waves-effect waves-light changeFolder folder-junk" onclick="changeFolder('junk')">Junk</li>
+                    <li class="waves-effect waves-light changeFolder folder-deleted" onclick="changeFolder('deleted')">Deleted</li>
+                </ul>
+            </div>
+            <div id="mail-folder-menu">
+                <ul>
+                    <li>All folders</li>
+                    <li class="waves-effect waves-light changeFolder folder-inbox" onclick="changeFolder('inbox')">Inbox</li>
+                    <li class="waves-effect waves-light changeFolder folder-sent" onclick="changeFolder('sent')">Sent</li>
+                    <li class="waves-effect waves-light changeFolder folder-junk" onclick="changeFolder('junk')">Junk</li>
+                    <li class="waves-effect waves-light changeFolder folder-deleted" onclick="changeFolder('deleted')">Deleted</li>
+                </ul>
+            </div>
+            <div id="mail-inbox">
+                <div id="mail-inbox-inbox" class="afolder">
+                    
+                </div>
+                <div id="mail-inbox-sent" class="afolder">
+    
+                </div>
+                <div id="mail-inbox-deleted" class="afolder">
+    
+                </div>
+                <div id="mail-inbox-junk" class="afolder">
+    
+                </div>
+            </div>
+            <div id="mail-send">
+                <form>
+                    <div id="mail-send-header">
+                        <ul>
+                            <li class="mail-send-option" action="bold"><i class="material-icons">format_bold</i></li>
+                            <li class="mail-send-option" action="italic"><i class="material-icons">format_italic</i></li>
+                            <li class="mail-send-option" action="underline"><i class="material-icons">format_underline</i></li>
+                            <li class="mail-send-option" action="highlight"><i class="material-icons">border_color</i></li>
+                            <li class="mail-send-option" action="color"><i class="material-icons">format_color_text</i></li>         
+                            <li class="right" id="mail-send-submit"><i class="material-icons">send</i>Send</li>
+                        </ul>
+                    </div>
+                    <div class="input-wrapper">
+                        <input type="text" required spellcheck="false" id="mail-send-from" disabled />
+                        <span>From:</span>
+                    </div>
+                    <div class="input-wrapper">
+                        <input type="text" required spellcheck="false" id="mail-send-to" />
+                        <span>To:</span>
+                    </div>
+                    <input type="text" required spellcheck="false" id="mail-send-title" placeholder="Subject"/>
+                    <textarea required autocomplete="off" spellcheck="false" id="mail-send-text" contenteditable="true"></textarea>
+                </form>
+            </div>
+            <div id="mail-email">
+                <div id="mail-email-header">
+                    <p action="reply"><i class="material-icons">reply</i>reply</p>
+                    <p action="forward"><i class="material-icons">arrow_forward</i>forward</p>
+                    <p action="delete" folder="inbox" id="mail-delete"><i class="material-icons">delete</i>delete</p>
+                    <p><i class="material-icons">flag</i>flag</p>
+                </div>
+                <div id="mail-email-content">
+                    <h6 id="email-title"></h6>
+                    <div id="mail-email-sender">
+                        <img id="email-avatar" src="" class="circle" />
+                        <p id="email-name"></p>
+                        <p id="email-date"></p>
+                        <p id="email-to">To: <span></span></p>
+                    </div>
+                    <p id="email-text"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="programs/mail/mail.js" type="text/javascript"></script>
+<link rel="stylesheet" href="programs/mail/mail.css">

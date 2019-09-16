@@ -1,0 +1,73 @@
+.program-folder-header {
+    background: #ffffff;
+    color: #000000;
+    border-bottom: 1px solid #d5d5d5;
+}
+
+.program-folder {
+    height: 100%;
+    width: 100%;
+    color: #000000;
+    background: #ffffff;
+}
+
+.icon-folder {
+    background-position: -780px 0;
+}
+
+.icon-folder:hover {
+    background-position: -780px -60px;
+}
+
+.icon-folder:active {
+    background-position: -780px -120px;
+}
+
+.icon-folder-small {
+    background-position: -791px -193px;
+}
+
+#f-contextmenu {
+    display: none;
+    z-index: 100;
+    position: absolute;
+    width: 100px;
+    height: auto;
+    left: 0;
+    top: 0;
+    background: url(../../assets/images/blurr.png);
+    color: #000000;
+}
+
+#f-contextmenu li {
+    padding: 4px;
+}
+
+
+#f-contextmenu li:nth-child(even) {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+#f-contextmenu li:hover {
+    color: #ffffff;
+    background: #0078d7;
+}
+
+#f-contextmenu li:active {
+    background: #0065b8;
+}
+
+#f-contextmenu li .material-icons {
+    margin: -5px 5px 0 0;
+    vertical-align: middle;
+    font-size: 18px;
+}
+
+#f-icons {
+    width: 100%;
+    height: 100%;
+}
+
+#f-icons .icon {
+    display: inline-block;
+}

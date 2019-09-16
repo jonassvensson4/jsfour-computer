@@ -1,0 +1,64 @@
+<div class="program program-jobcenter">
+    <div class="program-content">
+        <div id="jc-search">
+           <div class="container">
+                <form >
+                    <p>Search job</p>
+                    <i id="jc-search-clear" class="material-icons">close</i>
+                    <input type="text" placeholder="Job name.." required />
+                    <button><i class="material-icons">search</i>Search</button>
+                </form>
+                <span><i class="material-icons">arrow_back</i> Go back</span>
+           </div>
+        </div>
+        <div class="container">
+            <div id="jc-list">
+                <h6><span>0</span> jobs found <i id="jc-add" title="Add" class="material-icons">add</i></h6>
+                <div class="row">
+                    <div id="jc-jobs"></div>
+                </div>
+            </div>
+            <div id="jc-add-form">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="jc-add-group" type="text" spellcheck="false" autocomplete="off" required>
+                            <label for="jc-add-group">Group (job name)</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="jc-add-name" type="text" spellcheck="false" autocomplete="off" required>
+                            <label for="jc-add-name">Name (job label)</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="jc-add-image" type="text" spellcheck="false" autocomplete="off" required>
+                            <label for="jc-add-image">Image link (50x50)</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="jc-add-title" type="text" spellcheck="false" autocomplete="off" required>
+                            <label for="jc-add-title">Title</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea id="jc-add-text" class="materialize-textarea" spellcheck="off" autocomplete="false" required></textarea>
+                            <label for="jc-add-text">Text</label>
+                        </div>
+                        <div class="col s12">
+                            <button id="jc-add-submit" class="col s12 btn waves-effect waves-light">Add</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="jc-job">
+                <i id="jc-job-edit" class="material-icons">edit</i>
+                <i id="jc-job-save" class="material-icons">save</i>
+                <i id="jc-job-delete" class="material-icons">delete</i>
+                <input id="jc-job-image" type="text" disabled placeholder="Image link" />
+                <input id="jc-job-group" type="text" disabled placeholder="Group" />
+                <input id="jc-job-title" type="text" disabled placeholder="Title" />
+                <input id="jc-job-job" type="text" disabled placeholder="Name" />
+                <textarea id="jc-job-text" disabled>Text</textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="programs/jobcenter/jobcenter.js" type="text/javascript"></script>
+<link rel="stylesheet" href="programs/jobcenter/jobcenter.css">

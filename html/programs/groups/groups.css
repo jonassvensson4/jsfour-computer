@@ -1,0 +1,117 @@
+.program-groups-header {
+    background: rgb(73, 21, 21);
+    color: #ffffff;
+}
+
+.program-groups {
+    height: 100%;
+    width: 100%;
+    color: #ffffff;
+    background: rgb(105, 41, 41);
+}
+
+.icon-groups {
+    background-position: -180px 0;
+}
+
+.icon-groups:hover {
+    background-position: -180px -60px;
+}
+
+.icon-groups:active {
+    background-position: -180px -120px;
+}
+
+.icon-groups-small {
+    background-position: -192px -193px;
+}
+
+.program-groups h6 {
+    margin-bottom: 30px;
+}
+
+.program-groups .input-field input {
+    color: #ffffff;
+    border-bottom: 1px solid #ffffff;
+}
+
+.program-groups .input-field label {
+    color: #ffffff;
+}
+
+.program-groups .input-field input[type=text]:focus + label,
+.program-groups .input-field input[type=password]:focus + label,
+.program-groups  textarea:focus + label {
+    color: #ffffff !important;
+}
+
+.program-groups input[type=text]:disabled + label {
+    color: #ffffff !important;
+}
+
+.program-groups input[type=text]:disabled {
+    color: #ffffff !important;
+    border-bottom: 1px solid #9c9c9c !important;
+}
+
+.program-groups .input-field input[type=text]:focus,
+.program-groups .input-field input[type=password]:focus {
+    border-bottom: 1px solid #ffffff !important;
+    box-shadow: 0 1px 0 0 #ffffff !important;
+}
+
+.program-groups .input-field input[type=text].invalid,
+.program-groups .input-field input[type=password].invalid  {
+    border-bottom: 1px solid red;
+    box-shadow: 0 1px 0 0 red;
+}
+
+.program-groups .input-field input[type=text].valid,
+.program-groups .input-field input[type=password].valid  {
+    border-bottom: 1px solid green;
+    box-shadow: 0 1px 0 0 green;
+}
+
+.program-groups button {
+    background: #ffffff;
+    color: #000000;
+}
+
+.program-groups button:hover {
+    background: #ffffff;
+}
+
+.program-groups button:focus {
+    background: #ffffff;
+}
+
+.program-groups .input-field .helper-text {
+    position: absolute;
+    width: 100%;
+}
+
+.program-groups .collapsible {
+    border: none;
+    margin: 0 0 10px 0;
+}
+
+.program-groups .collapsible-header {
+    background: rgb(73, 21, 21);
+    border: none;
+}
+
+.program-groups .collapsible-body {
+    border-bottom: 1px solid rgb(73, 21, 21);
+}
+
+.program-groups .collapsible-body span {
+    display: list-item;
+}
+
+#program-groups-register {
+    background: rgb(73, 21, 21);
+}
+
+#groups-delete-user button {
+    margin-top: 30px;
+}

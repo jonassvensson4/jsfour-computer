@@ -1,0 +1,60 @@
+<div class="program program-account">
+    <div class="program-content">
+        <div class="container">
+            <div class="row">
+                <h6>Update your account</h6>
+                <form id="account-form" class="col s12 nospace">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="account-username" type="text" spellcheck="false" disabled>
+                            <label for="account-username">Username</label>
+                            <span id="account-username-helper" class="helper-text" data-error="" data-success="Updated!"></span>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="account-password" type="password" spellcheck="false" required>
+                            <label for="account-password">Password</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="account-firstname" type="text" spellcheck="false">
+                            <label for="account-firstname">Firstname</label>
+                        </div>
+                        <div class="input-field col s6">
+                                <input id="account-lastname" type="text" spellcheck="false">
+                                <label for="account-lastname">Lastname</label>
+                            </div>
+                        <div class="input-field col s6">
+                            <input id="account-job" type="text" spellcheck="false" value="job1" disabled>
+                            <label for="account-job">Job</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="account-group" type="text" spellcheck="false" disabled>
+                            <label for="account-group">Group</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="account-avatar" type="text" spellcheck="false">
+                            <label for="account-avatar">Avatar image link (50x50)</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="account-desktop" type="text" spellcheck="false">
+                            <label for="account-desktop">Desktop background link (1012x575)</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="account-new-password0" type="password" spellcheck="false">
+                            <label for="account-new-password0">New password</label>
+                            <span id="account-new-password-helper" class="helper-text" data-error=""></span>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="account-new-password1" type="password" spellcheck="false">
+                            <label for="account-new-password1">Repeat password</label>
+                        </div>
+                    </div>
+                    <button class="btn waves-effect col s12 waves-effect">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="programs/account/account.js" type="text/javascript"></script>
+<link rel="stylesheet" href="programs/account/account.css">

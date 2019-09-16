@@ -1,0 +1,163 @@
+.program-twitter-header {
+    background: #4b8ebb;
+    color: #ffffff;
+}
+
+.program-twitter {
+    height: 100%;
+    width: 100%;
+    color: #ffffff;
+    background: #66bbf2;
+}
+
+.icon-twitter {
+    background-position: -360px 0;
+}
+
+.icon-twitter:hover {
+    background-position: -360px -60px;
+}
+
+.icon-twitter:active {
+    background-position: -360px -120px;
+}
+
+.icon-twitter-small {
+    background-position: -370px -193px;
+}
+
+#twitter-dashboard {
+    margin-top: 10px;
+    background: #ffffff;
+    height: 150px;
+}
+
+#twitter-dashboard-content {
+    background: #4c97c9;
+    height: 100px;
+    width: 100%;
+    padding-top: 50px;
+    margin-bottom: 60px;
+}
+
+#twitter-dashboard-content img {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    float: left;
+    margin: 20px;
+}
+
+#twitter-dashboard-content p {
+    margin-top: 55px;
+    color: #444444;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#twitter-dasboard-trending {
+    padding: 5px 10px 10px 10px;
+    background: #ffffff;
+    height: 225px;
+    color: #444444;
+}
+
+#twitter-dasboard-trending h6 {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#twitter-dasboard-trending li{
+    margin-bottom: 5px;
+}
+
+#twitter-dasboard-trending li p:nth-child(odd) {
+    font-size: 14px;
+    color: #4c97c9;
+    font-weight: bold;
+}
+
+#twitter-dasboard-trending li p:nth-child(even) {
+    font-size: 12px;
+}
+
+.program-twitter textarea {
+    border-bottom: transparent !important;
+    box-shadow: none !important;
+}
+
+.program-twitter textarea:focus {
+    border-bottom: transparent !important;
+    box-shadow: none !important;
+}
+
+.program-twitter textarea:focus + label {
+    color: #444444 !important;
+}
+
+#twitter-textarea {
+    background: #ffffff;
+    border-radius: 5px;
+    padding: 8px;
+}
+
+#twitter-content {
+    margin-top: 10px;
+}
+
+#twitter-submit {
+    color: #ffffff;
+    background: #4c97c9;
+    border-radius: 100px;
+    padding: 8px;
+    border: none;
+    margin-top: 5px;
+}
+
+#twitter-submit:hover {
+    background: #468dbd;
+}
+
+#twitter-submit:focus {
+    background: #4084b1;
+}
+
+#twitter-posts {
+    overflow: auto;
+}
+
+.twitter-post {
+    background: #ffffff;
+    color: #444444;
+    margin-bottom: 10px;
+}
+
+.twitter-post-header {
+    padding: 10px;
+    width: 100%;
+    height: 70px;
+}
+
+.twitter-post-header img {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    float: left;
+}
+
+.twitter-post-header p {
+    font-weight: bold;
+    float: left;
+    margin: 5px 0 0 10px;
+}
+
+.twitter-post-header span {
+    font-weight: normal;
+    margin-left: 5px;
+}
+
+.twitter-post-text {
+    margin-top: -20px;
+    padding: 0 10px 30px 70px;
+    white-space: pre-wrap;
+}

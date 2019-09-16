@@ -1,0 +1,250 @@
+.program-jobcenter-header {
+    background: #ffffff;
+    color: #000000;
+}
+
+.program-jobcenter {
+    height: 100%;
+    width: 100%;
+    color: #000000;
+    background: #efefef;
+}
+
+.program-jobcenter .container {
+    margin-bottom: 30px;
+}
+
+.icon-jobcenter {
+    background-position: -660px 0;
+}
+
+.icon-jobcenter:hover {
+    background-position: -660px -60px;
+}
+
+.icon-jobcenter:active {
+    background-position: -660px -120px;
+}
+
+.icon-jobcenter-small {
+    background-position: -671px -193px;
+}
+
+.program-jobcenter .input-field input.invalid  {
+    border-bottom: 1px solid red !important;
+    box-shadow: 0 1px 0 0 red !important;
+}
+
+.program-jobcenter .input-field input.valid {
+    border-bottom: 1px solid green !important;
+    box-shadow: 0 1px 0 0 green !important;
+}
+
+#jc-search {
+    position: relative;
+    width: 100%;
+    background: #00005a;
+    padding: 25px 0 10px 0;
+}
+
+#jc-search input {
+    background: #ffffff;
+    height: 34px !important;
+    padding-left: 10px !important;
+    border-radius: 6px 0 0 6px !important;
+    border: 1px solid #00005a !important;
+    border-right: none !important; 
+    width: 84%;
+}
+
+#jc-search input:focus {
+    border: 1px solid #00005a !important;
+    box-shadow: none !important;
+}
+
+.program-jobcenter input,
+.program-jobcenter textarea,
+.program-jobcenter input:focus + label,
+.program-jobcenter textarea:focus + label {
+    color: #00005a !important;
+}
+
+#jc-add-submit {
+    background: #00005a;
+}
+
+#jc-add-form {
+    display: none;
+}
+
+#jc-add-form form {
+    margin-top: 20px;
+}
+
+#jc-add-form textarea {
+    height: 100px;
+}
+
+#jc-search button {
+    height: 34px;
+    width: 102px;
+    margin-left: -10px;
+    background: #92eb42;
+    padding: 10px;
+    border: none;
+    border-radius: 0 6px 6px 0;
+    transition: all 0.2s ease;
+}
+
+#jc-search button:hover {
+    background: #abff5c;
+}
+
+#jc-search button:active {
+    color: #ffffff;
+    background: #1616b2;
+}
+
+#jc-search form .material-icons {
+    font-size: 18px;
+    float: left;
+    margin-right: -14px;
+}
+
+#jc-search span {
+   display: none;
+   color:#ffffff;
+}
+
+#jc-search span .material-icons {
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+#jc-search p {
+    color: #ffffff;
+    font-size: 16px;
+}
+
+#jc-list h6  {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+#jc-list h6 span {
+    border-bottom: 4px solid #92eb42;
+}
+
+.jc-job {
+    background: #ffffff;
+    padding: 10px 10px 18px 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+    width: 49.3%;
+    border: 1px solid transparent;
+}
+
+.jc-job:hover {
+    /* background: rgb(247, 247, 247); */
+    border: 1px solid #424ae0;
+}
+
+.jc-job:nth-child(even) {
+   float: right;
+}
+
+.jc-job img {
+    width: 50px;
+    height: 50px;
+    max-width: 50px;
+    max-height: 50px;
+    float: left;
+    margin-right: 10px;
+}
+
+.jc-job h5 {
+    color: #00005a;
+    font-weight: 400;
+    font-size: 20px;
+    margin: 0;
+}
+
+.jc-job p {
+    font-size: 14px;
+}
+
+#jc-job {
+    display: none;
+    margin-top: 20px;
+}
+
+#jc-job-delete,
+#jc-job-save,
+#jc-job-edit {
+    display: none;
+    color: #00005a;
+    float: right;
+}
+
+#jc-job-title {
+    color: #00005a !important;
+    font-weight: 400;
+    font-size: 25px;
+    margin: 0;
+}
+
+#jc-job-image,
+#jc-job-group {
+    display: none;
+    color: #00005a !important;
+    font-weight: 400;
+    font-size: 25px;
+    margin: 0;
+}
+
+#jc-job-title:disabled {
+    border: none !important;
+}
+
+#jc-job-job {
+    color: #444444;
+    font-size: 15px;
+    margin: -10px 0 0 0;
+}
+
+#jc-job-job:disabled {
+    border: none !important;
+}
+
+#jc-job-text {
+    margin-top: 20px;
+    resize: none;
+    height: 600px;
+}
+
+#jc-search form {
+    position: relative;
+}
+
+#jc-search-clear {
+    position: absolute;
+    top: 29px;
+    right: 130px;
+    font-size: 25px !important;
+}
+
+#jc-job-text:disabled {
+    border: none;
+}
+
+#jc-add {
+    float: right;
+    display: none;;
+}
+
+.program-jobcenter input:focus,
+.program-jobcenter textarea:focus {
+    border-bottom: 1px solid #00005a !important;
+    box-shadow: none !important;
+}

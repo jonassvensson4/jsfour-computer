@@ -1,0 +1,61 @@
+.program-terminal-header {
+    background: #ffffff;
+    color: #000000;
+}
+
+.program-terminal {
+    height: 100%;
+    width: 100%;
+    color: #e4e4e4;
+    background: #000000;
+    font-size: 12px;
+}
+
+.program-terminal .program-content {
+    height: 276px;
+}
+
+.icon-terminal {
+    background-position: -720px 0;
+}
+
+.icon-terminal:hover {
+    background-position: -720px -60px;
+}
+
+.icon-terminal:active {
+    background-position: -720px -120px;
+}
+
+.icon-terminal-small {
+    background-position: -731px -193px;
+}
+
+#t-text span {
+    margin-left: 20px;
+}
+
+#t-input span {
+    float: left;
+}
+
+#t-input input {
+    width: 50%;
+    height: 18px;
+    float: left;
+    font-size: 12px;
+    color: #ffffff;
+    border: none !important;
+}
+
+#t-input input:active,
+#t-input input:focus {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+#t-input input::selection { 
+    color: #000000; 
+    background: #ffffff;
+}

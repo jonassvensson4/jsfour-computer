@@ -1,0 +1,816 @@
+@font-face {
+    font-family: handwritten;
+    src: url('../fonts/handwritten/handwritten.woff');
+}
+
+@font-face {
+    font-family: justsignature;
+    src: url('../fonts/justsignature/JustSignature.woff');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    min-width: 100%;
+    width: 100%;
+    min-height: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#paper {
+    display: none;
+    z-index: 9999;
+    position: absolute;
+    height: 750px;
+    width: 600px;
+    background: url(../images/paper.png);
+    box-shadow: 0px 0px 39px -13px rgba(0,0,0,0.75);
+}
+
+#jsfour-computer {
+    display: none;
+}
+
+#computer-frame {
+    display: none;
+    background: url(../images/computer_frame.png) no-repeat;
+    background-size: contain;
+    height: 773px;
+    width: 1062px;
+    margin: 100vh 22% 0 22%;
+    overflow: auto;
+    padding: 24px 26px 174px 24px;
+    position: relative;
+    z-index: 1000;
+}
+
+#off {
+    position: absolute;
+    width: 37px;
+    height: 13px;
+    bottom: 145px;
+    right: 99px;
+    z-index: 1000;
+}
+
+#computer-screen {
+    width: 1012px;
+    height: 575px;
+    position: relative;
+}
+
+#computer-error {
+    z-index: 1000;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: none;
+    background: rgb(151, 32, 32);
+    text-align: center;
+    color: #ffffff;
+    padding: 15px;
+}
+
+#computer-loading {
+    z-index: 999;
+    position: absolute;
+    display: block;
+    background: #000000;
+    width: 100%;
+    height: 100%;
+}
+
+#computer-loading-content {
+    display: none;
+    background: url(../images/login_hospital.png) no-repeat;
+    width: 100%;
+    height: 100%;
+}
+
+#computer-loading-content form .material-icons {
+    position: absolute;
+    padding: 13px;
+    float: left;
+    font-size: 14px;
+    background: #141414;
+    color: #ffffff;
+}
+
+#computer-loading-content form .material-icons:hover {
+    background: #222222;
+}
+
+#computer-loading-content form .material-icons:active {
+    background: #141414;
+}
+
+#computer-loading form {
+    margin-top: 30px;
+}
+
+#computer-loading input {
+    text-align: center;
+    display: list-item;
+    height: 20px;
+    padding: 10px 0 10px 0;
+    width: 210px;
+    background: #222222;
+    color: #ffffff;
+}
+
+#computer-loading input::placeholder {
+    color: #535353;
+}
+
+#computer-register-form {
+    display: none;
+}
+
+#computer-register-form p {
+    color: #ffffff;
+    background: #222222;
+    text-align: center;
+}
+
+#computer-loading input,
+#computer-loading input:focus {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+#computer-loading input[type=submit] {
+    display: none;
+}
+
+#computer-loading button {
+    width: 210px;
+    background: #4b9240;
+    color: #ffffff;
+    display: list-item;
+    margin-bottom: 5px;
+}
+
+.computer-loading-back {
+    background: #926c40 !important;
+}
+
+#computer-loading .preloader-wrapper {
+    display: none;
+    position: absolute;
+    bottom: 140px;
+    left: 63%;
+    z-index: 20;
+}
+
+.spinner-white-only {
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+#computer-content {
+    position: absolute;
+    z-index: 998;
+    top: 0;
+    left: 0;
+    background: #000000;
+    width: 100%;
+    height: 100%;
+}
+
+#desktop {
+    width: 100%;
+    height: 100%;
+}
+
+#containment {
+    width: 100%;
+    height: 94%;
+    overflow: hidden;
+}
+
+.program-wrapper {
+    z-index: 1000;
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 94%;
+    overflow: hidden;
+}
+
+.program-header {
+    height: 22px;
+    line-height: 22px;
+    color: #ffffff;
+    padding: 0 4px 0 4px;
+}
+
+.program-title {
+    font-style: normal;
+}
+
+.program-content {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.program-minimize {
+    margin-top: -8px;
+}
+
+.program-active {
+    z-index: 1100;
+}
+
+#signout-confirm {
+    display: none;
+    position: absolute;
+    right: 127px;
+    bottom: 49px;
+    color: #ffffff;
+    background: #000000;
+    width: 80px;
+    height: 35px;
+    text-align: center;
+}
+
+#signout-confirm::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 40%;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #000000;
+}
+
+#signout-confirm p:nth-child(1) {
+    font-size: 10px;
+}
+
+#signout-confirm p:nth-child(2) {
+    color: #0078d7;
+}
+
+#computer-taskbar {
+    z-index: 1500;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    height: 35px;
+    bottom: 0;
+}
+
+#computer-taskbar .click,
+#computer-taskbar .icons {
+    display: inline-block;
+    height: 35px;
+    width: 37px;
+    padding: 0;
+    margin-right: 2px;
+}
+
+#computer-taskbar .icons:not(.small-active):hover::after {
+    content: ' ';
+    width: 37px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.1);
+    position: absolute;
+    left: 0;
+    z-index: -1;
+}
+
+#computer-taskbar .click:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+
+
+#computer-taskbar .small-border::after {
+    content: ' ';
+    width: 37px;
+    height: 35px;
+    border-bottom: 2px solid #76b9ed;
+    position: absolute;
+    left: 0;
+    z-index: -1;
+}
+
+#taskbar-icons {
+    float: right;
+    width: 786px;
+    margin-right: 72px;
+}
+
+#taskbar-icons .icons {
+    margin-top: -1px;
+}
+
+.small-active::after {
+    content: ' ';
+    width: 37px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.2);
+    position: absolute;
+    left: 0;
+    z-index: -1;
+}
+
+#taskbar-right {
+    color: #ffffff;
+    font-size: 10px;
+    text-align: center;
+    margin: 2px 16px 0 0;
+}
+
+#taskbar-date-wrapper {
+    margin-top: -2px;
+    padding-top: 2px !important;
+    width: 60px !important;
+    float: left;
+}
+
+#taskbar-notifications {
+    float: right;
+    margin: 7px 0 0 12px;
+    padding-top: 7px !important;
+    width: 18px !important;
+    height: 17px !important;
+    background: url(../images/notifications.png);
+    position: relative;
+}
+
+#taskbar-notifications:hover {
+    background: url(../images/notifications.png) !important;
+}
+
+#taskbar-notifications:hover::after {
+    content: ' ';
+    position: absolute;
+    right: -8px;
+    bottom: -9px;
+    width: 35px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+#taskbar-minimize {
+    height: 35px !important;
+    width: 6px !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+#calendar {
+    display: none;
+    overflow: hidden;
+    position: absolute;
+    background: url(../images/blurr-dark.png);
+    right: 0;
+    bottom: 0;
+    width: 220px;
+    height: 0;
+    z-index: 1500;
+}
+
+#calendar li {
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    margin: 1px;
+    position: relative;
+    border: 1px solid transparent;
+    color: #ffffff;
+    transition: all 0.2s ease;
+}
+
+#calendar-header {
+    padding: 10px 15px 10px 15px;
+}
+
+#calendar h5 {
+    color: #ffffff;
+    font-size: 24px;
+    margin: 0 0 5px 0;
+    padding: 0;
+}
+
+#calendar h6 {
+    color: #3c9de7;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+#calendar-wrapper {
+    padding: 10px;
+    color: #ffffff;
+}
+
+#calendar-wrapper ul {
+    position: relative;
+}
+
+#calendar-day {
+    position: absolute;
+    right: 60px;
+    bottom: 8px;
+}
+
+#callendar-wrapper-header {
+    position: relative;
+}
+
+#callendar-wrapper-header p {
+    padding: 5px 10px 5px 10px;
+}
+
+#callendar-wrapper-header p {
+    font-size: 10px;
+}
+
+#callendar-wrapper-header .material-icons {
+    font-size: 20px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#callendar-wrapper-header .material-icons:nth-child(even) {
+    right: 20px;
+}
+
+#calendar .today {  
+    background: #0078d7;
+}
+
+#calendar li:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+#calendar li:active {
+    background: #0078d7;
+}
+
+#windows-start {
+    z-index: 9999;
+    display: none;
+    position: absolute;
+    background: url(../images/blurr-dark.png);
+    width: 134px;
+    height: 0;
+    bottom: 35px;
+    overflow: auto;
+}
+
+#windows-start .icon {
+    display: inline-block;
+    margin-right: 4px;
+}
+
+#windows-start .icons::after {
+    content: ' ';
+    width: 60px;
+    height: 60px;
+    background: #0078d7;
+    position: absolute;
+    left: 0;
+    z-index: -1;
+}
+
+#windows-logo svg {
+    margin: 8px 20px 7px 8px;
+    height: 20px;
+    width: 20px;
+    float: left;
+    fill: white;
+}
+
+#windows-logo:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#windows-logo:hover svg {
+    fill: #429ce3;
+}
+
+#windows-logo:active svg {
+    fill: #0078d7;
+}
+
+#signout {
+    font-size: 17px;
+    float: left;
+    margin: -2px 0 0 -69px;
+    padding-top: 9px !important;
+}
+
+#notification {
+    z-index: 1500;
+    overflow: hidden;
+    position: absolute;
+    right: 5px;
+    bottom: 60px;
+    width: 0;
+    height: 55px;
+    background: url(../images/blurr-dark.png);
+    color: #b4b4b4;
+}
+
+#notification-icon {
+    background:#0078d7;
+    color: #ffffff;
+    padding: 5px;
+    margin: 10px 0 10px 10px;
+    float: left;
+}
+
+#notification-close {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-size: 17px;
+}
+
+#notification p {
+    float: left;
+    padding: 10px;
+}
+
+#notifications {
+    z-index: 1500;
+    overflow: hidden;
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0;
+    height: 94%;
+    background: url(../images/blurr-dark.png);
+    color: #929292;
+}
+
+#notifications p:nth-child(1) {
+    margin-bottom: 10px;
+}
+
+#notifications-wrapper {
+    padding: 5px;
+    position: relative;
+}
+
+#notifications-wrapper .notification {
+    width: 215px;
+    padding: 10px;
+    margin-bottom: 5px;
+    background: #0078d7;
+    color: #ffffff;
+}
+
+#notifications-wrapper .notification .material-icons {
+    float: left;
+    margin-right: 20px;
+}
+
+.hide {
+    display: none !important;
+}
+
+#volume-icon {
+    font-size: 17px;
+    float: left !important;
+    margin: -2px 0 0 -34px; 
+    padding-top: 9px !important;
+}
+
+#volume-control {
+    position: absolute;
+    right: 0;
+    bottom: 35px;
+    display: none;
+    height: 0;
+    width: 220px;
+    background: url(../images/blurr-dark.png);
+    color: #ffffff;
+    
+    overflow: hidden;
+}
+
+#volume-wrapper {
+    padding: 10px;
+}
+
+#volume-control input[type=range] + .thumb {
+    display: none !important;
+}
+
+#volume-control input[type='range'] {
+    overflow: hidden;
+    width: 100%;
+    height: 8px;
+}
+  
+#volume-control input[type='range']::-webkit-slider-thumb {
+    width: 8px;
+    height: 20px;
+    background: #008cff;
+    box-shadow: -80px 0 0 80px #185d96;
+}
+
+#volume-control i,
+#volume-control .range-field {
+    float: left;
+}
+
+#volume-mute {
+    font-size: 22px;
+    margin: 3px 15px 0 0;
+}
+
+#volume-mute:hover {
+    background: transparent !important;
+}
+
+#volume-percentage {
+    margin-top: 3px;
+    float: right;
+}
+
+#volume-control .range-field {
+    margin-top: -5px;
+}
+
+#volume-control input[type=range] {
+    border: none;
+}
+
+.icon {
+    width: 60px;
+    height: 60px;
+}
+
+.icons {
+    background: url(../images/icons.png);
+    display: block;
+    width: 60px;
+    height: 60px;
+    position: relative;
+    border: 1px solid transparent;
+}
+
+.icons:hover {
+    border: 1px solid rgba(103, 119, 133, 0.2);
+}
+
+.icons:hover::after {
+    content: ' ';
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    left: 0;
+    top: 0;
+    background: rgba(103, 119, 133, 0.2);
+}
+
+.icon-container {
+    width: 59px;
+    height: 60px;
+    display: inline-block;
+    font-size: 0;
+    z-index: -1;
+}
+
+#icon-containers .icon-container:nth-child(17n) {
+    float: right;
+}
+
+.center-this {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.center-content * {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.noselect {
+    user-select: none;
+}
+
+#taskbar-append {
+    z-index: 900;
+    display: none;
+    text-align: center;
+    font-size: 13px;
+    position: absolute;
+    width: 115px;
+    height: 20px;
+    background: url(../images/blurr.png);
+    color: #000000;
+}
+
+.input-field input[type=text].invalid,
+.input-field input[type=password].invalid  {
+    border-bottom: 1px solid red;
+    box-shadow: 0 1px 0 0 red;
+}
+
+.input-field input[type=text].valid,
+.input-field input[type=password].valid  {
+    border-bottom: 1px solid green;
+    box-shadow: 0 1px 0 0 green;
+}
+
+*::-webkit-scrollbar {
+    width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+    background-color: rgb(0, 0, 0, 0.1);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.205);
+}
+
+#windows-start::-webkit-scrollbar {
+    width: 2px;
+    background: transparent;
+}
+
+#windows-start::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.205);
+}
+
+/* Tablet, iPad */
+
+#tablet-frame {
+    display: none;
+    background: url(../images/tablet_frame.png) no-repeat;
+    background-size: contain;
+    height: 464px;
+    width: 670px;
+    margin: 100vh 10% 0 10%;
+    overflow: auto;
+    padding: 39px 39px 39px 39px;
+    position: absolute;
+    z-index: 1001;
+}
+
+#tablet-screen {
+    width: 593px;
+    height: 385px;
+    position: relative;
+}
+
+#tablet-programs .program-wrapper {
+    height: 100% !important;
+}
+
+/*
+    800x600
+    1024x768
+    1152x864
+    1280x720
+    1280x800
+    1280x960
+    1280x1024
+    1360x768
+    1366x768
+    1440x900
+    1600x900
+    1600x1024
+    1680x1050
+    1920x1080
+*/
+
+@media only screen and (max-width: 1400px) {
+    #computer-frame {
+        margin-left: 15%;
+    }
+}
+
+@media only screen and (max-width: 1250px) {
+    #computer-frame {
+        margin-left: 5%;
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+    #computer-frame {
+        margin-left: 0;
+    }
+}

@@ -1,0 +1,59 @@
+<div class="program program-medicalrecords">
+    <div class="program-content">
+        <div class="medicalrecords-menu">
+            <i class="material-icons medicalrecords-page" page="#medicalrecords-search">search</i>
+            <i class="material-icons medicalrecords-page" page="#medicalrecords-record">list_alt</i>
+            <i class="material-icons medicalrecords-page" page="#medicalrecords-add">add</i>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="medicalrecords-search">
+                    <form class="medicalrecords-search-form">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input class="medicalrecords-search-input" type="text" spellcheck="false" autocomplete="off" required>
+                                <label for="medicalrecords-search-input">Search</label>
+                                <span class="helper-text" data-error="No results found.."></span>
+                                <i class="material-icons mr-search">search</i>
+                                <i class="material-icons mr-clear">close</i>
+                            </div>
+                        </div>
+                        <button class="hidden">search</button>
+                    </form>
+                    <div class="medicalrecords-result"></div>
+                </div>
+                <div class="medicalrecords-add">
+                    <i class="material-icons mr-back">arrow_back</i>
+                    <form class="medicalrecords-add-form">
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input class="medicalrecords-add-firstname" type="text" spellcheck="false" autocomplete="off" required>
+                                <label for="medicalrecords-add-firstname">First name</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input class="medicalrecords-add-lastname" type="text" spellcheck="false" autocomplete="off" required>
+                                <label for="medicalrecords-add-lastname">Last name</label>
+                            </div>
+                            <div class="input-field col s12 mb">
+                                <input class="medicalrecords-add-dob" type="text" spellcheck="false" autocomplete="off" required>
+                                <label for="medicalrecords-add-dob">Date of birth</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input class="medicalrecords-add-title" type="text" spellcheck="false" autocomplete="off" required maxlength="100">
+                                <label for="medicalrecords-add-title">Title</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <textarea class="medicalrecords-add-text" class="materialize-textarea" required></textarea>
+                                <label for="medicalrecords-add-text">Text</label>
+                            </div>
+                            <button class="btn col s12">Add</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="medicalrecords-record"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="programs/medicalrecords/medicalrecords.js" type="text/javascript"></script>
+<link rel="stylesheet" href="programs/medicalrecords/medicalrecords.css">
