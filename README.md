@@ -26,8 +26,8 @@ Due to the lack of time I can't add any more programs. I have however created a 
 Please don't sell or reupload this resource. 
 Feel free to make forks and post any updates in the original forum thread. **Do not** create your own thread since it's not a new release.
 
-### SCREENSHOTS
-![screenshot]()
+### PREVIEW
+[![jsfour-computer preview](https://img.youtube.com/vi/SpRQO5UtZSA/0.jpg)](https://www.youtube.com/watch?v=SpRQO5UtZSA)
 
 ### INSTALLATION
 * Install dependency: <a href="https://github.com/jonassvensson4/jsfour-core">jsfour-core</a>
