@@ -2,7 +2,7 @@
 const key = 38;
 
 // Display the markers?
-const displayMarkers = false;
+const displayMarkers = true;
 
 // Locations of the computers, more locations can be added.
 // To add more backgrounds simply place your image in the html/asset/images folder. 
