@@ -606,7 +606,15 @@ $(() => {
                 '@password': password.toLowerCase()
             })
         })
-        .then( response => response.json() )
+        .then( response => { 
+            let contentType = response.headers.get('content-type');
+            
+            if(contentType && contentType.includes('application/json')) {
+                return response.json();
+            }
+            
+            throw new TypeError("Oops, we haven't got JSON!");
+        })
         .then( data => {
             if ( data != 'false' && data.length > 0 ) {
                 loggedInUser = data[0];
@@ -633,7 +641,8 @@ $(() => {
                 $('#computer-loading .preloader-wrapper').hide();
                 error('Wrong username or password..');
             }
-        });
+        })
+        .catch(function(error) { console.log(error); });
 
         return false;
     });
