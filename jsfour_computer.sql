@@ -1,5 +1,17 @@
 USE `essentialmode`;
 
+CREATE TABLE IF NOT EXISTS `jsfour_confiscateditems` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `lastname` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `dob` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `date` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `uploader` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `items` longtext COLLATE utf8mb4_bin,
+  `count` int(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
 CREATE TABLE IF NOT EXISTS `jsfour_forum` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(255) COLLATE utf8mb4_bin DEFAULT 'post',
@@ -23,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `jsfour_medicalrecords` (
   PRIMARY KEY (`id`)
 );
 
-CREATE TABLE IF NOT EXISTS `jsfour_users` (
+CREATE TABLE `jsfour_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) COLLATE utf8mb4_bin NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_bin NOT NULL,
@@ -39,27 +51,15 @@ CREATE TABLE IF NOT EXISTS `jsfour_users` (
   UNIQUE KEY `email_UNIQUE` (`email`)
 );
 
-CREATE TABLE IF NOT EXISTS `jsfour_jobs` (
+INSERT INTO `jsfour_users` (`username`, `password`, `firstname`, `lastname`, `group`, `job`, `avatar`, `desktop`) VALUES ('admin', 'admin', 'admin', 'admin', 'admin', 'all', 'https://avatarmaker.com/svgavatars/temp-avatars/svga8554200219817409.png', 'assets/images/windows.png');
+
+CREATE TABLE `jsfour_jobs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `group` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `text` longtext COLLATE utf8mb4_bin,
   `title` varchar(255) COLLATE utf8mb4_bin DEFAULT 'Title',
   `image` varchar(255) COLLATE utf8mb4_bin DEFAULT 'https://via.placeholder.com/50/FFFFFFF/?text=JOB',
-  PRIMARY KEY (`id`)
-);
-
-CREATE TABLE IF NOT EXISTS `jsfour_mail` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `from` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `to` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `title` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `text` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `date` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `folder` varchar(255) COLLATE utf8mb4_bin DEFAULT 'inbox',
-  `read` tinyint(4) DEFAULT '0',
-  `avatar` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
