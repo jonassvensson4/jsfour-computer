@@ -606,40 +606,40 @@ $(() => {
                 '@password': password.toLowerCase()
             })
         })
-        .then( response => { 
-            let contentType = response.headers.get('content-type');
-            
-            if(contentType && contentType.includes('application/json')) {
-                return response.json();
-            }
-            
-            throw new TypeError("Oops, we haven't got JSON!");
-        })
-        .then( data => {
-            if ( data != 'false' && data.length > 0 ) {
-                loggedInUser = data[0];
-                loadedPrograms = [];
+        .then( response => response.text())
+        .then( text => {
+            try {
+                JSON.parse( text );
+                
+                data = JSON.parse(text);
+                
+                if ( data != 'false' && data.length > 0 ) {
+                    loggedInUser = data[0];
+                    loadedPrograms = [];
 
-                $('#computer-content').css('background', `url(${ loggedInUser.desktop }) no-repeat`);
+                    $('#computer-content').css('background', `url(${ loggedInUser.desktop }) no-repeat`);
 
-                loadPrograms();
+                    loadPrograms();
 
-                if ( !loggedInUser.desktop.includes('assets') ) {
-                    // Ugly delay to give the background image to load in properly ^
-                    setTimeout(() => {
+                    if ( !loggedInUser.desktop.includes('assets') ) {
+                        // Ugly delay to give the background image to load in properly ^
+                        setTimeout(() => {
+                            $('#computer-loading .preloader-wrapper').hide();
+                            $('#computer-loading').fadeOut('fast');       
+                        }, 500);
+                    } else {
+                        // If it's a localy stored image it will skip the ugly delay
                         $('#computer-loading .preloader-wrapper').hide();
-                        $('#computer-loading').fadeOut('fast');       
-                    }, 500);
-                } else {
-                    // If it's a localy stored image it will skip the ugly delay
-                    $('#computer-loading .preloader-wrapper').hide();
-                    $('#computer-loading').fadeOut('fast'); 
-                }
+                        $('#computer-loading').fadeOut('fast'); 
+                    }
 
-                sound_signin.play();
-            } else {    
-                $('#computer-loading .preloader-wrapper').hide();
-                error('Wrong username or password..');
+                    sound_signin.play();
+                } else {    
+                    $('#computer-loading .preloader-wrapper').hide();
+                    error('Wrong username or password..');
+                }
+            } catch ( e ) {
+                console.error( text );
             }
         })
         .catch(function(error) { console.log(error); });
