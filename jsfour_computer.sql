@@ -51,7 +51,7 @@ CREATE TABLE `jsfour_users` (
   UNIQUE KEY `email_UNIQUE` (`email`)
 );
 
-INSERT INTO `jsfour_users` (`username`, `password`, `firstname`, `lastname`, `group`, `job`, `avatar`, `desktop`) VALUES ('admin', 'admin', 'admin', 'admin', 'admin', 'all', 'https://avatarmaker.com/svgavatars/temp-avatars/svga8554200219817409.png', 'assets/images/windows.png');
+INSERT INTO `jsfour_users` (`username`, `password`, `firstname`, `lastname`, `group`, `job`, `avatar`, `desktop`) VALUES ('admin', 'admin', 'admin', 'admin', 'admin', 'all', 'https://via.placeholder.com/50x50', 'assets/images/windows.png');
 
 CREATE TABLE `jsfour_jobs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
