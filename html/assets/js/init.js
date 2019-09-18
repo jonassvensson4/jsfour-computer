@@ -422,6 +422,15 @@ window.addEventListener('message', ( event ) => {
                                 startProgram(event.data.run);
                             }, 50);
                         } 
+                    } else {
+                        $('#computer-frame').animate({
+                            marginTop: '5%',
+                        }, 500, () => {
+                            setTimeout(() => {
+                                $('#computer-loading-content').fadeIn(500);
+                                $('#login-username').select();
+                            }, 1500);
+                        });
                     }
                     break;  
             }
@@ -641,8 +650,7 @@ $(() => {
             } catch ( e ) {
                 console.error( text );
             }
-        })
-        .catch(function(error) { console.log(error); });
+        });
 
         return false;
     });
@@ -650,7 +658,13 @@ $(() => {
     // Close NUI - Pressing the ESC key
     $(document).keyup(( e ) => {
         if (e.keyCode === 27) {
-            $('#jsfour-computer').hide();
+            $('#computer-frame').animate({
+                marginTop: '100vh',
+            }, 500, () => {
+                $('#jsfour-computer').hide();
+                $('#computer-loading .preloader-wrapper').hide();
+            });
+            
             fetch("http://jsfour-computer/jsfour-computer:close");
         }
     });
