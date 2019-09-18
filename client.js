@@ -115,22 +115,26 @@ setTick(() => {
 
 // A command that opens the computer if the player is near a location, if enabled in the config
 if ( command.enable ) {
-    RegisterCommand(command.name, () => {
+    RegisterCommand(command.name, (source, args) => {
         if ( checkDistance() || command.disableDistance ) {
-            SetNuiFocus(true, true);
+            if ( args[0] ) {
+                SetNuiFocus(true, true);
 
-            let key = checkDistance().key;
-            let location = locations[key];
-
-            SendNuiMessage(JSON.stringify({
-                action: 'open',
-                location: key,
-                loginLogo: location.loginLogo,
-                loginBackground: location.loginBackground,
-                desktopBackground: location.desktopBackground,
-                login: location.login,
-                run: location.run
-            }));
+                let key = args[0];
+                let location = locations[key];
+    
+                SendNuiMessage(JSON.stringify({
+                    action: 'open',
+                    location: key,
+                    loginLogo: location.loginLogo,
+                    loginBackground: location.loginBackground,
+                    desktopBackground: location.desktopBackground,
+                    login: location.login,
+                    run: location.run
+                }));
+            } else {
+                console.error(`Command missing arguments, usage: /${ command.name } location`);
+            }
         }
     });
 }
