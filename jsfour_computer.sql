@@ -1,14 +1,16 @@
 USE `essentialmode`;
 
-CREATE TABLE IF NOT EXISTS `jsfour_confiscateditems` (
+CREATE TABLE IF NOT EXISTS `jsfour_mail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `firstname` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `lastname` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `dob` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `from` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `to` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `text` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `date` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `uploader` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `items` longtext COLLATE utf8mb4_bin,
-  `count` int(255) DEFAULT NULL,
+  `folder` varchar(255) COLLATE utf8mb4_bin DEFAULT 'inbox',
+  `read` tinyint(4) DEFAULT '0',
+  `avatar` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
