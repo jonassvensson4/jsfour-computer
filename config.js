@@ -57,7 +57,7 @@ const locations = {
 
 // A command that lets a player open the computer, disabled by default. 
 // # disableDistance;
-// # if set to false the player can open the computer everywhere. If set to true the player needs to be standing next to one of the positions above ^
+// # if set to true the player can open the computer everywhere. If set to false the player needs to be standing next to one of the positions above ^
 const command = {
     enable: true, // Command enabled?
     disableDistance: true,
