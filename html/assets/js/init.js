@@ -437,10 +437,16 @@ window.addEventListener('message', ( event ) => {
         break;
         case 'token':
             // Sets the token and endpoint when the player connects to the server. Used by the fetch function
-            sessionToken = event.data.token;
-            endpoint = event.data.endpoint;
-            esxEnabled = event.data.esx;
-            steam = event.data.steam;
+            let d = event.data.data;
+
+            if ( Object.keys( d ).length > 0 ) {
+                sessionToken = d.token;
+                endpoint = d.endpoint;
+                esxEnabled = d.esx;
+                steam = d.steam;
+            } else {
+                console.error(`Data object is empty`);
+            }
             break;
         case 'toNUI':
             // Data sent from another NUI, it runs the specified toNUI program function, toNUIname(). Check the twitter program for examples
@@ -606,7 +612,7 @@ $(() => {
 
         let username = $('#login-username').val();
         let password = $('#login-password').val();
-
+        
         fetch(`http://${ endpoint }/jsfour-core/${ sessionToken }/database/login`, {
             method: 'POST',
             mode: 'cors',
