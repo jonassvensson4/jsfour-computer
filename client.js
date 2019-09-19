@@ -17,13 +17,12 @@ onNet('jsfour-core:session', ( data ) => {
     esxEnabled = data.esx;
     steam = data.steam;
 
-    SendNuiMessage(JSON.stringify({
-        action: 'token',
-        token: data.token,
-        endpoint: data.endpoint,
-        esx: data.esx,
-        steam: data.steam
-    }));
+    setTimeout(() => {
+        SendNuiMessage(JSON.stringify({
+            action: 'token',
+            data: data
+        })); 
+    }, 500);
 });
 
 // Triggered when a player sends data to another player
