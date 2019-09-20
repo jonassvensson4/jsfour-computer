@@ -31,7 +31,7 @@ function fetchUserRecords( type, data, open ) {
         if ( data != 'false' && data.length > 0 ) {
             if ( type === 'user' ) {
                 $( '.medicalrecords-record' ).html( ' ' );
-                $( '.medicalrecords-record' ).append(`<i class="material-icons mr-back">arrow_back</i><h6>${ rows['@firstname'] } ${ rows['@lastname'] } (${ rows['@dob'] }) Records <i class="material-icons" id="mr-add-shortcut">add</i></h6><ul class="collapsible"></ul>`);
+                $( '.medicalrecords-record' ).append(`<i class="material-icons mr-back">arrow_back</i><h6>${ rows['@firstname'] } ${ rows['@lastname'] } (${ rows['@dob'] }) Records <i class="material-icons mr-add-shortcut">add</i></h6><ul class="collapsible"></ul>`);
 
                 Object.keys( data ).forEach(( k ) => {
                     let li = `
@@ -158,9 +158,10 @@ $('body').on('click', '.mr-delete', function () {
         body: JSON.stringify({
             '@id': id
         })
-    });
-
-    fetchUserRecords( 'all' );
+    })
+    .then(() => {
+        fetchUserRecords( 'all' );
+    }); 
 });
 
 $('body').on('click', '.mr-back', function () {
@@ -224,7 +225,7 @@ $('.medicalrecords-add-form').submit(() => {
 
     for ( let i = 0; i < inputs.length; i++ ) {
         if ( inputs.eq(i).val() ) {
-            rows[`@${inputs.eq(i).attr('id').split('-')[2]}`] = inputs.eq(i).val().toLowerCase();
+            rows[`@${ inputs.eq(i).attr('class').split('-')[2] }`] = inputs.eq(i).val().toLowerCase();
         }
     }
 
