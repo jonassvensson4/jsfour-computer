@@ -28,6 +28,9 @@ for (let i = 0; i < 4; i++) {
     </li>`);
 }
 
+$('#twitter-dashboard-content p').text(loggedInUser.username);
+$('#twitter-dashboard-content img').attr('src', loggedInUser.avatar);
+
 $('.program-twitter form').submit(() => {
     fetch(`http://${endpoint}/jsfour-core/${sessionToken}/emitNet/all`, {
         method: 'POST',
