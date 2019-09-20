@@ -1,34 +1,5 @@
-// - Anställa person, Sparka folk / befodra
-// - Ändra lön för alla job-grades
-// - Se antal pengar på företagskontot samt ta ut/sätt in
-
-// $('.bossactions-menu-square').click(() => {
-//     fetch("http://jsfour-computer/jsfour-computer:esx");
-// });
-
 let _baPage = '#bossactions-page-employees';
 let grades = 0;
-
-function getJobs() {
-    let jobs = [];
-
-    fetch(`http://${ endpoint }/jsfour-core/${ sessionToken }/database/getJobs`, {
-        method: 'POST',
-        mode: 'cors',
-        body: JSON.stringify({})
-    })
-    .then( response => response.json() )
-    .then( data => {
-        if ( data.length > 0 ) {
-           Object.keys( data ).forEach(( k ) => {
-                jobs.push( data[k].name );
-           });
-        }
-    });
-
-    return jobs;
-}
-
 
 function getEmployees() {
     $('#bossactions-employees tbody').html('');
@@ -109,11 +80,23 @@ function getMoney() {
 }
 
 function refreshbossactions() {
-    if ( getJobs().includes( loggedInUser.job ) ) {  
-        getEmployees();
-        getSalary();
-        getMoney();
-    }
+    fetch(`http://${ endpoint }/jsfour-core/${ sessionToken }/database/getJobs`, {
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify({})
+    })
+    .then( response => response.json() )
+    .then( data => {
+        if ( data.length > 0 ) {
+           Object.keys( data ).forEach(( k ) => {
+                if ( data[k].name === loggedInUser.job ) {  
+                    getEmployees();
+                    getSalary();
+                    getMoney();
+                }
+           });
+        }
+    });  
 }
 
 function baUpdate( grade ) {
