@@ -66,4 +66,4 @@ CREATE TABLE `jsfour_jobs` (
 );
 
 # REMOVE # DOWN BELOW IF YOU HAVE ESX_JOBS INSTALLED
-# INSERT INTO `jsfour_jobs` (`group`, `name`) SELECT `name`, `label` FROM `jobs` WHERE `name` != 'unemployed' OR `whitelisted` = 1;
+# INSERT INTO `jsfour_jobs` (`group`, `name`) SELECT `name`, `label` FROM `jobs` WHERE `name` != 'unemployed' AND `whitelisted` = 1;
