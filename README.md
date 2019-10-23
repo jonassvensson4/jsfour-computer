@@ -1,4 +1,8 @@
 # [BETA] jsfour-computer BUG TESTING
+## This resource is not finished and may contain bugs. Please don't use it if you don't know how to debug a script.
+
+
+
 A usable computer and tablet in-game. You can easily add your own programs by following the guide down below. To be able to do this you need to have some knowledge in html, javascript and css. **I will not** help you add programs.
 
 There are a couple of small built-in programs to show examples of what you can do:
