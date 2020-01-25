@@ -1,5 +1,3 @@
-let sessionToken;
-let endpoint;
 let loggedInUser;
 let volume = 0.5;
 let markerLocation = 'none';
@@ -9,6 +7,9 @@ let calendarOpen = false;
 let calendarInterval;
 let computerStatus = true;
 let steam = null;
+let debug = true;
+let device = 'computer';
+let jsloaded = [];
 
 // Sets the default volumne to 0.2
 Howler.volume(volume);
@@ -295,7 +296,6 @@ function loadPrograms() {
                                             css['right'] = programs[k].onStart.right;
                                         }
 
-
                                         $(`.program-${k}-header`).parent('.program-wrapper').css( css );
                                     } else {
                                         $(`.program-${k}-header`).parent('.program-wrapper').css({
@@ -348,39 +348,78 @@ window.addEventListener('message', ( event ) => {
         // Opens the computer
         case 'open':
             switch( event.data.device ) {
-                case 'computer':
+                case 'tablet':
+                    device = 'tablet';
+                    loggedInUser = null;
+                    loadedPrograms = [];
+                    jsloaded = [];
+
+                    loadPrograms();
+
+                    sound_turnon.play();
+
+                    $('#computer-frame').hide();
+                    $('#tablet-frame').show();
+
+                    // Show the body
+                    $('#jsfour-computer').show();
+
+                    $('#tablet-frame').animate({
+                        marginTop: '20%',
+                    });
+
+                    $('#tablet-screen').css({
+                        background: `url(${event.data.desktopBackground}) no-repeat`,
+                        backgroundSize: 'cover'
+                    });
+                    break;
+                default:
+                    device = 'computer';
+
                     $('#tablet-frame').hide();
                     $('#computer-frame').show();
                     
                     // Sets the background to the specified background in the config.js, the desktop background might be overriden by the logged in user background
                     $('#computer-loading-content').css('background', `url(${event.data.loginBackground}) no-repeat`);
                     $('#computer-content').css('background', `url(${event.data.desktopBackground}) no-repeat`);
-                    $('#tablet-screen').css({
-                        background: `url(${loggedInUser.desktop}) no-repeat`,
-                        backgroundSize: 'cover'
-                    });
 
                     // Show the body
                     $('#jsfour-computer').show();
 
                     // The computer location (locations in config.js)
                     let loc = event.data.location;
-
+   
                     // Checks if the player is opening the computer in a new location
                     if ( markerLocation != loc ) {
                         markerLocation = loc;
 
                         // Checks if the player is required to sign in
                         if ( !event.data.login ) {
-                            // If that's the case > reload the programs
+                            loggedInUser = null;
+                            loadedPrograms = [];
+                            jsloaded = [];
+
+                            loadPrograms();
+
+                            $('#computer-loading').hide();
+
+                            $('#computer-frame').animate({
+                                marginTop: '5%',
+                            }, 500, () => {
+                                setTimeout(() => {
+                                    $('#computer-loading-content').fadeIn(500);
+                                    $('#login-username').select();
+                                }, 1500);
+                            });
+                        } else {
                             loggedInUser = null;
                             loadedPrograms = [];
 
                             loadPrograms();
 
-                            $('#computer-loading').hide();
-                        } else {
                             sound_turnon.play();
+
+                            $('#computer-loading').show();
 
                             $('#computer-frame').animate({
                                 marginTop: '5%',
@@ -398,25 +437,19 @@ window.addEventListener('message', ( event ) => {
                                 startProgram(event.data.run);
                             }, 50);
                         } 
+                    } else {
+                        $('#computer-frame').animate({
+                            marginTop: '5%',
+                        }, 500, () => {
+                            setTimeout(() => {
+                                $('#computer-loading-content').fadeIn(500);
+                                $('#login-username').select();
+                            }, 1500);
+                        });
                     }
-                    break;
-                case 'tablet':
-                    $('#computer-frame').hide();
-                    $('#tablet-frame').show();
-
-                    $('#tablet-frame').animate({
-                        marginTop: '20%',
-                    });
-                    break;
+                    break;  
             }
         break;
-        case 'token':
-            // Sets the token and endpoint when the player connects to the server. Used by the fetch function
-            sessionToken = event.data.token;
-            endpoint = event.data.endpoint;
-            esxEnabled = event.data.esx;
-            steam = event.data.steam;
-            break;
         case 'toNUI':
             // Data sent from another NUI, it runs the specified toNUI program function, toNUIname(). Check the twitter program for examples
             let data = event.data.data;
@@ -581,41 +614,52 @@ $(() => {
 
         let username = $('#login-username').val();
         let password = $('#login-password').val();
-
-        fetch(`http://${ endpoint }/jsfour-core/${ sessionToken }/database/login`, {
+        
+        fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
             method: 'POST',
-            mode: 'cors',
             body: JSON.stringify({
-                '@username': username.toLowerCase(),
-                '@password': password.toLowerCase()
+                type: 'login',
+                data: {
+                    '@username': username.toLowerCase(),
+                    '@password': password.toLowerCase()
+                }
             })
         })
-        .then( response => response.json() )
-        .then( data => {
-            if ( data != 'false' && data.length > 0 ) {
-                loggedInUser = data[0];
-                loadedPrograms = [];
+        .then( response => response.text())
+        .then( text => {
+            try {
+                JSON.parse( text );
+                
+                data = JSON.parse(text);
+                
+                if ( data != 'false' && data.length > 0 ) {
+                    loggedInUser = data[0];
+                    loadedPrograms = [];
+                    jsloaded = [];
 
-                $('#computer-content').css('background', `url(${ loggedInUser.desktop }) no-repeat`);
+                    $('#computer-content').css('background', `url(${ loggedInUser.desktop }) no-repeat`);
 
-                loadPrograms();
+                    loadPrograms();
 
-                if ( !loggedInUser.desktop.includes('assets') ) {
-                    // Ugly delay to give the background image to load in properly ^
-                    setTimeout(() => {
+                    if ( !loggedInUser.desktop.includes('assets') ) {
+                        // Ugly delay to give the background image to load in properly ^
+                        setTimeout(() => {
+                            $('#computer-loading .preloader-wrapper').hide();
+                            $('#computer-loading').fadeOut('fast');       
+                        }, 500);
+                    } else {
+                        // If it's a localy stored image it will skip the ugly delay
                         $('#computer-loading .preloader-wrapper').hide();
-                        $('#computer-loading').fadeOut('fast');       
-                    }, 500);
-                } else {
-                    // If it's a localy stored image it will skip the ugly delay
-                    $('#computer-loading .preloader-wrapper').hide();
-                    $('#computer-loading').fadeOut('fast'); 
-                }
+                        $('#computer-loading').fadeOut('fast'); 
+                    }
 
-                sound_signin.play();
-            } else {    
-                $('#computer-loading .preloader-wrapper').hide();
-                error('Wrong username or password..');
+                    sound_signin.play();
+                } else {    
+                    $('#computer-loading .preloader-wrapper').hide();
+                    error('Wrong username or password..');
+                }
+            } catch ( e ) {
+                console.error( text );
             }
         });
 
@@ -625,7 +669,13 @@ $(() => {
     // Close NUI - Pressing the ESC key
     $(document).keyup(( e ) => {
         if (e.keyCode === 27) {
-            $('#jsfour-computer').hide();
+            $('#computer-frame').animate({
+                marginTop: '100vh',
+            }, 500, () => {
+                $('#jsfour-computer').hide();
+                $('#computer-loading .preloader-wrapper').hide();
+            });
+            
             fetch("http://jsfour-computer/jsfour-computer:close");
         }
     });
@@ -635,26 +685,24 @@ $(() => {
 
     // Disable space on input
     $('.nospace').keydown(( e ) => { if ( e.which === 32) return false; });
-
-    // document.addEventListener('contextmenu', ( e ) => {
-    //     e.preventDefault();
-    // }, false);
 });
 
 // Submit the register form - register a user
 $('#computer-register-form form').submit(() => {
-    fetch(`http://${ endpoint }/jsfour-core/${ sessionToken }/database/addUser`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
-            '@uniqueValue': '@username',
-            '@username': $('#computer-register-username').val().toLowerCase(),
-            '@password': $('#computer-register-password').val().toLowerCase(),
-            '@firstname': $('#computer-register-firstname').val().toLowerCase(),
-            '@lastname': $('#computer-register-lastname').val().toLowerCase(),
-            '@group': 'null',
-            '@job': 'null',
-            '@avatar': 'https://via.placeholder.com/50x50'
+            type: 'addUser',
+            data: {
+                '@uniqueValue': '@username',
+                '@username': $('#computer-register-username').val().toLowerCase(),
+                '@password': $('#computer-register-password').val().toLowerCase(),
+                '@firstname': $('#computer-register-firstname').val().toLowerCase(),
+                '@lastname': $('#computer-register-lastname').val().toLowerCase(),
+                '@group': 'null',
+                '@job': 'null',
+                '@avatar': 'https://via.placeholder.com/50x50'
+            }
         })
     })
     .then( response => response.json() )

@@ -77,10 +77,12 @@ $('#account-form').submit( () => {
     if ( update ) {
         rows['@id'] = $('#account-username').attr('identifier');
  
-        fetch(`http://${endpoint}/jsfour-core/${sessionToken}/database/updateUser`, {
+        fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
             method: 'POST',
-            mode: 'cors',
-            body: JSON.stringify(rows)
+            body: JSON.stringify({
+                type: 'updateUser',
+                data: rows
+            })
         })
         .then( response => response.text() )
         .then( text => {
@@ -88,12 +90,14 @@ $('#account-form').submit( () => {
                 $('#account-form input').addClass('valid');
 
                 if ( $('#account-avatar').val() != loggedInUser.avatar ) { 
-                    fetch(`http://${endpoint}/jsfour-core/${sessionToken}/database/updateForumAvatar`, {
+                    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
                         method: 'POST',
-                        mode: 'cors',
                         body: JSON.stringify({
-                            '@avatar': $('#account-avatar').val(),
-                            '@username': $('#account-username').val()
+                            type: 'updateForumAvatar',
+                            data: {
+                                '@avatar': $('#account-avatar').val(),
+                                '@username': $('#account-username').val()
+                            }
                         })
                     });
                 }

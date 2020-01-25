@@ -3,10 +3,11 @@ let jobs = {};
 function fetchAllAds() {
     $('#jc-jobs').html('');
 
-    fetch(`http://${ endpoint }/jsfour-core/${ sessionToken }/database/fetchAllJobAds`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
         method: 'POST',
-        mode: 'cors',
-        body: JSON.stringify({})
+        body: JSON.stringify({
+            type: 'fetchAllJobAds'
+        })
     })
     .then( response => response.json() )
     .then( data => {
@@ -79,15 +80,17 @@ $('#jc-add').click(()=> {
 });
 
 $('#jc-add-form form').submit(() => {
-    fetch(`http://${ endpoint }/jsfour-core/${ sessionToken }/database/addJobAd`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
-            '@group':$('#jc-add-group').val().toLowerCase(),
-            '@name': $('#jc-add-name').val().toLowerCase(),
-            '@image': $('#jc-add-image').val(),
-            '@title': $('#jc-add-title').val(),
-            '@text': $('#jc-add-text').val(),
+            type: 'addJobAd',
+            data: {
+                '@group':$('#jc-add-group').val().toLowerCase(),
+                '@name': $('#jc-add-name').val().toLowerCase(),
+                '@image': $('#jc-add-image').val(),
+                '@title': $('#jc-add-title').val(),
+                '@text': $('#jc-add-text').val(),
+            }
         })
     })
     .then(() => {
@@ -148,11 +151,13 @@ function edit() {
 }
 
 $('#jc-job-delete').click( function() {
-    fetch(`http://${ endpoint }/jsfour-core/${ sessionToken }/database/deleteJobAd`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
-            '@id': $( this ).attr('identifier')
+            type: 'deleteJobAd',
+            data: {
+                '@id': $( this ).attr('identifier')
+            }
         })
     })
     .then(() => {
@@ -173,16 +178,18 @@ $('#jc-job-edit').click(() => {
 });
 
 $('#jc-job-save').click( function() {
-    fetch(`http://${ endpoint }/jsfour-core/${ sessionToken }/database/updateJobAd`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
-            '@name': $('#jc-job-job').val(),
-            '@text': $('#jc-job-text').val(),
-            '@title': $('#jc-job-title').val(),
-            '@image': $('#jc-job-image').val(),
-            '@group': $('#jc-job-group').val(),
-            '@id': $( this ).attr('identifier')
+            type: 'updateJobAd',
+            data: {
+                '@name': $('#jc-job-job').val(),
+                '@text': $('#jc-job-text').val(),
+                '@title': $('#jc-job-title').val(),
+                '@image': $('#jc-job-image').val(),
+                '@group': $('#jc-job-group').val(),
+                '@id': $( this ).attr('identifier')
+            }
         })
     })
     .then(() => {

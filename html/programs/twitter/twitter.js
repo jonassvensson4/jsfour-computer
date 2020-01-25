@@ -28,15 +28,49 @@ for (let i = 0; i < 4; i++) {
     </li>`);
 }
 
+$('#twitter-dashboard-content p').text( loggedInUser.username );
+$('#twitter-dashboard-content img').attr('src', loggedInUser.avatar);
+
+fetch(`https://${ GetParentResourceName() }/jsfour-computer:tempData`, {
+    method: 'POST',
+    body: JSON.stringify({
+        type: 'get',
+        program: 'twitter'
+    })
+})
+.then( response => response.text())
+.then( data => {
+    if ( data ) {
+        data = JSON.parse(data);
+
+        Object.keys( data ).forEach(key => {
+            let d = JSON.parse(data[key]);
+
+            let toAppend = `<div class="twitter-post">
+                <div class="twitter-post-header">
+                    <img src="${ d.avatar }" draggable="false" />
+                    <p>${ d.username } <span>@${ d.username }</span></p>
+                </div>
+                <p class="twitter-post-text">${ d.text }</p>
+            </div>`;
+
+            $('#twitter-posts').prepend( toAppend );
+        });
+    }
+});
+
 $('.program-twitter form').submit(() => {
-    fetch(`http://${endpoint}/jsfour-core/${sessionToken}/emitNet/all`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:emitNet`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
-            'program': 'twitter',
-            'text': $('#twitter-textarea').val(),
-            'username': loggedInUser.username,
-            'avatar': loggedInUser.avatar
+            type: 'all',
+            tempdata: true,
+            data: {
+                'program': 'twitter',
+                'text': $('#twitter-textarea').val(),
+                'username': loggedInUser.username,
+                'avatar': loggedInUser.avatar
+            }
         })
     });
 
@@ -48,11 +82,11 @@ $('.program-twitter form').submit(() => {
 function toNUItwitter( data ) {
     let toAppend = `<div class="twitter-post">
         <div class="twitter-post-header">
-            <img src="${data.avatar}" draggable="false" />
-            <p>${data.username} <span>@${data.username}</span></p>
+            <img src="${ data.avatar }" draggable="false" />
+            <p>${ data.username } <span>@${ data.username }</span></p>
         </div>
-        <p class="twitter-post-text">${data.text}</p>
+        <p class="twitter-post-text">${ data.text }</p>
     </div>`;
 
-    $('#twitter-posts').prepend(toAppend);
+    $('#twitter-posts').prepend( toAppend );
 }

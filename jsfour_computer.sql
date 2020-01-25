@@ -1,5 +1,19 @@
 USE `essentialmode`;
 
+CREATE TABLE IF NOT EXISTS `jsfour_mail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `from` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `to` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `text` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `date` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `folder` varchar(255) COLLATE utf8mb4_bin DEFAULT 'inbox',
+  `read` tinyint(4) DEFAULT '0',
+  `avatar` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
 CREATE TABLE IF NOT EXISTS `jsfour_forum` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(255) COLLATE utf8mb4_bin DEFAULT 'post',
@@ -23,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `jsfour_medicalrecords` (
   PRIMARY KEY (`id`)
 );
 
-CREATE TABLE IF NOT EXISTS `jsfour_users` (
+CREATE TABLE `jsfour_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) COLLATE utf8mb4_bin NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_bin NOT NULL,
@@ -39,7 +53,9 @@ CREATE TABLE IF NOT EXISTS `jsfour_users` (
   UNIQUE KEY `email_UNIQUE` (`email`)
 );
 
-CREATE TABLE IF NOT EXISTS `jsfour_jobs` (
+INSERT INTO `jsfour_users` (`username`, `password`, `firstname`, `lastname`, `group`, `job`, `avatar`, `desktop`) VALUES ('admin', 'admin', 'admin', 'admin', 'admin', 'all', 'https://via.placeholder.com/50x50', 'assets/images/windows.png');
+
+CREATE TABLE `jsfour_jobs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `group` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
@@ -49,19 +65,5 @@ CREATE TABLE IF NOT EXISTS `jsfour_jobs` (
   PRIMARY KEY (`id`)
 );
 
-CREATE TABLE IF NOT EXISTS `jsfour_mail` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `from` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `to` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `title` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `text` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `date` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `folder` varchar(255) COLLATE utf8mb4_bin DEFAULT 'inbox',
-  `read` tinyint(4) DEFAULT '0',
-  `avatar` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  PRIMARY KEY (`id`)
-);
-
 # REMOVE # DOWN BELOW IF YOU HAVE ESX_JOBS INSTALLED
-# INSERT INTO `jsfour_jobs` (`group`, `name`) SELECT `name`, `label` FROM `jobs` WHERE `name` != 'unemployed' OR `whitelisted` = 1;
+# INSERT INTO `jsfour_jobs` (`group`, `name`) SELECT `name`, `label` FROM `jobs` WHERE `name` != 'unemployed' AND `whitelisted` = 0;

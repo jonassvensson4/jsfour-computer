@@ -13,11 +13,13 @@ function fetchMails( mail ) {
     $('#mail-inbox-inbox, #mail-inbox-sent, #mail-inbox-junk, #mail-inbox-deleted').html('');
 
     // Fetch from the database
-    fetch(`http://${ endpoint }/jsfour-core/${ sessionToken }/database/fetchMail`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
-            '@email': mail
+            type: 'fetchMail',
+            data: {
+                '@email': mail
+            }
         })
     })
     .then( response => response.json() )
@@ -111,11 +113,13 @@ function fetchMails( mail ) {
 }
 
 function fetchEmails() {
-    fetch(`http://${ endpoint }/jsfour-core/${ sessionToken }/database/fetchUserEmails`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
-            '@id': loggedInUser.id
+            type: 'fetchUserEmails',
+            data: {
+                '@id': loggedInUser.id
+            }
         })
     })
     .then( response => response.json() )
@@ -156,18 +160,20 @@ function fetchEmails() {
 fetchEmails();
 
 function sendMail() {
-    fetch(`http://${ endpoint }/jsfour-core/${ sessionToken }/database/sendMail`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
-            '@from': $('#mail-send-from').val().toLowerCase(),
-            '@to': $('#mail-send-to').val().toLowerCase(),
-            '@text': $('#mail-send-text').val(),
-            '@date': getDate(),
-            '@read': 0,
-            '@avatar': loggedInUser.avatar,
-            '@name': `${ loggedInUser.firstname } ${ loggedInUser.lastname }`,
-            '@title': $('#mail-send-title').val()
+            type: 'sendMail',
+            data: {
+                '@from': $('#mail-send-from').val().toLowerCase(),
+                '@to': $('#mail-send-to').val().toLowerCase(),
+                '@text': $('#mail-send-text').val(),
+                '@date': getDate(),
+                '@read': 0,
+                '@avatar': loggedInUser.avatar,
+                '@name': `${ loggedInUser.firstname } ${ loggedInUser.lastname }`,
+                '@title': $('#mail-send-title').val()
+            }
         })
     })
     .then(() => {
@@ -298,11 +304,13 @@ $('body').on('click', '.mail-inbox-content', function() {
                 }
             });
 
-            fetch(`http://${ endpoint }/jsfour-core/${ sessionToken }/database/updateMailRead`, {
+            fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
                 method: 'POST',
-                mode: 'cors',
                 body: JSON.stringify({
-                    '@id': currentMail
+                    type: 'updateMailRead',
+                    data: {
+                        '@id': currentMail
+                    }
                 })
             });
         }
@@ -330,12 +338,14 @@ $('#mail-email-header p').click( function() {
                 case 'sent':
                 case 'junk':
                 case 'inbox':
-                    fetch(`http://${ endpoint }/jsfour-core/${ sessionToken }/database/updateMailFolder`, {
+                    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
                         method: 'POST',
-                        mode: 'cors',
                         body: JSON.stringify({
-                            '@id': $( this ).attr('identifier'),
-                            '@folder': 'deleted'
+                            type: 'updateMailFolder',
+                            data: {
+                                '@id': $( this ).attr('identifier'),
+                                '@folder': 'deleted'
+                            }
                         })
                     })
                     .then(() => {
@@ -351,11 +361,13 @@ $('#mail-email-header p').click( function() {
                     });
                     break;
                 case 'deleted':
-                    fetch(`http://${ endpoint }/jsfour-core/${ sessionToken }/database/deleteMail`, {
+                    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
                         method: 'POST',
-                        mode: 'cors',
                         body: JSON.stringify({
-                            '@id': $( this ).attr('identifier')
+                            type: 'deleteMail',
+                            data: {
+                                '@id': $( this ).attr('identifier')
+                            }
                         })
                     })
                     .then(() => {
@@ -386,11 +398,13 @@ $('#mail-email-header p').click( function() {
 $('#mail-register form').submit(() => {
     let registerEmail = `${ $('#mail-register-name').val().toLowerCase() }@${ $('#mail-register-domain').val().toLowerCase() }`;
 
-    fetch(`http://${ endpoint }/jsfour-core/${ sessionToken }/database/fetchEmail`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
-            '@email': registerEmail
+            type: 'fetchEmail',
+            data: {
+                '@email': registerEmail
+            }
         })
     })
     .then( response => response.json() )
@@ -398,13 +412,15 @@ $('#mail-register form').submit(() => {
         if ( data != 'false' && data.length === 0 ) {
             $('#mail-register-name, #mail-register-domain').removeClass('invalid');
 
-            fetch(`http://${ endpoint }/jsfour-core/${ sessionToken }/database/registerMail`, {
+            fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
                 method: 'POST',
-                mode: 'cors',
                 body: JSON.stringify({
-                    '@id': loggedInUser.id,
-                    '@folder': 'registry',
-                    '@email': registerEmail
+                    type: 'registerMail',
+                    data: {
+                        '@id': loggedInUser.id,
+                        '@folder': 'registry',
+                        '@email': registerEmail
+                    }
                 })
             })
             .then(() => {

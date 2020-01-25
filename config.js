@@ -2,7 +2,7 @@
 const key = 38;
 
 // Display the markers?
-const displayMarkers = false;
+const displayMarkers = true;
 
 // Locations of the computers, more locations can be added.
 // To add more backgrounds simply place your image in the html/asset/images folder. 
@@ -55,11 +55,13 @@ const locations = {
     },
 }
 
-// A command that lets a player open the computer, disabled by default. 
-// # disableDistance;
-// # if set to false the player can open the computer everywhere. If set to true the player needs to be standing next to one of the positions above ^
-const command = {
-    enable: true, // Command enabled?
-    disableDistance: false,
-    name: 'computer' // Name of the command /computer
+// A command that lets a player open the computer or tablet, disabled by default. 
+// # disableDistance:
+// # if set to true the player can open the computer everywhere. If set to false the player needs to be standing next to one of the positions above ^
+const commands = {
+    'computer': {
+        enable: true, // Command enabled?
+        disableDistance: true,
+        name: 'computer' // Name of the command /computer [location]
+    }
 }

@@ -127,10 +127,14 @@ emit('jsfour-core:addQuery', {
     },
     getJobs: {
         sql: 'mysql_fetch_all',
-        query: 'SELECT name FROM `jobs`'
+        query: 'SELECT `name` FROM `jobs`'
     },
     fetchUserVehicles: {
         sql: 'mysql_fetch_all',
         query: 'SELECT * FROM `owned_vehicles` WHERE `owner` = @identifier'
+    },
+    getSocieties: {
+        sql: 'mysql_fetch_all',
+        query: 'SELECT `account_name` AS `name` FROM `addon_account_data` WHERE `account_name` LIKE "society_%"'
     },
 });

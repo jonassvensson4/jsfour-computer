@@ -1,41 +1,11 @@
-// - Anställa person, Sparka folk / befodra
-// - Ändra lön för alla job-grades
-// - Se antal pengar på företagskontot samt ta ut/sätt in
-
-// $('.bossactions-menu-square').click(() => {
-//     fetch("http://jsfour-computer/jsfour-computer:esx");
-// });
-
 let _baPage = '#bossactions-page-employees';
 let grades = 0;
-
-function getJobs() {
-    let jobs = [];
-
-    fetch(`http://${ endpoint }/jsfour-core/${ sessionToken }/database/getJobs`, {
-        method: 'POST',
-        mode: 'cors',
-        body: JSON.stringify({})
-    })
-    .then( response => response.json() )
-    .then( data => {
-        if ( data.length > 0 ) {
-           Object.keys( data ).forEach(( k ) => {
-                jobs.push( data[k].name );
-           });
-        }
-    });
-
-    return jobs;
-}
-
 
 function getEmployees() {
     $('#bossactions-employees tbody').html('');
 
-    fetch('http://jsfour-computer/jsfour-computer:esx', {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:esx`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
             'function': 'society',
             'event': 'getEmployees',
@@ -67,9 +37,8 @@ function getEmployees() {
 function getSalary() {
     $('#bossactions-salary tbody').html('');
 
-    fetch('http://jsfour-computer/jsfour-computer:esx', {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:esx`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
             'function': 'society',
             'event': 'getJob',
@@ -93,9 +62,8 @@ function getSalary() {
 }
 
 function getMoney() {
-    fetch('http://jsfour-computer/jsfour-computer:esx', {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:esx`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
             'function': 'society',
             'event': 'getMoney',
@@ -109,17 +77,29 @@ function getMoney() {
 }
 
 function refreshbossactions() {
-    if ( getJobs().includes( loggedInUser.job ) ) {  
-        getEmployees();
-        getSalary();
-        getMoney();
-    }
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+        method: 'POST',
+        body: JSON.stringify({
+            type: 'getSocieties'
+        })
+    })
+    .then( response => response.json() )
+    .then( data => {
+        if ( data.length > 0 ) {
+           Object.keys( data ).forEach(( k ) => {
+                if ( data[k].name === `society_${ loggedInUser.job }` ) {  
+                    getEmployees();
+                    getSalary();
+                    getMoney();
+                }
+           });
+        }
+    });  
 }
 
 function baUpdate( grade ) {
-    fetch('http://jsfour-computer/jsfour-computer:esx', {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:esx`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
             'function': 'society',
             'event': 'setSalary',
@@ -131,9 +111,8 @@ function baUpdate( grade ) {
 }
 
 function baFire( identifier ) {
-    fetch('http://jsfour-computer/jsfour-computer:esx', {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:esx`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
             'function': 'society',
             'event': 'fire',
@@ -144,9 +123,8 @@ function baFire( identifier ) {
 
 function baChangeGrade( identifier, grade ) {
     if ( grade < grades && grade > 0 ) {
-        fetch('http://jsfour-computer/jsfour-computer:esx', {
+        fetch(`https://${ GetParentResourceName() }/jsfour-computer:esx`, {
             method: 'POST',
-            mode: 'cors',
             body: JSON.stringify({
                 'function': 'society',
                 'event': 'changeGrade',
@@ -165,9 +143,8 @@ $('#bossactions-bank button').click( function () {
     let amount = parseInt($('#ba-amount').val());
 
     if ( amount && amount > 0 ) {
-        fetch('http://jsfour-computer/jsfour-computer:esx', {
+        fetch(`https://${ GetParentResourceName() }/jsfour-computer:esx`, {
             method: 'POST',
-            mode: 'cors',
             body: JSON.stringify({
                 'function': 'society',
                 'event': $( this ).attr( 'action' ),

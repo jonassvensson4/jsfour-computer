@@ -4,27 +4,11 @@ let ESX = false;
 let steam = null;
 
 // Register NUI callbacks
-RegisterNuiCallbackType('jsfour-computer:close');
+RegisterNuiCallbackType('jsfour-computer:query');
+RegisterNuiCallbackType('jsfour-computer:emitNet');
 RegisterNuiCallbackType('jsfour-computer:esx');
-
-// Client connected > request a session token from server
-setImmediate(() => {
-    emitNet('jsfour-core:connected');
-});
-
-// Player connected > send token to NUI
-onNet('jsfour-core:session', ( data ) => {
-    esxEnabled = data.esx;
-    steam = data.steam;
-
-    SendNuiMessage(JSON.stringify({
-        action: 'token',
-        token: data.token,
-        endpoint: data.endpoint,
-        esx: data.esx,
-        steam: data.steam
-    }));
-});
+RegisterNuiCallbackType('jsfour-computer:close');
+RegisterNuiCallbackType('jsfour-computer:tempData');
 
 // Triggered when a player sends data to another player
 onNet('jsfour-core:toNUI', ( data ) => {
@@ -102,6 +86,7 @@ setTick(() => {
 
             SendNuiMessage(JSON.stringify({
                 action: 'open',
+                device: 'computer',
                 location: key,
                 loginLogo: location.loginLogo,
                 loginBackground: location.loginBackground,
@@ -114,26 +99,51 @@ setTick(() => {
 });
 
 // A command that opens the computer if the player is near a location, if enabled in the config
-if ( command.enable ) {
-    RegisterCommand(command.name, () => {
-        if ( checkDistance() || command.disableDistance ) {
-            SetNuiFocus(true, true);
+if ( commands.computer.enable ) {
+    RegisterCommand(commands.computer.name, (source, args) => {
+        if ( checkDistance() || commands.computer.disableDistance ) {
+            if ( args[0] ) {
+                SetNuiFocus(true, true);
 
-            let key = checkDistance().key;
-            let location = locations[key];
-
-            SendNuiMessage(JSON.stringify({
-                action: 'open',
-                location: key,
-                loginLogo: location.loginLogo,
-                loginBackground: location.loginBackground,
-                desktopBackground: location.desktopBackground,
-                login: location.login,
-                run: location.run
-            }));
+                let key = args[0];
+                let location = locations[key];
+    
+                SendNuiMessage(JSON.stringify({
+                    action: 'open',
+                    device: 'computer',
+                    location: key,
+                    loginLogo: location.loginLogo,
+                    loginBackground: location.loginBackground,
+                    desktopBackground: location.desktopBackground,
+                    login: location.login,
+                    run: location.run
+                }));
+            } else {
+                console.error(`Command missing arguments, usage: /${ commands.computer.name } location`);
+            }
         }
     });
 }
+
+// Run a query < called from NUI
+on("__cfx_nui:jsfour-computer:query", ( data, cb ) => {
+    exports['jsfour-core'].serverCallback('jsfour-core:query', data, ( callback ) => {
+        cb(callback);
+    });
+});
+
+// emitNet < called from NUI
+on("__cfx_nui:jsfour-computer:emitNet", ( data ) => {
+    emitNet('jsfour-core:emitNet', data);
+    cb(true);
+});
+
+// Get temporaryly saved data on the server < called from NUI
+on("__cfx_nui:jsfour-computer:tempData", ( data, cb ) => {
+    exports['jsfour-core'].serverCallback('jsfour-core:tempData', data, ( callback ) => {
+        cb(callback);
+    });
+});
 
 // Remove NUI focus < called from NUI
 on("__cfx_nui:jsfour-computer:close", ( data, cb ) => {

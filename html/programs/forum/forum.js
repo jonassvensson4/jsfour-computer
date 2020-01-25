@@ -2,11 +2,13 @@ $('.program-forum h6').text(`Forum - ${loggedInUser.job}`);
 $('select').formSelect();
 
 function fetchPosts() {
-    fetch(`http://${endpoint}/jsfour-core/${sessionToken}/database/fetchForumPosts`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
-            '@job': loggedInUser.job
+            type: 'fetchForumPosts',
+            data: {
+                '@job': loggedInUser.job
+            }
         })
     })
     .then( response => response.json() )
@@ -63,16 +65,18 @@ $('.program-forum form').submit( () => {
     let today = new Date();
     let date = `${today.getDate()}/${today.getMonth() + 1}`;
 
-    fetch(`http://${endpoint}/jsfour-core/${sessionToken}/database/addForumPost`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
-            '@category': forumCategory,
-            '@text': forumText,
-            '@username': loggedInUser.username,
-            '@avatar': loggedInUser.avatar,
-            '@date': date,
-            '@job': loggedInUser.job
+            type: 'addForumPost',
+            data: {
+                '@category': forumCategory,
+                '@text': forumText,
+                '@username': loggedInUser.username,
+                '@avatar': loggedInUser.avatar,
+                '@date': date,
+                '@job': loggedInUser.job
+            }
         })
     })
     .then(() => {
@@ -87,11 +91,13 @@ $('.program-forum form').submit( () => {
 });
 
 $('body').on('click', '.forum-delete', function () {
-    fetch(`http://${endpoint}/jsfour-core/${sessionToken}/database/deleteForumPost`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
-            '@id': $(this).closest('.forum-post').attr('post')
+            type: 'deleteForumPost',
+            data: {
+                '@id': $(this).closest('.forum-post').attr('post')
+            }
         })
     });
 

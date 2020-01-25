@@ -1,12 +1,12 @@
 function getUsers( job, group ) {
     let fetchType = 'fetchAllUsers';
-    let fetchParam = JSON.stringify({});
+    let fetchParam = {};
     
     if ( job != 'all' && group  ) {
         fetchType = 'fetchUsersByJob';
-        fetchParam = JSON.stringify({
+        fetchParam = {
             '@job' : job
-        });
+        }
     }
 
     if ( job != 'all' ) {
@@ -18,11 +18,13 @@ function getUsers( job, group ) {
 
         M.updateTextFields();
     }
-
-    fetch(`http://${endpoint}/jsfour-core/${sessionToken}/database/${fetchType}`, {
+    
+    fetch(`http://${ GetParentResourceName() }/jsfour-computer:query`, {
         method: 'POST',
-        mode: 'cors',
-        body: fetchParam
+        body: JSON.stringify({
+            type: fetchType,
+            data: fetchParam
+        })
     })
     .then( response => response.json() )
     .then( data => {
@@ -61,7 +63,7 @@ $('body').on('click', '.program-groups .collapsible', function () {
 $('body').on('click', '#program-groups-users span', function () {
     let active = $('.active').attr('collapsible');
 
-    if ( active ===  'groups-delete-collapsible' ) {
+    if ( active === 'groups-delete-collapsible' ) {
         $('#groups-delete-username').val( $(this).attr('username') );
         $('#groups-delete-username').attr( 'identifier', $(this).attr('identifier') );
         $('#groups-delete-username').attr( 'email', `${ $(this).attr('username').toLowerCase() }@${ $(this).attr('job').toLowerCase() }.com` );
@@ -128,10 +130,12 @@ function updateRows( type ) {
 
     rows['@uniqueValue'] = '@username';
 
-    fetch(`http://${endpoint}/jsfour-core/${sessionToken}/database/${fetchType}`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
         method: 'POST',
-        mode: 'cors',
-        body: JSON.stringify(rows)
+        body: JSON.stringify({
+            type: fetchType,
+            data: rows
+        })
     })
     .then( response => response.text() )
     .then( text => {
@@ -146,46 +150,54 @@ function updateRows( type ) {
             }, 1000);
 
             if ( $('#groups-update-username').attr('avatar') != loggedInUser.avatar ) {
-                fetch(`http://${endpoint}/jsfour-core/${sessionToken}/database/updateForumAvatar`, {
+                fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
                     method: 'POST',
-                    mode: 'cors',
                     body: JSON.stringify({
-                        '@avatar': $('#groups-update-avatar').val(),
-                        '@username': $('#groups-update-username').attr( 'identifier' )
+                        type: 'updateForumAvatar',
+                        data: {
+                            '@avatar': $('#groups-update-avatar').val(),
+                            '@username': $('#groups-update-username').attr( 'identifier' )
+                        }
                     })
                 });
             }
             
             if ( type === 'register' ) {
-                fetch(`http://${ endpoint}/jsfour-core/${ sessionToken }/database/fetchID`, {
+                fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
                     method: 'POST',
-                    mode: 'cors',
                     body: JSON.stringify({
-                        '@username': $('#groups-register-username').val()
+                        type: 'fetchID',
+                        data: {
+                            '@username': $('#groups-register-username').val()
+                        }
                     })
                 })
                 .then( response => response.json() )
                 .then( data => {
                     if ( parseInt( data[0].id ) ) {
-                        fetch(`http://${ endpoint}/jsfour-core/${ sessionToken }/database/registerMail`, {
+                        fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
                             method: 'POST',
-                            mode: 'cors',
                             body: JSON.stringify({
-                                '@id': data[0].id,
-                                '@email': `${ $('#groups-register-username').val().toLowerCase() }@${ $('#groups-register-job').val().toLowerCase() }.com`,
-                                '@folder': $('#groups-update-username').attr( 'identifier' )
+                                type: 'registerMail',
+                                data: {
+                                    '@id': data[0].id,
+                                    '@email': `${ $('#groups-register-username').val().toLowerCase() }@${ $('#groups-register-job').val().toLowerCase() }.com`,
+                                    '@folder': $('#groups-update-username').attr( 'identifier' )
+                                } 
                             })
                         });
                     }
                 });
             } else {  
-                fetch(`http://${ endpoint}/jsfour-core/${ sessionToken }/database/updateEmail`, {
+                fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
                     method: 'POST',
-                    mode: 'cors',
                     body: JSON.stringify({
-                        '@id': $('#groups-update-username').attr( 'identifier' ),
-                        '@email': `${ $('#groups-update-username').val().toLowerCase() }@${ $('#groups-update-job').val().toLowerCase() }.com`,
-                        '@oldemail': $('#groups-update-username').attr( 'email' )
+                        type: 'updateEmail',
+                        data: {
+                            '@id': $('#groups-update-username').attr( 'identifier' ),
+                            '@email': `${ $('#groups-update-username').val().toLowerCase() }@${ $('#groups-update-job').val().toLowerCase() }.com`,
+                            '@oldemail': $('#groups-update-username').attr( 'email' )
+                        }
                     })
                 });
             }
@@ -204,22 +216,27 @@ $('#groups-register-user').submit(() => { updateRows('register'); return false; 
 $('#groups-update-user').submit(() => { updateRows('update'); return false; });
 
 $('#groups-delete-user').submit(() => { 
-    fetch(`http://${endpoint}/jsfour-core/${sessionToken}/database/deleteUser`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
-            '@id' : $('#groups-delete-username').attr('identifier')
+            type: 'deleteUser',
+            data: {
+                '@id' : $('#groups-delete-username').attr('identifier')
+            }
         })
     })
     .then( response => response.text() )
     .then( data => {
         if ( JSON.parse( data ) ) {
-            fetch(`http://${ endpoint}/jsfour-core/${ sessionToken }/database/deleteEmail`, {
+            fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
                 method: 'POST',
                 mode: 'cors',
                 body: JSON.stringify({
-                    '@id': $('#groups-delete-username').attr('identifier'),
-                    '@email': $('#groups-delete-username').attr('email')
+                    type: 'deleteEmail',
+                    data: {
+                        '@id': $('#groups-delete-username').attr('identifier'),
+                        '@email': $('#groups-delete-username').attr('email')
+                    }
                 })
             });
 

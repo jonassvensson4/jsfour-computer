@@ -1,4 +1,8 @@
-# jsfour-computer
+# [BETA] jsfour-computer BUG TESTING
+## This resource is not finished and may contain bugs. Please don't use it if you don't know how to debug a script.
+
+
+
 A usable computer and tablet in-game. You can easily add your own programs by following the guide down below. To be able to do this you need to have some knowledge in html, javascript and css. **I will not** help you add programs.
 
 There are a couple of small built-in programs to show examples of what you can do:
@@ -20,14 +24,14 @@ There are a couple of small built-in programs to show examples of what you can d
 
 A more indepth guide of each program can be found <a href="" target="_blank">here</a>.
 
-Due to the lack of time I can't add any more programs. I have however created a <a href="" target="_blank">list</a> of the programs that I wanted to add to give you some  ideas. These programs may be added in another update.
+Due to the lack of time I can't add any more programs. I have however created a <a href="https://github.com/jonassvensson4/jsfour-computer/issues/1" target="_blank">list</a> of the programs that I wanted to add to give you some  ideas. These programs may be added in another update.
 
 ### LICENSE
 Please don't sell or reupload this resource. 
 Feel free to make forks and post any updates in the original forum thread. **Do not** create your own thread since it's not a new release.
 
-### SCREENSHOTS
-![screenshot]()
+### PREVIEW
+[![jsfour-computer preview](https://img.youtube.com/vi/SpRQO5UtZSA/0.jpg)](https://www.youtube.com/watch?v=SpRQO5UtZSA)
 
 ### INSTALLATION
 * Install dependency: <a href="https://github.com/jonassvensson4/jsfour-core">jsfour-core</a>
@@ -82,6 +86,6 @@ There are currently 4 groups added; `admin, user, all, null`. Null means you don
 1. Create a folder inside the <a href="https://github.com/jonassvensson4/jsfour-computer/html/programs" target="_blank">html/programs</a> folder without any spaces. (There's a template folder that you can use as a base). 
 2. Create a html file inside the folder with the exact same name as the folder. You can currently add files with any of the following extension (.html, .js, .css, .png, .jpg, .gif, .json) in the folder. If you want to include other files this needs to be added in the __resource.lua
 3. Add the program to the <a href="https://github.com/jonassvensson4/jsfour-computer/html/programs/programConfig.js" target="_blank">programConfig.js</a> file. The name needs to be the exact same as the folder you've just created.
-4. Icons can be added to the icons.png file. PSD file can be found <a href="" target="_blank">here</a>.
+4. Icons can be added to the icons.png file. PSD file can be found <a href="https://www.dropbox.com/s/c4uwn17hfixny16/icons.psd?dl=0" target="_blank">here</a>.
 5. If your program requires data from the database you'll need to specify the SQL query in the <a href="https://github.com/jonassvensson4/jsfour-computer/server.js" target="_blank">server.js</a>. It will then be available when using fetch(). Examples of the fetch function can be found in different programs and in the <a href="https://github.com/jonassvensson4/jsfour-core/" target="_blank">jsfour-core</a> readme.
 

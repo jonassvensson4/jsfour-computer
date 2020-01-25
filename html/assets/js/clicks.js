@@ -89,8 +89,6 @@ function startProgram( program ) {
             $(`.icon-${program}-small`).addClass('small-active small-border');
         }
     }
-
-   
 }
 
 function cInterval() {
