@@ -1,5 +1,3 @@
-let sessionToken;
-let endpoint;
 let loggedInUser;
 let volume = 0.5;
 let markerLocation = 'none';
@@ -9,6 +7,9 @@ let calendarOpen = false;
 let calendarInterval;
 let computerStatus = true;
 let steam = null;
+let debug = true;
+let device = 'computer';
+let jsloaded = [];
 
 // Sets the default volumne to 0.2
 Howler.volume(volume);
@@ -295,7 +296,6 @@ function loadPrograms() {
                                             css['right'] = programs[k].onStart.right;
                                         }
 
-
                                         $(`.program-${k}-header`).parent('.program-wrapper').css( css );
                                     } else {
                                         $(`.program-${k}-header`).parent('.program-wrapper').css({
@@ -349,8 +349,20 @@ window.addEventListener('message', ( event ) => {
         case 'open':
             switch( event.data.device ) {
                 case 'tablet':
+                    device = 'tablet';
+                    loggedInUser = null;
+                    loadedPrograms = [];
+                    jsloaded = [];
+
+                    loadPrograms();
+
+                    sound_turnon.play();
+
                     $('#computer-frame').hide();
                     $('#tablet-frame').show();
+
+                    // Show the body
+                    $('#jsfour-computer').show();
 
                     $('#tablet-frame').animate({
                         marginTop: '20%',
@@ -362,6 +374,8 @@ window.addEventListener('message', ( event ) => {
                     });
                     break;
                 default:
+                    device = 'computer';
+
                     $('#tablet-frame').hide();
                     $('#computer-frame').show();
                     
@@ -383,6 +397,7 @@ window.addEventListener('message', ( event ) => {
                         if ( !event.data.login ) {
                             loggedInUser = null;
                             loadedPrograms = [];
+                            jsloaded = [];
 
                             loadPrograms();
 
@@ -435,19 +450,6 @@ window.addEventListener('message', ( event ) => {
                     break;  
             }
         break;
-        case 'token':
-            // Sets the token and endpoint when the player connects to the server. Used by the fetch function
-            let d = event.data.data;
-
-            if ( Object.keys( d ).length > 0 ) {
-                sessionToken = d.token;
-                endpoint = d.endpoint;
-                esxEnabled = d.esx;
-                steam = d.steam;
-            } else {
-                console.error(`Data object is empty`);
-            }
-            break;
         case 'toNUI':
             // Data sent from another NUI, it runs the specified toNUI program function, toNUIname(). Check the twitter program for examples
             let data = event.data.data;
@@ -613,12 +615,14 @@ $(() => {
         let username = $('#login-username').val();
         let password = $('#login-password').val();
         
-        fetch(`http://${ endpoint }/jsfour-core/${ sessionToken }/database/login`, {
+        fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
             method: 'POST',
-            mode: 'cors',
             body: JSON.stringify({
-                '@username': username.toLowerCase(),
-                '@password': password.toLowerCase()
+                type: 'login',
+                data: {
+                    '@username': username.toLowerCase(),
+                    '@password': password.toLowerCase()
+                }
             })
         })
         .then( response => response.text())
@@ -631,6 +635,7 @@ $(() => {
                 if ( data != 'false' && data.length > 0 ) {
                     loggedInUser = data[0];
                     loadedPrograms = [];
+                    jsloaded = [];
 
                     $('#computer-content').css('background', `url(${ loggedInUser.desktop }) no-repeat`);
 
@@ -684,18 +689,20 @@ $(() => {
 
 // Submit the register form - register a user
 $('#computer-register-form form').submit(() => {
-    fetch(`http://${ endpoint }/jsfour-core/${ sessionToken }/database/addUser`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
-            '@uniqueValue': '@username',
-            '@username': $('#computer-register-username').val().toLowerCase(),
-            '@password': $('#computer-register-password').val().toLowerCase(),
-            '@firstname': $('#computer-register-firstname').val().toLowerCase(),
-            '@lastname': $('#computer-register-lastname').val().toLowerCase(),
-            '@group': 'null',
-            '@job': 'null',
-            '@avatar': 'https://via.placeholder.com/50x50'
+            type: 'addUser',
+            data: {
+                '@uniqueValue': '@username',
+                '@username': $('#computer-register-username').val().toLowerCase(),
+                '@password': $('#computer-register-password').val().toLowerCase(),
+                '@firstname': $('#computer-register-firstname').val().toLowerCase(),
+                '@lastname': $('#computer-register-lastname').val().toLowerCase(),
+                '@group': 'null',
+                '@job': 'null',
+                '@avatar': 'https://via.placeholder.com/50x50'
+            }
         })
     })
     .then( response => response.json() )
