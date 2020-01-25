@@ -4,9 +4,8 @@ let grades = 0;
 function getEmployees() {
     $('#bossactions-employees tbody').html('');
 
-    fetch('http://jsfour-computer/jsfour-computer:esx', {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:esx`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
             'function': 'society',
             'event': 'getEmployees',
@@ -38,9 +37,8 @@ function getEmployees() {
 function getSalary() {
     $('#bossactions-salary tbody').html('');
 
-    fetch('http://jsfour-computer/jsfour-computer:esx', {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:esx`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
             'function': 'society',
             'event': 'getJob',
@@ -64,9 +62,8 @@ function getSalary() {
 }
 
 function getMoney() {
-    fetch('http://jsfour-computer/jsfour-computer:esx', {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:esx`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
             'function': 'society',
             'event': 'getMoney',
@@ -80,16 +77,17 @@ function getMoney() {
 }
 
 function refreshbossactions() {
-    fetch(`http://${ endpoint }/jsfour-core/${ sessionToken }/database/getJobs`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
         method: 'POST',
-        mode: 'cors',
-        body: JSON.stringify({})
+        body: JSON.stringify({
+            type: 'getSocieties'
+        })
     })
     .then( response => response.json() )
     .then( data => {
         if ( data.length > 0 ) {
            Object.keys( data ).forEach(( k ) => {
-                if ( data[k].name === loggedInUser.job ) {  
+                if ( data[k].name === `society_${ loggedInUser.job }` ) {  
                     getEmployees();
                     getSalary();
                     getMoney();
@@ -100,9 +98,8 @@ function refreshbossactions() {
 }
 
 function baUpdate( grade ) {
-    fetch('http://jsfour-computer/jsfour-computer:esx', {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:esx`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
             'function': 'society',
             'event': 'setSalary',
@@ -114,9 +111,8 @@ function baUpdate( grade ) {
 }
 
 function baFire( identifier ) {
-    fetch('http://jsfour-computer/jsfour-computer:esx', {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:esx`, {
         method: 'POST',
-        mode: 'cors',
         body: JSON.stringify({
             'function': 'society',
             'event': 'fire',
@@ -127,9 +123,8 @@ function baFire( identifier ) {
 
 function baChangeGrade( identifier, grade ) {
     if ( grade < grades && grade > 0 ) {
-        fetch('http://jsfour-computer/jsfour-computer:esx', {
+        fetch(`https://${ GetParentResourceName() }/jsfour-computer:esx`, {
             method: 'POST',
-            mode: 'cors',
             body: JSON.stringify({
                 'function': 'society',
                 'event': 'changeGrade',
@@ -148,9 +143,8 @@ $('#bossactions-bank button').click( function () {
     let amount = parseInt($('#ba-amount').val());
 
     if ( amount && amount > 0 ) {
-        fetch('http://jsfour-computer/jsfour-computer:esx', {
+        fetch(`https://${ GetParentResourceName() }/jsfour-computer:esx`, {
             method: 'POST',
-            mode: 'cors',
             body: JSON.stringify({
                 'function': 'society',
                 'event': $( this ).attr( 'action' ),
