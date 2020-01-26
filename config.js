@@ -18,23 +18,29 @@ const locations = {
             text: 'Press ~E~' // Marker text/hint
         },
         loginLogo: 'assets/images/logo_hospital.png', // Computer login logo image path
-        loginBackground: 'assets/images/login_hospital.png', // Computer login background image path
+        loginBackground: 'assets/images/login_hospital.jpg', // Computer login background image path
         desktopBackground: 'assets/images/windows.png', // Computer desktop background image path
+        excludePrograms: [], // Array of program names to exclude on the location
+        overrideBackground: true, // Overrides the user background with the one specified above 
+        job: 'ambulance', // The user needs to have the specified job to be able to login to the computer
         login: true, // Required to login? (Useful if you just want to display something in a store etc.. without asking the user to login)
         run: false // You can specify a program to run on start, see the cardealer marker down below
     },
     'policestation': {
-        coords: { x: 1, y: 1, z: 1 },
+        coords: {"x": 442.0035607910156,"y": -979.3918676757812,"z": 30.689603805541992},
         marker: {
-            drawDistance: 5,
-            type: 27,
-            size: { x: 2.0, y: 2.0, z: 1.0 },
-            color: { r: 26, g: 55, b: 186 },
+            drawDistance: 1.5,
+            type: 0,
+            size: { x: 0.3, y: 0.3, z: 0.2 },
+            color: { r: 28, g: 252, b: 3 },
             text: 'Press ~E~'
         },
-        loginLogo: 'assets/images/logo_hospital.png',
-        loginBackground: 'assets/images/login_hospital.png',
-        desktopBackground: 'assets/images/windows.png',
+        loginLogo: 'assets/images/logo_police.png',
+        loginBackground: 'assets/images/login_police.jpg',
+        desktopBackground: 'assets/images/police.jpg',
+        excludePrograms: [ 'jobcenter', 'cardealer', 'folder', 'twitter' ],
+        overrideBackground: true,
+        job: 'police',
         login: true,
         run: false
     },
@@ -48,8 +54,8 @@ const locations = {
             text: 'Press ~E~'
         },
         loginLogo: 'assets/images/logo_hospital.png',
-        loginBackground: 'assets/images/login_cardealer.png',
-        desktopBackground: 'assets/images/login_cardealer.png',
+        loginBackground: 'assets/images/login_cardealer.jpg',
+        desktopBackground: 'assets/images/login_cardealer.jpg',
         login: false,
         run: 'cardealer'
     },

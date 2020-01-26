@@ -27,7 +27,7 @@ function checkDistance( pos ) {
         Object.keys( locations ).forEach( ( key ) => {
             let distance = GetDistanceBetweenCoords(pedCoords[0], pedCoords[1], pedCoords[2], locations[key].coords.x, locations[key].coords.y, locations[key].coords.z, true)
     
-            if ( distance  < locations[key].marker.drawDistance ) {
+            if ( distance < locations[key].marker.drawDistance ) {
                 location = {
                     distance: distance,
                     key: key,
@@ -90,7 +90,10 @@ setTick(() => {
                 location: key,
                 loginLogo: location.loginLogo,
                 loginBackground: location.loginBackground,
+                excludePrograms: location.excludePrograms,
                 desktopBackground: location.desktopBackground,
+                overrideBackground: location.overrideBackground,
+                job: location.job,
                 login: location.login,
                 run: location.run
             }));
@@ -114,7 +117,10 @@ if ( commands.computer.enable ) {
                     location: key,
                     loginLogo: location.loginLogo,
                     loginBackground: location.loginBackground,
+                    excludePrograms: location.excludePrograms,
                     desktopBackground: location.desktopBackground,
+                    overrideBackground: location.overrideBackground,
+                    job: location.job,
                     login: location.login,
                     run: location.run
                 }));

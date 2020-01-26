@@ -1,11 +1,15 @@
 let loggedInUser;
 let volume = 0.5;
 let markerLocation = 'none';
+let markerLocationJob = null;
+let markerExcludePrograms = [];
 let loadedPrograms = [];
 let esxEnabled = false;
 let calendarOpen = false;
 let calendarInterval;
 let computerStatus = true;
+let computerToggleDelay = false;
+let overrideBackground = false;
 let steam = null;
 let debug = true;
 let device = 'computer';
@@ -59,28 +63,36 @@ function signout() {
 
 // Turn off computer
 function off() {
-    if ( computerStatus ) {
-        computerStatus = false;
+    if ( !computerToggleDelay ) {
+        computerToggleDelay = true;
 
-        sound_turnoff.play();
+        if ( computerStatus ) {
+            computerStatus = false;
+    
+            sound_turnoff.play();
+    
+            setTimeout(() => {
+                loggedInUser = null;
+                $('#computer-loading').fadeIn(1000, () => {
+                    $('#computer-loading-content').fadeOut(1500);
+                });
+            }, 100);
+        } else {
+            computerStatus = true
+    
+            sound_turnon.play();
+            
+            setTimeout(() => {
+                $('#computer-loading').fadeIn(250, () => {
+                    $('#computer-loading-content').fadeIn(500);
+                    $('#login-username').select();
+                });
+            }, 800);
+        }
 
         setTimeout(() => {
-            loggedInUser = null;
-            $('#computer-loading').fadeIn(1000, () => {
-                $('#computer-loading-content').fadeOut(1500);
-            });
-        }, 100);
-    } else {
-        computerStatus = true
-
-        sound_turnon.play();
-        
-        setTimeout(() => {
-            $('#computer-loading').fadeIn(250, () => {
-                $('#computer-loading-content').fadeIn(500);
-                $('#login-username').select();
-            });
-        }, 800);
+            computerToggleDelay = false;
+        }, 8000);
     }
 }
 
@@ -152,151 +164,161 @@ function loadPrograms() {
                     if ( !loadedPrograms.includes( k ) ) {
                        // Checks if the program requires ESX and if the server has it installed
                         if ( ( programs[k].ESX && esxEnabled ) || !programs[k].ESX ) {
-                            loadedPrograms.push( k );
+                            // Checks if the locations has any excluded programns, otherwise it will load them all
+                            if ( !markerExcludePrograms.includes( k ) ) {
+                                loadedPrograms.push( k );
 
-                            // Loads in the html file from the programs folder strucutred like this: programs/name/name.html
-                            $.get(`programs/${k}/${k}.html`, function( data ) {
-                                let content = `<div class="program-wrapper" program="${k}">
-                                    <div class="program-header program-${k}-header">
-                                        <i class="program-title left">${programs[k].title}</i>
-                                        <i class="program-close click material-icons right" action="program-close" program="${k}">close</i>
-                                        <i class="program-fullscreen program-${k}-resize click material-icons right" action="program-fullscreen" program="${k}">fullscreen</i>
-                                        <i class="program-${k}-minimize program-minimize click material-icons right" action="program-minimize" program="${k}">minimize</i>
-                                        <i class="program-${k}-refresh program-refresh click material-icons right" action="program-refresh" program="${k}">refresh</i>
-                                    </div>
-                                    ${data}
-                                </div>`;
-                    
-                                $('#programs').append( content );
-        
-                                // Hides buttons based on the programs options, allowRefresh, allowMinimize, allowResize
-                                if ( programs[k].options ) {
-                                    if ( !programs[k].options.allowRefresh ) {
-                                        $(`.program-${k}-refresh`).remove();
-                                    }
-        
-                                    if ( !programs[k].options.allowMinimize ) {
-                                        $(`.program-${k}-minimize`).remove();
-                                    }
-        
-                                    if ( !programs[k].options.allowResize ) {
-                                        $(`.program-${k}-resize`).remove();
-                                    }
-                                } else {
-                                    $(`.program-${k}-resize`).remove();
-                                    $(`.program-${k}-minimize`).remove();
-                                    $(`.program-${k}-refresh`).remove();
-                                }                  
-                    
-                                // Icon to append
-                                let icon = `<div title="${ programs[k].title }" class="icon click program-${ k }-icon" action="start-program" program="${ k }"><span class="icons icon-${ k }"></span></div>`;
-                    
-                                // Will append the icon to the start menu if set to true in the config
-                                if ( programs[k].icons.start ) {
-                                    $('#windows-start').append( icon );
-                                }
-                    
-                                // Will append the icon to the desktop if set to true in the config
-                                if ( programs[k].icons.desktop ) {
-                                    $( `.${ slot }-${ row }` ).append( icon );
-                                    slot++;
-
-                                    if ( slot === 8 ) { 
-                                        slot = 0;
-                                        row = 1; 
-                                    }
-
-                                    $( '#icon-containers .icon' ).draggable({
-                                        cancel: false,
-                                        scroll: false,
-                                        containment: '#desktop',
-                                        start: function() {
-                                            $( this ).attr( 'slot', $( this ).parent('.icon-container').index());
-                                        },
-                                        revert: function ( isValidEl ) {
-                                            if( isValidEl ) {
-                                                return false;
-                                            } else {
-                                                return true;
-                                            }
-                                        }
-                                    });
-                                }
-
-                                // Will append the icon to the tablet if set to true in the config
-                                if ( programs[k].tablet ) {
-                                    let content = `<div class="program-wrapper program-tablet-${k}" program="${k}">
+                                // Loads in the html file from the programs folder strucutred like this: programs/name/name.html
+                                $.get(`programs/${k}/${k}.html`, function( data ) {
+                                    let content = `<div class="program-wrapper" program="${k}">
                                         <div class="program-header program-${k}-header">
                                             <i class="program-title left">${programs[k].title}</i>
                                             <i class="program-close click material-icons right" action="program-close" program="${k}">close</i>
+                                            <i class="program-fullscreen program-${k}-resize click material-icons right" action="program-fullscreen" program="${k}">fullscreen</i>
+                                            <i class="program-${k}-minimize program-minimize click material-icons right" action="program-minimize" program="${k}">minimize</i>
+                                            <i class="program-${k}-refresh program-refresh click material-icons right" action="program-refresh" program="${k}">refresh</i>
                                         </div>
                                         ${data}
                                     </div>`;
                         
-                                    $('#tablet-programs').append( content );
-                                    
-                                    $( `.t${ tslot }-t${ trow }` ).append( icon ).find('.icon').attr('action', 'tablet-program');
-                                    tslot++;
-
-                                    if ( tslot === 6 ) { 
-                                        tslot = 0;
-                                        trow = 1; 
+                                    $('#programs').append( content );
+            
+                                    // Hides buttons based on the programs options, allowRefresh, allowMinimize, allowResize
+                                    if ( programs[k].options ) {
+                                        if ( !programs[k].options.allowRefresh ) {
+                                            $(`.program-${k}-refresh`).remove();
+                                        }
+            
+                                        if ( !programs[k].options.allowMinimize ) {
+                                            $(`.program-${k}-minimize`).remove();
+                                        }
+            
+                                        if ( !programs[k].options.allowResize ) {
+                                            $(`.program-${k}-resize`).remove();
+                                        }
+                                    } else {
+                                        $(`.program-${k}-resize`).remove();
+                                        $(`.program-${k}-minimize`).remove();
+                                        $(`.program-${k}-refresh`).remove();
+                                    }                  
+                        
+                                    // Icon to append
+                                    let icon = `<div title="${ programs[k].title }" class="icon click program-${ k }-icon" action="start-program" program="${ k }"><span class="icons icon-${ k }"></span></div>`;
+                        
+                                    // Will append the icon to the start menu if set to true in the config
+                                    if ( programs[k].icons.start ) {
+                                        $('#windows-start').append( icon );
                                     }
-                                }
-                    
-                                // Will append the icon to the taskbar if set to true in the config
-                                if ( programs[k].icons.taskbar ) {
-                                    $('#taskbar-icons').append(`<div title="${programs[k].title}" class="icon click" action="start-program" program="${k}"><span class="icons icon-${k}-small"></span></div>`);
-                                }
+                        
+                                    // Will append the icon to the desktop if set to true in the config
+                                    if ( programs[k].icons.desktop ) {
+                                        $( `.${ slot }-${ row }` ).append( icon );
+                                        slot++;
 
-                                // onStart params, currently used to change the default size of a program aka Fullscreen or Minimized
-                                if ( programs[k].onStart ) {
-                                    if ( programs[k].onStart.iconDroppable ) {
-                                        $( `.program-${ k }-icon` ).droppable({
-                                            accept: '.icon',
-                                            drop: function( event, ui ) {
-                                                ui.draggable.detach().appendTo(`.program-${ k }-droppable`);
-                                                ui.draggable.draggable({disabled: true});
+                                        if ( slot === 8 ) { 
+                                            slot = 0;
+                                            row = 1; 
+                                        }
+
+                                        $( '#icon-containers .icon' ).draggable({
+                                            cancel: false,
+                                            scroll: false,
+                                            containment: '#desktop',
+                                            start: function() {
+                                                $( this ).attr( 'slot', $( this ).parent('.icon-container').index());
+                                            },
+                                            revert: function ( isValidEl ) {
+                                                if( isValidEl ) {
+                                                    return false;
+                                                } else {
+                                                    return true;
+                                                }
                                             }
                                         });
                                     }
 
-                                    if ( !programs[k].onStart.fullscreen ) {
-                                        let width = '810px';
-                                        let height = '410px';
-                                        let top = '65px';
-                                        let left = '130px';
+                                    // Will append the icon to the tablet if set to true in the config
+                                    if ( programs[k].tablet ) {
+                                        let content = `<div class="program-wrapper program-tablet-${k}" program="${k}">
+                                            <div class="program-header program-${k}-header">
+                                                <i class="program-title left">${programs[k].title}</i>
+                                                <i class="program-close click material-icons right" action="program-close" program="${k}">close</i>
+                                            </div>
+                                            ${data}
+                                        </div>`;
+                            
+                                        $('#tablet-programs').append( content );
+                                        
+                                        $( `.t${ tslot }-t${ trow }` ).append( icon ).find('.icon').attr('action', 'tablet-program');
+                                        tslot++;
 
-                                        if ( programs[k].onStart.width ) {
-                                            width = programs[k].onStart.width;
+                                        if ( tslot === 6 ) { 
+                                            tslot = 0;
+                                            trow = 1; 
+                                        }
+                                    }
+                        
+                                    // Will append the icon to the taskbar if set to true in the config
+                                    if ( programs[k].icons.taskbar ) {
+                                        $('#taskbar-icons').append(`<div title="${programs[k].title}" class="icon click" action="start-program" program="${k}"><span class="icons icon-${k}-small"></span></div>`);
+                                    }
+
+                                    // onStart params, currently used to change the default size of a program aka Fullscreen or Minimized
+                                    if ( programs[k].onStart ) {
+                                        if ( programs[k].onStart.iconDroppable ) {
+                                            $( `.program-${ k }-icon` ).droppable({
+                                                accept: '.icon',
+                                                drop: function( event, ui ) {
+                                                    ui.draggable.detach().appendTo(`.program-${ k }-droppable`);
+                                                    ui.draggable.draggable({disabled: true});
+                                                }
+                                            });
                                         }
 
-                                        if ( programs[k].onStart.height ) {
-                                            height = programs[k].onStart.height;
+                                        if ( !programs[k].onStart.fullscreen ) {
+                                            let width = '810px';
+                                            let height = '410px';
+                                            let top = '65px';
+                                            let left = '130px';
+
+                                            if ( programs[k].onStart.width ) {
+                                                width = programs[k].onStart.width;
+                                            }
+
+                                            if ( programs[k].onStart.height ) {
+                                                height = programs[k].onStart.height;
+                                            }
+
+                                            let css = {
+                                                'top': top,
+                                                'left': left,
+                                                'width': width,
+                                                'height': height
+                                            };
+
+                                            if ( programs[k].onStart.top ) {
+                                                css['top'] = programs[k].onStart.top;
+                                            } else if ( programs[k].onStart.bottom ) {
+                                                delete css['top'];
+                                                css['bottom'] = `${ parseInt(programs[k].onStart.bottom) + 35 }px`;
+                                            } 
+
+                                            if ( programs[k].onStart.left ) {
+                                                css['left'] = programs[k].onStart.left;
+                                            } else if ( programs[k].onStart.right ) {
+                                                delete css['left'];
+                                                css['right'] = programs[k].onStart.right;
+                                            }
+
+                                            $(`.program-${k}-header`).parent('.program-wrapper').css( css );
+                                        } else {
+                                            $(`.program-${k}-header`).parent('.program-wrapper').css({
+                                                'top': 0,
+                                                'left': 0,
+                                                'width': '100%',
+                                                'height': '94%'
+                                            });
                                         }
-
-                                        let css = {
-                                            'top': top,
-                                            'left': left,
-                                            'width': width,
-                                            'height': height
-                                        };
-
-                                        if ( programs[k].onStart.top ) {
-                                            css['top'] = programs[k].onStart.top;
-                                        } else if ( programs[k].onStart.bottom ) {
-                                            delete css['top'];
-                                            css['bottom'] = `${ parseInt(programs[k].onStart.bottom) + 35 }px`;
-                                        } 
-
-                                        if ( programs[k].onStart.left ) {
-                                            css['left'] = programs[k].onStart.left;
-                                        } else if ( programs[k].onStart.right ) {
-                                            delete css['left'];
-                                            css['right'] = programs[k].onStart.right;
-                                        }
-
-                                        $(`.program-${k}-header`).parent('.program-wrapper').css( css );
                                     } else {
                                         $(`.program-${k}-header`).parent('.program-wrapper').css({
                                             'top': 0,
@@ -305,28 +327,21 @@ function loadPrograms() {
                                             'height': '94%'
                                         });
                                     }
-                                } else {
-                                    $(`.program-${k}-header`).parent('.program-wrapper').css({
-                                        'top': 0,
-                                        'left': 0,
-                                        'width': '100%',
-                                        'height': '94%'
+
+                                    // Makes the program icon draggable because why not
+                                    $( icon ).draggable();
+
+                                    // Makes the program window draggable because why not
+                                    $(`.program-wrapper`).draggable({
+                                        handle: ".program-header",
+                                        containment: "#desktop",
+                                        start: function () {
+                                            $('.program-wrapper').removeClass('program-active');
+                                            $(this).addClass('program-active');
+                                        }
                                     });
-                                }
-
-                                // Makes the program icon draggable because why not
-                                $( icon ).draggable();
-
-                                // Makes the program window draggable because why not
-                                $(`.program-wrapper`).draggable({
-                                    handle: ".program-header",
-                                    containment: "#desktop",
-                                    start: function () {
-                                        $('.program-wrapper').removeClass('program-active');
-                                        $(this).addClass('program-active');
-                                    }
                                 });
-                            });
+                            }
                         }
                     }    
                 }
@@ -378,10 +393,18 @@ window.addEventListener('message', ( event ) => {
 
                     $('#tablet-frame').hide();
                     $('#computer-frame').show();
-                    
-                    // Sets the background to the specified background in the config.js, the desktop background might be overriden by the logged in user background
+   
+                    // Sets the background to the specified background in the config.js, the desktop background might be overriden by the logged in user background if override isn't set
                     $('#computer-loading-content').css('background', `url(${event.data.loginBackground}) no-repeat`);
                     $('#computer-content').css('background', `url(${event.data.desktopBackground}) no-repeat`);
+                    $('#computer-login-form img').attr('src', event.data.loginLogo);
+
+                    overrideBackground = event.data.overrideBackground;
+                    markerLocationJob = event.data.job;
+
+                    if ( event.data.excludePrograms ) {
+                        markerExcludePrograms = event.data.excludePrograms;
+                    }
 
                     // Show the body
                     $('#jsfour-computer').show();
@@ -438,6 +461,11 @@ window.addEventListener('message', ( event ) => {
                             }, 50);
                         } 
                     } else {
+                        if ( !computerStatus ) {
+                            computerStatus = true;
+                            sound_turnon.play();
+                        }
+                        
                         $('#computer-frame').animate({
                             marginTop: '5%',
                         }, 500, () => {
@@ -631,29 +659,36 @@ $(() => {
                 JSON.parse( text );
                 
                 data = JSON.parse(text);
-                
+
                 if ( data != 'false' && data.length > 0 ) {
-                    loggedInUser = data[0];
-                    loadedPrograms = [];
-                    jsloaded = [];
+                    if ( data[0].job === markerLocationJob ) {
+                        loggedInUser = data[0];
+                        loadedPrograms = [];
+                        jsloaded = [];
 
-                    $('#computer-content').css('background', `url(${ loggedInUser.desktop }) no-repeat`);
+                        if ( !overrideBackground ) {
+                            $('#computer-content').css('background', `url(${ loggedInUser.desktop }) no-repeat`);
+                        }
 
-                    loadPrograms();
+                        loadPrograms();
 
-                    if ( !loggedInUser.desktop.includes('assets') ) {
-                        // Ugly delay to give the background image to load in properly ^
-                        setTimeout(() => {
+                        if ( !loggedInUser.desktop.includes('assets') ) {
+                            // Ugly delay to give the background image to load in properly ^
+                            setTimeout(() => {
+                                $('#computer-loading .preloader-wrapper').hide();
+                                $('#computer-loading').fadeOut('fast');       
+                            }, 500);
+                        } else {
+                            // If it's a localy stored image it will skip the ugly delay
                             $('#computer-loading .preloader-wrapper').hide();
-                            $('#computer-loading').fadeOut('fast');       
-                        }, 500);
-                    } else {
-                        // If it's a localy stored image it will skip the ugly delay
-                        $('#computer-loading .preloader-wrapper').hide();
-                        $('#computer-loading').fadeOut('fast'); 
-                    }
+                            $('#computer-loading').fadeOut('fast'); 
+                        }
 
-                    sound_signin.play();
+                        sound_signin.play();
+                    } else {    
+                        $('#computer-loading .preloader-wrapper').hide();
+                        error(`You can't sign in to this network..`);
+                    }
                 } else {    
                     $('#computer-loading .preloader-wrapper').hide();
                     error('Wrong username or password..');

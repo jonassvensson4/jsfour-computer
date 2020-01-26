@@ -40,7 +40,7 @@ fetch(`https://${ GetParentResourceName() }/jsfour-computer:tempData`, {
 })
 .then( response => response.text())
 .then( data => {
-    if ( data ) {
+    if ( data != 'null' ) {
         data = JSON.parse(data);
 
         Object.keys( data ).forEach(key => {
