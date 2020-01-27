@@ -67,7 +67,7 @@ setImmediate(() => {
 setTick(() => {
     if ( esxEnabled ) {
         while ( !ESX ) {
-            TriggerEvent('esx:getSharedObject', ( obj ) => {
+            emit('esx:getSharedObject', ( obj ) => {
                 ESX = obj;
             });
         }
