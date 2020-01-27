@@ -477,13 +477,17 @@ window.addEventListener('message', ( event ) => {
                     }
                     break;  
             }
-        break;
+            break;
         case 'toNUI':
             // Data sent from another NUI, it runs the specified toNUI program function, toNUIname(). Check the twitter program for examples
             let data = event.data.data;
 
             window[`toNUI${data.program}`](data);
-        break;
+            break;
+        case 'esxStatus':
+            // Esx status
+            esxEnabled = event.data.status;
+            break;
     }
 });
 

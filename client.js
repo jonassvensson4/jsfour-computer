@@ -18,6 +18,18 @@ onNet('jsfour-core:toNUI', ( data ) => {
     }));
 });
 
+// Get the ESX status from the server
+exports['jsfour-core'].serverCallback('jsfour-core:esxStatus', 'test', ( status ) => {
+    esxEnabled = status;
+
+    setTimeout(() => {
+        SendNuiMessage(JSON.stringify({
+            action: 'esxStatus',
+            status: esxEnabled,
+        }));
+    }, 100)
+});
+
 // Check distance between the player and the locations
 function checkDistance( pos ) {
     let location = false;
