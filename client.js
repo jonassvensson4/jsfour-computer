@@ -1,7 +1,6 @@
 let wait = false;
 let esxEnabled = false;
 let ESX = false;
-let steam = null;
 
 // Register NUI callbacks
 RegisterNuiCallbackType('jsfour-computer:query');
@@ -19,16 +18,18 @@ onNet('jsfour-core:toNUI', ( data ) => {
 });
 
 // Get the ESX status from the server
-exports['jsfour-core'].serverCallback('jsfour-core:esxStatus', 'test', ( status ) => {
-    esxEnabled = status;
-
-    setTimeout(() => {
-        SendNuiMessage(JSON.stringify({
-            action: 'esxStatus',
-            status: esxEnabled,
-        }));
-    }, 100)
-});
+setTimeout(() => {
+    exports['jsfour-core'].serverCallback('jsfour-core:esxStatus', 'test', ( status ) => {
+        esxEnabled = status;
+    
+        setTimeout(() => {
+            SendNuiMessage(JSON.stringify({
+                action: 'esxStatus',
+                status: esxEnabled,
+            }));
+        }, 100)
+    });    
+}, 1000);
 
 // Check distance between the player and the locations
 function checkDistance( pos ) {
@@ -83,6 +84,7 @@ setTick(() => {
                 wait = true;
     
                 setTimeout(() => {
+
                     wait = false;
                 }, 1000);
             }
