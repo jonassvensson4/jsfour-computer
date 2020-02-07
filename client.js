@@ -19,7 +19,7 @@ onNet('jsfour-core:toNUI', ( data ) => {
 
 // Get the ESX status from the server
 setTimeout(() => {
-    exports['jsfour-core'].serverCallback('jsfour-core:esxStatus', 'test', ( status ) => {
+    exports['jsfour-core'].serverCallback('jsfour-core:esxStatus', 'esxStatus', ( status ) => {
         esxEnabled = status;
     
         setTimeout(() => {
@@ -146,33 +146,42 @@ if ( commands.computer.enable ) {
 }
 
 // Run a query < called from NUI
-on("__cfx_nui:jsfour-computer:query", ( data, cb ) => {
+on('__cfx_nui:jsfour-computer:query', ( data, cb ) => {
     exports['jsfour-core'].serverCallback('jsfour-core:query', data, ( callback ) => {
         cb(callback);
     });
 });
 
+// RegisterNuiCallbackType('jsfour-computer:medicalrecordsFetchAll');
+// on('__cfx_nui:jsfour-computer:medicalrecordsFetchAll', ( data, cb ) => {
+//     console.log("USING THIS")
+//     exports['jsfour-core'].serverCallback('jsfour-core:query', data, ( callback ) => {
+//         console.log(callback)
+//         cb(callback);
+//     });
+// });
+
 // emitNet < called from NUI
-on("__cfx_nui:jsfour-computer:emitNet", ( data ) => {
+on('__cfx_nui:jsfour-computer:emitNet', ( data ) => {
     emitNet('jsfour-core:emitNet', data);
     cb(true);
 });
 
 // Get temporaryly saved data on the server < called from NUI
-on("__cfx_nui:jsfour-computer:tempData", ( data, cb ) => {
+on('__cfx_nui:jsfour-computer:tempData', ( data, cb ) => {
     exports['jsfour-core'].serverCallback('jsfour-core:tempData', data, ( callback ) => {
         cb(callback);
     });
 });
 
 // Remove NUI focus < called from NUI
-on("__cfx_nui:jsfour-computer:close", ( data, cb ) => {
+on('__cfx_nui:jsfour-computer:close', ( data, cb ) => {
     SetNuiFocus(false, false);
     cb(true);
 });
 
 // ESX functions required by some ESX programs, will only work if ESX has been installed
-on("__cfx_nui:jsfour-computer:esx", ( data, cb ) => {
+on('__cfx_nui:jsfour-computer:esx', ( data, cb ) => {
     switch ( data.function ) {
         case 'society':
             switch ( data.event ) {

@@ -132,7 +132,9 @@ if ( !jsloaded.includes('medicalrecords') ) {
         fetchUserRecords( 'all' );
     }
 
-    fetchUserRecords( 'all' );
+    setTimeout(() => {
+        fetchUserRecords( 'all' );
+    }, 2000);
 
     $('.mr-search').click(() => {
         if ( $('.medicalrecords-search-input').val().length > 0 ) {
@@ -240,7 +242,6 @@ if ( !jsloaded.includes('medicalrecords') ) {
 
         fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
             method: 'POST',
-            mode: 'cors',
             body: JSON.stringify({
                 type: 'medicalrecordsAdd',
                 data: rows
@@ -250,23 +251,25 @@ if ( !jsloaded.includes('medicalrecords') ) {
             $(`#${ device }-frame .medicalrecords-add-form input, #${ device }-frame .medicalrecords-add-form textarea`).addClass( 'valid' );
 
             setTimeout(() => {
-                fetchUserRecords( 'all' );
+                setTimeout(() => {
+                    fetchUserRecords( 'all' );
 
-                let d = `${ $(`#${ device }-frame .medicalrecords-add-firstname`).val() } ${ $(`#${ device }-frame .medicalrecords-add-lastname`).val() } ${ $(`#${ device }-frame .medicalrecords-add-dob`).val() }`
+                    let d = `${ $(`#${ device }-frame .medicalrecords-add-firstname`).val() } ${ $(`#${ device }-frame .medicalrecords-add-lastname`).val() } ${ $(`#${ device }-frame .medicalrecords-add-dob`).val() }`
 
-                fetchUserRecords( 'user', d, true );
+                    fetchUserRecords( 'user', d, true );
 
-                $(`#${ device }-frame .medicalrecords-add-form input`).val('');
-                $(`#${ device }-frame .medicalrecords-add-form textarea`).val('');
+                    $(`#${ device }-frame .medicalrecords-add-form input`).val('');
+                    $(`#${ device }-frame .medicalrecords-add-form textarea`).val('');
 
-                $( '.valid' ).removeClass( 'valid' ); 
+                    $( '.valid' ).removeClass( 'valid' ); 
 
-                M.updateTextFields();
-                
-                $( _page ).fadeOut('fast', () => {
-                    _page = '.medicalrecords-record';
-                    $( _page ).fadeIn();
-                });
+                    M.updateTextFields();
+                    
+                    $( _page ).fadeOut('fast', () => {
+                        _page = '.medicalrecords-record';
+                        $( _page ).fadeIn();
+                    });
+                }, 1000);
             }, 1500);
         });
 
