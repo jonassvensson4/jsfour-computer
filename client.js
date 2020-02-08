@@ -152,15 +152,6 @@ on('__cfx_nui:jsfour-computer:query', ( data, cb ) => {
     });
 });
 
-// RegisterNuiCallbackType('jsfour-computer:medicalrecordsFetchAll');
-// on('__cfx_nui:jsfour-computer:medicalrecordsFetchAll', ( data, cb ) => {
-//     console.log("USING THIS")
-//     exports['jsfour-core'].serverCallback('jsfour-core:query', data, ( callback ) => {
-//         console.log(callback)
-//         cb(callback);
-//     });
-// });
-
 // emitNet < called from NUI
 on('__cfx_nui:jsfour-computer:emitNet', ( data ) => {
     emitNet('jsfour-core:emitNet', data);
