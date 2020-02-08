@@ -20,14 +20,14 @@ const locations = {
         loginLogo: 'assets/images/logo_hospital.png', // Computer login logo image path
         loginBackground: 'assets/images/login_hospital.jpg', // Computer login background image path
         desktopBackground: 'assets/images/windows.png', // Computer desktop background image path
-        excludePrograms: [], // Array of program names to exclude on the location
+        excludePrograms: [ 'jobcenter', 'cardealer', 'folder', 'twitter' ], // Array of program names to exclude on the location
         overrideBackground: true, // Overrides the user background with the one specified above 
         job: 'ambulance', // The user needs to have the specified job to be able to login to the computer
         login: true, // Required to login? (Useful if you just want to display something in a store etc.. without asking the user to login)
         run: false // You can specify a program to run on start, see the cardealer marker down below
     },
     'policestation': {
-        coords: {"x": 442.0035607910156,"y": -979.3918676757812,"z": 30.689603805541992},
+        coords: { x: 442.0035607910156, y: -979.3918676757812, z: 30.689603805541992 },
         marker: {
             drawDistance: 1.5,
             type: 0,
@@ -71,3 +71,39 @@ const commands = {
         name: 'computer' // Name of the command /computer [location]
     }
 }
+
+const NUICallbacks = [
+    'jsfour-computer:login',
+    'jsfour-computer:medicalrecordsFetchAll',
+    'jsfour-computer:medicalrecordsFetchUser',
+    'jsfour-computer:medicalrecordsSearch',
+    'jsfour-computer:medicalrecordsDelete',
+    'jsfour-computer:medicalrecordsAdd',
+    'jsfour-computer:fetchMail',
+    'jsfour-computer:fetchUserEmails',
+    'jsfour-computer:sendMail',
+    'jsfour-computer:updateMailRead',
+    'jsfour-computer:updateMailFolder',
+    'jsfour-computer:deleteMail',
+    'jsfour-computer:fetchEmail',
+    'jsfour-computer:registerMail',
+    'jsfour-computer:fetchAllJobAds',
+    'jsfour-computer:addJobAd',
+    'jsfour-computer:deleteJobAd',
+    'jsfour-computer:updateJobAd',
+    'jsfour-computer:fetchAllUsers',
+    'jsfour-computer:fetchUsersByJob',
+    'jsfour-computer:updateUser',
+    'jsfour-computer:addUser',
+    'jsfour-computer:updateForumAvatar',
+    'jsfour-computer:fetchID',
+    'jsfour-computer:updateEmail',
+    'jsfour-computer:deleteUser',
+    'jsfour-computer:deleteEmail',
+    'jsfour-computer:fetchForumPosts',
+    'jsfour-computer:addForumPost',
+    'jsfour-computer:deleteForumPost',
+    'jsfour-computer:getSocieties',
+    'jsfour-computer:updateUser',
+    'jsfour-computer:updateForumAvatar',
+];

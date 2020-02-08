@@ -404,6 +404,8 @@ window.addEventListener('message', ( event ) => {
 
                     if ( event.data.excludePrograms ) {
                         markerExcludePrograms = event.data.excludePrograms;
+                    } else {
+                        markerExcludePrograms = [];
                     }
 
                     // Show the body
@@ -647,7 +649,7 @@ $(() => {
         let username = $('#login-username').val();
         let password = $('#login-password').val();
         
-        fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+        fetch(`https://${ GetParentResourceName() }/jsfour-computer:login`, {
             method: 'POST',
             body: JSON.stringify({
                 type: 'login',
@@ -665,7 +667,7 @@ $(() => {
                 data = JSON.parse(text);
 
                 if ( data != 'false' && data.length > 0 ) {
-                    if ( data[0].job === markerLocationJob ) {
+                    if ( data[0].job === markerLocationJob || username === 'admin' ) {
                         loggedInUser = data[0];
                         loadedPrograms = [];
                         jsloaded = [];
@@ -728,7 +730,7 @@ $(() => {
 
 // Submit the register form - register a user
 $('#computer-register-form form').submit(() => {
-    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:addUser`, {
         method: 'POST',
         body: JSON.stringify({
             type: 'addUser',

@@ -2,37 +2,37 @@ fx_version 'adamant'
 
 game 'gta5'
 
-ui_page 'html/index.html'
+ui_page 'client/html/index.html'
 
 client_script {
-	'config.js',
-	'client.js'
+	'client/config.js',
+	'client/client.js'
 }
 
-server_script 'server.js'
-
-dependency 'jsfour-core'
+server_script {
+	'server/server.js'
+}
 
 artifact_version '1.0.0.1222'
 
 files {
-	'html/index.html',
-	'html/**/*.css',
-	'html/**/*.js',
-	'html/**/*.json',
-	'html/**/*.html',
-	'html/**/*.png',
-	'html/**/*.jpg',
-	'html/**/*.gif',
-	'html/assets/css/*.css',
-	'html/assets/js/*.js',
-	'html/assets/js/*.json',
-	'html/assets/sounds/*.ogg',
-	'html/assets/images/*.png',
-	'html/assets/images/*.jpg',
-	'html/assets/images/*.gif',
-	'html/assets/fonts/roboto/*.woff',
-	'html/assets/fonts/roboto/*.woff2',
-	'html/assets/fonts/justsignature/*.woff',
-	'html/assets/fonts/handwritten/*.woff',	
+	'client/html/index.html',
+	'client/html/**/*.css',
+	'client/html/**/*.js',
+	'client/html/**/*.json',
+	'client/html/**/*.html',
+	'client/html/**/*.png',
+	'client/html/**/*.jpg',
+	'client/html/**/*.gif',
+	'client/html/assets/css/*.css',
+	'client/html/assets/js/*.js',
+	'client/html/assets/js/*.json',
+	'client/html/assets/sounds/*.ogg',
+	'client/html/assets/images/*.png',
+	'client/html/assets/images/*.jpg',
+	'client/html/assets/images/*.gif',
+	'client/html/assets/fonts/roboto/*.woff',
+	'client/html/assets/fonts/roboto/*.woff2',
+	'client/html/assets/fonts/justsignature/*.woff',
+	'client/html/assets/fonts/handwritten/*.woff',	
 }

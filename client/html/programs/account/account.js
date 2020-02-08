@@ -77,7 +77,7 @@ $('#account-form').submit( () => {
     if ( update ) {
         rows['@id'] = $('#account-username').attr('identifier');
  
-        fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+        fetch(`https://${ GetParentResourceName() }/jsfour-computer:updateUser`, {
             method: 'POST',
             body: JSON.stringify({
                 type: 'updateUser',
@@ -90,7 +90,7 @@ $('#account-form').submit( () => {
                 $('#account-form input').addClass('valid');
 
                 if ( $('#account-avatar').val() != loggedInUser.avatar ) { 
-                    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+                    fetch(`https://${ GetParentResourceName() }/jsfour-computer:updateForumAvatar`, {
                         method: 'POST',
                         body: JSON.stringify({
                             type: 'updateForumAvatar',

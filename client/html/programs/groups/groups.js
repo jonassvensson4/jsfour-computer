@@ -19,7 +19,7 @@ function getUsers( job, group ) {
         M.updateTextFields();
     }
     
-    fetch(`http://${ GetParentResourceName() }/jsfour-computer:query`, {
+    fetch(`http://${ GetParentResourceName() }/jsfour-computer:${ fetchType }`, {
         method: 'POST',
         body: JSON.stringify({
             type: fetchType,
@@ -130,7 +130,7 @@ function updateRows( type ) {
 
     rows['@uniqueValue'] = '@username';
 
-    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:${ fetchType }`, {
         method: 'POST',
         body: JSON.stringify({
             type: fetchType,
@@ -150,7 +150,7 @@ function updateRows( type ) {
             }, 1000);
 
             if ( $('#groups-update-username').attr('avatar') != loggedInUser.avatar ) {
-                fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+                fetch(`https://${ GetParentResourceName() }/jsfour-computer:updateForumAvatar`, {
                     method: 'POST',
                     body: JSON.stringify({
                         type: 'updateForumAvatar',
@@ -163,7 +163,7 @@ function updateRows( type ) {
             }
             
             if ( type === 'register' ) {
-                fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+                fetch(`https://${ GetParentResourceName() }/jsfour-computer:fetchID`, {
                     method: 'POST',
                     body: JSON.stringify({
                         type: 'fetchID',
@@ -175,7 +175,7 @@ function updateRows( type ) {
                 .then( response => response.json() )
                 .then( data => {
                     if ( parseInt( data[0].id ) ) {
-                        fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+                        fetch(`https://${ GetParentResourceName() }/jsfour-computer:registerMail`, {
                             method: 'POST',
                             body: JSON.stringify({
                                 type: 'registerMail',
@@ -189,7 +189,7 @@ function updateRows( type ) {
                     }
                 });
             } else {  
-                fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+                fetch(`https://${ GetParentResourceName() }/jsfour-computer:updateEmail`, {
                     method: 'POST',
                     body: JSON.stringify({
                         type: 'updateEmail',
@@ -216,7 +216,7 @@ $('#groups-register-user').submit(() => { updateRows('register'); return false; 
 $('#groups-update-user').submit(() => { updateRows('update'); return false; });
 
 $('#groups-delete-user').submit(() => { 
-    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:deleteUser`, {
         method: 'POST',
         body: JSON.stringify({
             type: 'deleteUser',
@@ -228,9 +228,8 @@ $('#groups-delete-user').submit(() => {
     .then( response => response.text() )
     .then( data => {
         if ( JSON.parse( data ) ) {
-            fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+            fetch(`https://${ GetParentResourceName() }/jsfour-computer:deleteEmail`, {
                 method: 'POST',
-                mode: 'cors',
                 body: JSON.stringify({
                     type: 'deleteEmail',
                     data: {

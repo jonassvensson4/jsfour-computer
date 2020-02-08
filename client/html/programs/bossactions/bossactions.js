@@ -77,7 +77,7 @@ function getMoney() {
 }
 
 function refreshbossactions() {
-    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:getSocieties`, {
         method: 'POST',
         body: JSON.stringify({
             type: 'getSocieties'

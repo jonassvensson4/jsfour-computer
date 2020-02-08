@@ -3,11 +3,27 @@ let esxEnabled = false;
 let ESX = false;
 
 // Register NUI callbacks
-RegisterNuiCallbackType('jsfour-computer:query');
 RegisterNuiCallbackType('jsfour-computer:emitNet');
 RegisterNuiCallbackType('jsfour-computer:esx');
 RegisterNuiCallbackType('jsfour-computer:close');
 RegisterNuiCallbackType('jsfour-computer:tempData');
+
+for ( let i = 0; i < NUICallbacks.length; i++ ) {
+    setTimeout(() => {
+        let name = NUICallbacks[i];
+
+        RegisterNuiCallbackType(name);
+        RegisterNetEvent(name);
+    
+        on(`__cfx_nui:${ name }`, ( data, cb ) => {
+            data['clientEvent'] = name;
+            
+            exports['jsfour-core'].serverCallback('jsfour-core:query', data, ( callback ) => {
+                cb(callback);
+            });
+        });
+    }, i * 200 );
+}
 
 // Triggered when a player sends data to another player
 onNet('jsfour-core:toNUI', ( data ) => {

@@ -13,7 +13,7 @@ function fetchMails( mail ) {
     $('#mail-inbox-inbox, #mail-inbox-sent, #mail-inbox-junk, #mail-inbox-deleted').html('');
 
     // Fetch from the database
-    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:fetchMail`, {
         method: 'POST',
         body: JSON.stringify({
             type: 'fetchMail',
@@ -113,7 +113,7 @@ function fetchMails( mail ) {
 }
 
 function fetchEmails() {
-    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:fetchUserEmails`, {
         method: 'POST',
         body: JSON.stringify({
             type: 'fetchUserEmails',
@@ -160,7 +160,7 @@ function fetchEmails() {
 fetchEmails();
 
 function sendMail() {
-    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:sendMail`, {
         method: 'POST',
         body: JSON.stringify({
             type: 'sendMail',
@@ -304,7 +304,7 @@ $('body').on('click', '.mail-inbox-content', function() {
                 }
             });
 
-            fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+            fetch(`https://${ GetParentResourceName() }/jsfour-computer:updateMailRead`, {
                 method: 'POST',
                 body: JSON.stringify({
                     type: 'updateMailRead',
@@ -338,7 +338,7 @@ $('#mail-email-header p').click( function() {
                 case 'sent':
                 case 'junk':
                 case 'inbox':
-                    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+                    fetch(`https://${ GetParentResourceName() }/jsfour-computer:updateMailFolder`, {
                         method: 'POST',
                         body: JSON.stringify({
                             type: 'updateMailFolder',
@@ -361,7 +361,7 @@ $('#mail-email-header p').click( function() {
                     });
                     break;
                 case 'deleted':
-                    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+                    fetch(`https://${ GetParentResourceName() }/jsfour-computer:deleteMail`, {
                         method: 'POST',
                         body: JSON.stringify({
                             type: 'deleteMail',
@@ -398,7 +398,7 @@ $('#mail-email-header p').click( function() {
 $('#mail-register form').submit(() => {
     let registerEmail = `${ $('#mail-register-name').val().toLowerCase() }@${ $('#mail-register-domain').val().toLowerCase() }`;
 
-    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:fetchEmail`, {
         method: 'POST',
         body: JSON.stringify({
             type: 'fetchEmail',
@@ -412,7 +412,7 @@ $('#mail-register form').submit(() => {
         if ( data != 'false' && data.length === 0 ) {
             $('#mail-register-name, #mail-register-domain').removeClass('invalid');
 
-            fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+            fetch(`https://${ GetParentResourceName() }/jsfour-computer:registerMail`, {
                 method: 'POST',
                 body: JSON.stringify({
                     type: 'registerMail',

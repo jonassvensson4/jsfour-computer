@@ -24,7 +24,7 @@ if ( !jsloaded.includes('medicalrecords') ) {
             });
         }
 
-        fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+        fetch(`https://${ GetParentResourceName() }/jsfour-computer:${ fetchType }`, {
             method: 'POST',
             body: JSON.stringify({
                 type: fetchType,
@@ -85,7 +85,7 @@ if ( !jsloaded.includes('medicalrecords') ) {
     function searchRecords() {
         let search = $( `#${ device }-frame .medicalrecords-search-input` ).val();
 
-        fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+        fetch(`https://${ GetParentResourceName() }/jsfour-computer:medicalrecordsSearch`, {
             method: 'POST',
             body: JSON.stringify({
                 type: 'medicalrecordsSearch',
@@ -132,9 +132,7 @@ if ( !jsloaded.includes('medicalrecords') ) {
         fetchUserRecords( 'all' );
     }
 
-    setTimeout(() => {
-        fetchUserRecords( 'all' );
-    }, 2000);
+    fetchUserRecords( 'all' );
 
     $('.mr-search').click(() => {
         if ( $('.medicalrecords-search-input').val().length > 0 ) {
@@ -161,7 +159,7 @@ if ( !jsloaded.includes('medicalrecords') ) {
             $('.medicalrecords-record .collapsible').remove();
         } 
 
-        fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+        fetch(`https://${ GetParentResourceName() }/jsfour-computer:medicalrecordsDelete`, {
             method: 'POST',
             body: JSON.stringify({
                 type: 'medicalrecordsDelete',
@@ -240,7 +238,7 @@ if ( !jsloaded.includes('medicalrecords') ) {
             }
         }
 
-        fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+        fetch(`https://${ GetParentResourceName() }/jsfour-computer:medicalrecordsAdd`, {
             method: 'POST',
             body: JSON.stringify({
                 type: 'medicalrecordsAdd',
@@ -251,25 +249,23 @@ if ( !jsloaded.includes('medicalrecords') ) {
             $(`#${ device }-frame .medicalrecords-add-form input, #${ device }-frame .medicalrecords-add-form textarea`).addClass( 'valid' );
 
             setTimeout(() => {
-                setTimeout(() => {
-                    fetchUserRecords( 'all' );
+                fetchUserRecords( 'all' );
 
-                    let d = `${ $(`#${ device }-frame .medicalrecords-add-firstname`).val() } ${ $(`#${ device }-frame .medicalrecords-add-lastname`).val() } ${ $(`#${ device }-frame .medicalrecords-add-dob`).val() }`
+                let d = `${ $(`#${ device }-frame .medicalrecords-add-firstname`).val() } ${ $(`#${ device }-frame .medicalrecords-add-lastname`).val() } ${ $(`#${ device }-frame .medicalrecords-add-dob`).val() }`
 
-                    fetchUserRecords( 'user', d, true );
+                fetchUserRecords( 'user', d, true );
 
-                    $(`#${ device }-frame .medicalrecords-add-form input`).val('');
-                    $(`#${ device }-frame .medicalrecords-add-form textarea`).val('');
+                $(`#${ device }-frame .medicalrecords-add-form input`).val('');
+                $(`#${ device }-frame .medicalrecords-add-form textarea`).val('');
 
-                    $( '.valid' ).removeClass( 'valid' ); 
+                $( '.valid' ).removeClass( 'valid' ); 
 
-                    M.updateTextFields();
-                    
-                    $( _page ).fadeOut('fast', () => {
-                        _page = '.medicalrecords-record';
-                        $( _page ).fadeIn();
-                    });
-                }, 1000);
+                M.updateTextFields();
+                
+                $( _page ).fadeOut('fast', () => {
+                    _page = '.medicalrecords-record';
+                    $( _page ).fadeIn();
+                });
             }, 1500);
         });
 

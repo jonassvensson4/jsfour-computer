@@ -191,6 +191,10 @@ body, html {
     overflow: hidden;
 }
 
+.hidden {
+    display: none;
+}
+
 .program-wrapper {
     z-index: 1000;
     display: none;

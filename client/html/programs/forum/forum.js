@@ -2,7 +2,7 @@ $('.program-forum h6').text(`Forum - ${loggedInUser.job}`);
 $('select').formSelect();
 
 function fetchPosts() {
-    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:fetchForumPosts`, {
         method: 'POST',
         body: JSON.stringify({
             type: 'fetchForumPosts',
@@ -65,7 +65,7 @@ $('.program-forum form').submit( () => {
     let today = new Date();
     let date = `${today.getDate()}/${today.getMonth() + 1}`;
 
-    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:addForumPost`, {
         method: 'POST',
         body: JSON.stringify({
             type: 'addForumPost',
@@ -91,7 +91,7 @@ $('.program-forum form').submit( () => {
 });
 
 $('body').on('click', '.forum-delete', function () {
-    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:deleteForumPost`, {
         method: 'POST',
         body: JSON.stringify({
             type: 'deleteForumPost',

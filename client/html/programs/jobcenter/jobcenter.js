@@ -3,7 +3,7 @@ let jobs = {};
 function fetchAllAds() {
     $('#jc-jobs').html('');
 
-    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:fetchAllJobAds`, {
         method: 'POST',
         body: JSON.stringify({
             type: 'fetchAllJobAds'
@@ -80,7 +80,7 @@ $('#jc-add').click(()=> {
 });
 
 $('#jc-add-form form').submit(() => {
-    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:addJobAd`, {
         method: 'POST',
         body: JSON.stringify({
             type: 'addJobAd',
@@ -151,7 +151,7 @@ function edit() {
 }
 
 $('#jc-job-delete').click( function() {
-    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:deleteJobAd`, {
         method: 'POST',
         body: JSON.stringify({
             type: 'deleteJobAd',
@@ -178,7 +178,7 @@ $('#jc-job-edit').click(() => {
 });
 
 $('#jc-job-save').click( function() {
-    fetch(`https://${ GetParentResourceName() }/jsfour-computer:query`, {
+    fetch(`https://${ GetParentResourceName() }/jsfour-computer:updateJobAd`, {
         method: 'POST',
         body: JSON.stringify({
             type: 'updateJobAd',
