@@ -1,6 +1,6 @@
 let vehicles;
 let blacklistedCategory = ['military', 'industrial', 'emergency', 'utility', 'helicopters', 'planes', 'service', 'boats', 'commercial'];
-let blacklistedVehicle = ['Caracara', 'Insurgent', 'Insurgent Pick-Up', 'Insurgent Pick-Up Custom', 'Menacer', 'Ramp Buggy', 'Technical', 'Technical Aqua', 'Technical Custom', 'Oppressor', 'Oppressor Mk II', 'Vigilante (car)', 'Armored Boxville', 'Turreted Limo', ''];
+let blacklistedVehicle = ['caracara', 'insurgent', 'insurgent pick-up', 'insurgent pick-ip custom', 'menacer', 'ramp buggy', 'technical', 'technical aqua', 'technical custom', 'oppressor', 'oppressor mk ii', 'vigilante (car)', 'armored boxville', 'turreted limo'];
 let categories = [];
 
 $.getJSON('programs/cardealer/vehicles.json', function( data )
