@@ -117,13 +117,6 @@ function loadPrograms() {
         }
     }
 
-    // Generates tablet icon slots
-    for ( let j = 0; j < 6; j++ ) {
-        for ( let i = 0; i < 10; i++ ) {
-            $('#tablet-icon-containers').append( `<div class="icon-container t${ j }-t${ i }"></div>` );
-        }
-    }
-
     // Makes the icon slots droppable
     $('body .icon-container').droppable({
         accept: '.icon',
@@ -357,7 +350,7 @@ function loadPrograms() {
     }
 }
 
-// LUA event listener
+// Event listener
 window.addEventListener('message', ( event ) => {
     switch( event.data.action ) {
         // Opens the computer
@@ -397,6 +390,7 @@ window.addEventListener('message', ( event ) => {
                     // Sets the background to the specified background in the config.js, the desktop background might be overriden by the logged in user background if override isn't set
                     $('#computer-loading-content').css('background', `url(${event.data.loginBackground}) no-repeat`);
                     $('#computer-content').css('background', `url(${event.data.desktopBackground}) no-repeat`);
+                    $('#computer-content').css('background-size', `cover`);
                     $('#computer-login-form img').attr('src', event.data.loginLogo);
 
                     overrideBackground = event.data.overrideBackground;
@@ -674,6 +668,7 @@ $(() => {
 
                         if ( !overrideBackground ) {
                             $('#computer-content').css('background', `url(${ loggedInUser.desktop }) no-repeat`);
+                            $('#computer-content').css('background-size', `cover`);
                         }
 
                         loadPrograms();
@@ -761,3 +756,37 @@ $('#computer-register-form form').submit(() => {
 
     return false;
 });
+
+function devMode() {
+    esxEnabled = true;
+    loggedInUser = {
+        "id":1,
+        "username":"admin",
+        "password":"admin",
+        "firstname":"Admin",
+        "lastname":"Admin",
+        "group":"admin",
+        "job":"all",
+        "avatar":"https://via.placeholder.com/50x50",
+        "desktop":"assets/images/windows.png",
+        "email":"email@email.com"
+    };
+
+    $('#jsfour-computer').show();
+    $('#computer-loading').fadeOut('fast');
+    
+    $('#computer-content').css('background', `url(${ loggedInUser.desktop }) no-repeat`);
+    $('#computer-content').css('background-size', `cover`);
+
+    loadPrograms();
+
+    $('#computer-frame').show();
+    $('#computer-frame').animate({
+        marginTop: '5%',
+    }, 100, () => {
+        setTimeout(() => {
+            $('#computer-loading-content').fadeIn(500);
+            $('#login-username').select();
+        }, 100);
+    });
+}

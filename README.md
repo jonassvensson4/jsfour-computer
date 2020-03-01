@@ -34,10 +34,8 @@ Feel free to make forks and post any updates in the original forum thread. **Do 
 [![jsfour-computer preview](https://img.youtube.com/vi/SpRQO5UtZSA/0.jpg)](https://www.youtube.com/watch?v=SpRQO5UtZSA)
 
 ### INSTALLATION
-* Install dependency: <a href="https://github.com/jonassvensson4/jsfour-core">jsfour-core</a>
-* <a href="https://github.com/jonassvensson4/jsfour-computer/releases">Download the resource</a>
-* Add `start jsfour-computer` to your server.cfg. Remember to start it after my jsfour-core resource.
 * Run the SQL file.
+* Add `start jsfour-computer` to your server.cfg.
 
 ##### INFO
 * The SQL file will create an admin user, the username and the password is set to `admin`. It's recommended to change this in the user settings inside the computer..
@@ -87,5 +85,9 @@ There are currently 4 groups added; `admin, user, all, null`. Null means you don
 2. Create a html file inside the folder with the exact same name as the folder. You can currently add files with any of the following extension (.html, .js, .css, .png, .jpg, .gif, .json) in the folder. If you want to include other files this needs to be added in the __resource.lua
 3. Add the program to the <a href="https://github.com/jonassvensson4/jsfour-computer/html/programs/programConfig.js" target="_blank">programConfig.js</a> file. The name needs to be the exact same as the folder you've just created.
 4. Icons can be added to the icons.png file. PSD file can be found <a href="https://www.dropbox.com/s/c4uwn17hfixny16/icons.psd?dl=0" target="_blank">here</a>.
-5. If your program requires data from the database you'll need to specify the SQL query in the <a href="https://github.com/jonassvensson4/jsfour-computer/server.js" target="_blank">server.js</a>. It will then be available when using fetch(). Examples of the fetch function can be found in different programs and in the <a href="https://github.com/jonassvensson4/jsfour-core/" target="_blank">jsfour-core</a> readme.
+5. If your program requires data from the database you'll need to specify the SQL query in the <a href="https://github.com/jonassvensson4/jsfour-computer/server.js" target="_blank">server.js</a>. It will then be available when using fetch(). Examples of the fetch function can be found in different programs.
+
+**Tip:** There's a devMode function that you can run in init.js to make it easier for you to create programs in your browser. 
+
+Remember that you can't access the servers callbacks. You'll have to create the design in the browser and then implement the backend. It's also important that you disable the CORS policy since it may block the programs loading in.
 

@@ -64,6 +64,7 @@ $('#account-form').submit( () => {
         }
 
         $('#computer-content').css('background', `url(${ $('#account-desktop').val() }) no-repeat`);
+        $('#computer-content').css('background-size', `cover`);
 
         Object.keys(rows).forEach( ( k ) => {
             let row = k.substr(1);

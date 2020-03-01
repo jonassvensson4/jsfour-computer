@@ -1,12 +1,31 @@
 let wait = false;
 let esxEnabled = false;
 let ESX = false;
+let callbacks = {};
+
+// Register client events
+RegisterNetEvent('jsfour-computer:toNUI');
+RegisterNetEvent('jsfour-computer:esxStatus');
+RegisterNetEvent('jsfour-computer:callback');
 
 // Register NUI callbacks
 RegisterNuiCallbackType('jsfour-computer:emitNet');
 RegisterNuiCallbackType('jsfour-computer:esx');
 RegisterNuiCallbackType('jsfour-computer:close');
 RegisterNuiCallbackType('jsfour-computer:tempData');
+
+onNet('jsfour-computer:callback', ( result, id ) => {
+    callbacks[id](result);
+    delete callbacks[id];
+});
+
+// Server callback
+function serverCallback( name, data, cb ) {
+    let id = Object.keys( callbacks ).length++;
+    callbacks[id] = cb;
+    data['CallbackID'] = id;
+    emitNet(name, data);
+}
 
 for ( let i = 0; i < NUICallbacks.length; i++ ) {
     setTimeout(() => {
@@ -18,7 +37,7 @@ for ( let i = 0; i < NUICallbacks.length; i++ ) {
         on(`__cfx_nui:${ name }`, ( data, cb ) => {
             data['clientEvent'] = name;
             
-            exports['jsfour-core'].serverCallback('jsfour-core:query', data, ( callback ) => {
+            serverCallback('jsfour-computer:query', data, ( callback ) => {
                 cb(callback);
             });
         });
@@ -26,7 +45,7 @@ for ( let i = 0; i < NUICallbacks.length; i++ ) {
 }
 
 // Triggered when a player sends data to another player
-onNet('jsfour-core:toNUI', ( data ) => {
+onNet('jsfour-computer:toNUI', ( data ) => {
     SendNuiMessage(JSON.stringify({
         action: 'toNUI',
         data: data,
@@ -35,7 +54,7 @@ onNet('jsfour-core:toNUI', ( data ) => {
 
 // Get the ESX status from the server
 setTimeout(() => {
-    exports['jsfour-core'].serverCallback('jsfour-core:esxStatus', 'esxStatus', ( status ) => {
+    serverCallback('jsfour-computer:esxStatus', 'esxStatus', ( status ) => {
         esxEnabled = status;
     
         setTimeout(() => {
@@ -163,20 +182,20 @@ if ( commands.computer.enable ) {
 
 // Run a query < called from NUI
 on('__cfx_nui:jsfour-computer:query', ( data, cb ) => {
-    exports['jsfour-core'].serverCallback('jsfour-core:query', data, ( callback ) => {
+    serverCallback('jsfour-computer:query', data, ( callback ) => {
         cb(callback);
     });
 });
 
 // emitNet < called from NUI
 on('__cfx_nui:jsfour-computer:emitNet', ( data ) => {
-    emitNet('jsfour-core:emitNet', data);
+    emitNet('jsfour-computer:emitNet', data);
     cb(true);
 });
 
 // Get temporaryly saved data on the server < called from NUI
 on('__cfx_nui:jsfour-computer:tempData', ( data, cb ) => {
-    exports['jsfour-core'].serverCallback('jsfour-core:tempData', data, ( callback ) => {
+    serverCallback('jsfour-computer:tempData', data, ( callback ) => {
         cb(callback);
     });
 });
