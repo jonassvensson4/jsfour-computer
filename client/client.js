@@ -114,7 +114,7 @@ setTick(() => {
             if ( checkDistance() ) {
                 // TODO: hints
                 let location = locations[checkDistance().key];
-                DrawMarker(location.marker.type, location.coords.x, location.coords.y, location.coords.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, location.marker.size.x, location.marker.size.y, location.marker.size.z, location.marker.color.r, location.marker.color.g, location.marker.color.b, 100, false, true, 2, false, false, false, false);
+                DrawMarker(location.marker.type, location.coords.x, location.coords.y, location.coords.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, location.marker.size.x, location.marker.size.y, location.marker.size.z, location.marker.color.r, location.marker.color.g, location.marker.color.b, 100, location.marker.animate, true, 2, false, false, false, false);
             } else {
                 wait = true;
     
@@ -204,6 +204,11 @@ on('__cfx_nui:jsfour-computer:tempData', ( data, cb ) => {
 on('__cfx_nui:jsfour-computer:close', ( data, cb ) => {
     SetNuiFocus(false, false);
     cb(true);
+
+    // Save icon slots if they have been changed
+    if ( data ) {
+        emitNet('jsfour-computer:query', data);
+    }
 });
 
 // ESX functions required by some ESX programs, will only work if ESX has been installed

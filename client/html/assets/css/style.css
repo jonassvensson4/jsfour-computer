@@ -39,7 +39,7 @@ body, html {
     display: none;
     background: url(../images/computer_frame.png) no-repeat;
     background-size: contain;
-    height: 773px;
+    height: 749px;
     width: 1062px;
     margin: 100vh 22% 0 22%;
     overflow: auto;
@@ -59,7 +59,7 @@ body, html {
 
 #computer-screen {
     width: 1012px;
-    height: 575px;
+    height: 551px;
     position: relative;
 }
 

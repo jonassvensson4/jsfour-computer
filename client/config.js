@@ -9,12 +9,13 @@ const displayMarkers = true;
 // You don't have to add it to the __resource.lua, it reads all .gif, .jpg and .png files.
 const locations = {
     'hospital': {
-        coords: { x: -61.942230224609, y: -1118.2244873047, z: 26.435796737671 }, // Coords of the marker
+        coords: { x:308.17132568359375, y:-595.3550415039062, z:42.29182815551758 }, // Coords of the marker
         marker: {
             drawDistance: 5, // Player distance before the marker is visible
             type: 27, // Marker type
             size: { x: 2.0, y: 2.0, z: 1.0 }, // Marker size
             color: { r: 26, g: 55, b: 186 }, // Marker color
+            animate: false, // Makes the marker move up and down
             text: 'Press ~E~' // Marker text/hint
         },
         loginLogo: 'assets/images/logo_hospital.png', // Computer login logo image path
@@ -33,6 +34,7 @@ const locations = {
             type: 0,
             size: { x: 0.3, y: 0.3, z: 0.2 },
             color: { r: 28, g: 252, b: 3 },
+            animate: false,
             text: 'Press ~E~'
         },
         loginLogo: 'assets/images/logo_police.png',
@@ -51,10 +53,9 @@ const locations = {
             type: 27,
             size: { x: 2.0, y: 2.0, z: 1.0 },
             color: { r: 26, g: 55, b: 186 },
+            animate: false,
             text: 'Press ~E~'
         },
-        loginLogo: 'assets/images/logo_hospital.png',
-        loginBackground: 'assets/images/login_cardealer.jpg',
         desktopBackground: 'assets/images/login_cardealer.jpg',
         login: false,
         run: 'cardealer'

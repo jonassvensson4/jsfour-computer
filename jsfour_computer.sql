@@ -47,11 +47,11 @@ CREATE TABLE `jsfour_users` (
   `job` varchar(255) COLLATE utf8mb4_bin NOT NULL,
   `avatar` varchar(255) COLLATE utf8mb4_bin DEFAULT 'https://via.placeholder.com/50?text=A',
   `desktop` varchar(255) COLLATE utf8mb4_bin DEFAULT 'assets/images/windows.png',
-  `email` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `iconslots` longtext,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `username_UNIQUE` (`username`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
+  UNIQUE KEY `username_UNIQUE` (`username`)
 );
+
 
 INSERT INTO `jsfour_users` (`username`, `password`, `firstname`, `lastname`, `group`, `job`, `avatar`, `desktop`) VALUES ('admin', 'admin', 'admin', 'admin', 'admin', 'all', 'https://via.placeholder.com/50x50', 'assets/images/windows.png');
 

@@ -213,12 +213,12 @@ $('body').on('click', '.click', function () {
             } else {
                 elem.find('.container').css('width', '70%');
             }
-
+            
             elem.css({
                 'top': 0,
                 'left': 0,
                 'width': elem.width() === 1012 ? '810px' : '100%',
-                'height': elem.height() === 541 ? '410px' : '94%'
+                'height': elem.height() === 518 ? '410px' : '94%'
             });
             break;
         case 'program-refresh':

@@ -11,9 +11,9 @@ let computerStatus = true;
 let computerToggleDelay = false;
 let overrideBackground = false;
 let steam = null;
-let debug = true;
 let device = 'computer';
 let jsloaded = [];
+let requiedToLogin = true;
 
 // Sets the default volumne to 0.2
 Howler.volume(volume);
@@ -81,13 +81,17 @@ function off() {
             computerStatus = true
     
             sound_turnon.play();
-            
-            setTimeout(() => {
-                $('#computer-loading').fadeIn(250, () => {
-                    $('#computer-loading-content').fadeIn(500);
-                    $('#login-username').select();
-                });
-            }, 800);
+
+            if ( !requiedToLogin ) {
+                $('#computer-loading').fadeOut(3000);
+            } else {
+                setTimeout(() => {
+                    $('#computer-loading').fadeIn(250, () => {
+                        $('#computer-loading-content').fadeIn(500);
+                        $('#login-username').select();
+                    });
+                }, 800);
+            }
         }
 
         setTimeout(() => {
@@ -157,10 +161,10 @@ function loadPrograms() {
                     if ( !loadedPrograms.includes( k ) ) {
                        // Checks if the program requires ESX and if the server has it installed
                         if ( ( programs[k].ESX && esxEnabled ) || !programs[k].ESX ) {
-                            // Checks if the locations has any excluded programns, otherwise it will load them all
-                            if ( !markerExcludePrograms.includes( k ) ) {
+                            // Checks if the locations has any excluded programns, otherwise it will load them all - Admin username overrides this
+                            if ( !markerExcludePrograms.includes( k ) || ( loggedInUser && loggedInUser.username === 'admin' ) ) {
                                 loadedPrograms.push( k );
-
+                                
                                 // Loads in the html file from the programs folder strucutred like this: programs/name/name.html
                                 $.get(`programs/${k}/${k}.html`, function( data ) {
                                     let content = `<div class="program-wrapper" program="${k}">
@@ -202,9 +206,8 @@ function loadPrograms() {
                                     if ( programs[k].icons.start ) {
                                         $('#windows-start').append( icon );
                                     }
-                        
-                                    // Will append the icon to the desktop if set to true in the config
-                                    if ( programs[k].icons.desktop ) {
+
+                                    function createIcon() {
                                         $( `.${ slot }-${ row }` ).append( icon );
                                         slot++;
 
@@ -228,6 +231,35 @@ function loadPrograms() {
                                                 }
                                             }
                                         });
+                                    }
+                                    
+                                    // Will append the icon to the desktop if set to true in the config
+                                    if ( programs[k].icons.desktop ) {
+                                        if ( loggedInUser.iconslots ) {
+                                            if ( k in loggedInUser.iconslots ) {
+                                                $( `.${ loggedInUser.iconslots[k] }` ).append( icon );
+
+                                                $( '#icon-containers .icon' ).draggable({
+                                                    cancel: false,
+                                                    scroll: false,
+                                                    containment: '#desktop',
+                                                    start: function() {
+                                                        $( this ).attr( 'slot', $( this ).parent('.icon-container').index());
+                                                    },
+                                                    revert: function ( isValidEl ) {
+                                                        if( isValidEl ) {
+                                                            return false;
+                                                        } else {
+                                                            return true;
+                                                        }
+                                                    }
+                                                });
+                                            } else {
+                                                createIcon();
+                                            }
+                                        } else {
+                                            createIcon();
+                                        }
                                     }
 
                                     // Will append the icon to the tablet if set to true in the config
@@ -357,44 +389,20 @@ window.addEventListener('message', ( event ) => {
         case 'open':
             switch( event.data.device ) {
                 case 'tablet':
-                    device = 'tablet';
-                    loggedInUser = null;
-                    loadedPrograms = [];
-                    jsloaded = [];
-
-                    loadPrograms();
-
-                    sound_turnon.play();
-
-                    $('#computer-frame').hide();
-                    $('#tablet-frame').show();
-
-                    // Show the body
-                    $('#jsfour-computer').show();
-
-                    $('#tablet-frame').animate({
-                        marginTop: '20%',
-                    });
-
-                    $('#tablet-screen').css({
-                        background: `url(${event.data.desktopBackground}) no-repeat`,
-                        backgroundSize: 'cover'
-                    });
+                    // Not in use at the moment
                     break;
                 default:
                     device = 'computer';
 
-                    $('#tablet-frame').hide();
                     $('#computer-frame').show();
    
                     // Sets the background to the specified background in the config.js, the desktop background might be overriden by the logged in user background if override isn't set
-                    $('#computer-loading-content').css('background', `url(${event.data.loginBackground}) no-repeat`);
                     $('#computer-content').css('background', `url(${event.data.desktopBackground}) no-repeat`);
                     $('#computer-content').css('background-size', `cover`);
-                    $('#computer-login-form img').attr('src', event.data.loginLogo);
 
                     overrideBackground = event.data.overrideBackground;
                     markerLocationJob = event.data.job;
+                    requiedToLogin = event.data.login;
 
                     if ( event.data.excludePrograms ) {
                         markerExcludePrograms = event.data.excludePrograms;
@@ -414,6 +422,8 @@ window.addEventListener('message', ( event ) => {
 
                         // Checks if the player is required to sign in
                         if ( !event.data.login ) {
+                            // False = not required to login
+
                             loggedInUser = null;
                             loadedPrograms = [];
                             jsloaded = [];
@@ -423,7 +433,7 @@ window.addEventListener('message', ( event ) => {
                             $('#computer-loading').hide();
 
                             $('#computer-frame').animate({
-                                marginTop: '5%',
+                                marginTop: '10%',
                             }, 500, () => {
                                 setTimeout(() => {
                                     $('#computer-loading-content').fadeIn(500);
@@ -431,6 +441,10 @@ window.addEventListener('message', ( event ) => {
                                 }, 1500);
                             });
                         } else {
+                            $('#computer-loading-content').css('background', `url(${event.data.loginBackground}) no-repeat`);
+                            $('#computer-loading-content').css('background-size', `cover`);
+                            $('#computer-login-form img').attr('src', event.data.loginLogo);
+
                             loggedInUser = null;
                             loadedPrograms = [];
 
@@ -441,7 +455,7 @@ window.addEventListener('message', ( event ) => {
                             $('#computer-loading').show();
 
                             $('#computer-frame').animate({
-                                marginTop: '5%',
+                                marginTop: '10%',
                             }, 500, () => {
                                 setTimeout(() => {
                                     $('#computer-loading-content').fadeIn(500);
@@ -457,11 +471,16 @@ window.addEventListener('message', ( event ) => {
                             }, 50);
                         } 
                     } else {
+                        // A new location
                         if ( !computerStatus ) {
                             computerStatus = true;
                             sound_turnon.play();
                         }
-                        
+
+                        if ( !event.data.login ) {
+                            $('#computer-loading').hide();
+                        }
+
                         $('#computer-frame').animate({
                             marginTop: '5%',
                         }, 500, () => {
@@ -663,6 +682,7 @@ $(() => {
                 if ( data != 'false' && data.length > 0 ) {
                     if ( data[0].job === markerLocationJob || username === 'admin' ) {
                         loggedInUser = data[0];
+                        loggedInUser.iconslots = JSON.parse(loggedInUser.iconslots);
                         loadedPrograms = [];
                         jsloaded = [];
 
@@ -711,8 +731,34 @@ $(() => {
                 $('#jsfour-computer').hide();
                 $('#computer-loading .preloader-wrapper').hide();
             });
-            
-            fetch("http://jsfour-computer/jsfour-computer:close");
+
+            let iconSlots = {};
+
+            $('.icon-container').each(function() {
+                let icon = $(this).find('.icon');
+
+                if ( icon.length === 1 ) {
+                    iconSlots[icon.attr('program')] = $(this).attr('class').split(' ')[1];
+                }
+            });
+
+            iconSlots = JSON.stringify(iconSlots);
+
+            if ( loggedInUser && ( JSON.stringify(loggedInUser.iconslots) != iconSlots ) ) {
+                fetch('http://jsfour-computer/jsfour-computer:close', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        type: 'updateUserIconSlots',
+                        data: {
+                            '@iconslots': iconSlots,
+                            '@username': loggedInUser.username,
+                            '@password': loggedInUser.password
+                        }
+                    })
+                });
+            } else {
+                fetch('http://jsfour-computer/jsfour-computer:close');
+            } 
         }
     });
 
@@ -758,6 +804,7 @@ $('#computer-register-form form').submit(() => {
 });
 
 function devMode() {
+    
     esxEnabled = true;
     loggedInUser = {
         "id":1,
@@ -790,3 +837,9 @@ function devMode() {
         }, 100);
     });
 }
+
+// function GetParentResourceName() {
+//     return 'DEVMODE';
+// }
+
+// devMode();

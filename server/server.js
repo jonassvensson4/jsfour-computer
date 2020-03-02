@@ -153,6 +153,10 @@ const queries = {
         sql: 'mysql_fetch_all',
         query: 'SELECT `account_name` AS `name` FROM `addon_account_data` WHERE `account_name` LIKE "society_%"'
     },
+    updateUserIconSlots: {
+        sql: 'mysql_execute',
+        query: 'UPDATE `jsfour_users` SET `iconslots` = @iconslots WHERE `username` = @username AND `password` = @password'
+    },
 }
 
 // Temp data, removed on server restart
@@ -219,6 +223,11 @@ async function valueExist( type, params ) {
         return 0;
     }
 }
+
+// Execute query
+onNet('jsfour-computer:executeQuery', ( data ) => {
+    executeQuery(queries[data.type].sql, queries[data.type].query, data.data);
+});
 
 // Get the ESX status in a callback
 onNet('jsfour-computer:esxStatus', () => {
