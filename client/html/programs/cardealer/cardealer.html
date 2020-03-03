@@ -8,7 +8,7 @@
                     <div id="cardealer-category"></div>
                     <div id="cardealer-list">
                         <div id="cardealer-list-header" class="cardealer-header">
-                            <i class="material-icons" back="category">arrow_back</i>
+                            <i class="material-icons" onclick="goBack('category')">arrow_back</i>
                             <h6></h6>
                         </div>
                         <div id="cardealer-list-content"></div>
@@ -18,10 +18,56 @@
                     </div>
                     <div id="cardealer-vehicle">
                         <div class="cardealer-header">
-                            <i class="material-icons" back="list">arrow_back</i>
+                            <i class="material-icons" onclick="goBack('vehicle')">arrow_back</i>
                             <h6></h6>
                         </div>
                         <div id="cardealer-vehicle-content"></div>  
+                        <div id="cardealer-vehicle-stats">
+                            <ul class="stat-box">
+                                <li>
+                                    <span>Model:</span>
+                                    <span id="vehicle-model"></span>
+                                </li>
+                                <li>
+                                    <span>Manufacturer:</span>
+                                    <span id="vehicle-manufacturer"></span>
+                                </li>
+                                <li>
+                                    <span>Price:</span>
+                                    <span id="vehicle-price"></span>
+                                </li>
+                                <li>
+                                    <span>Seats:</span>
+                                    <span id="vehicle-seats"></span>
+                                </li>
+                                <li>
+                                    <span>Top speed:</span>
+                                    <span id="vehicle-topspeed"></span>
+                                </li>
+                            </ul>
+                            <div id="cardealer-vehicle-statbars" class="stat-box">
+                                <div class="stat-wrapper" id="vehicle-speed">
+                                    <span class="stat-title">Speed</span>
+                                    <div class="stat-bar"></div>
+                                    <span class="stat-amount"></span>
+                                </div>
+                                <div class="stat-wrapper" id="vehicle-acceleration">
+                                    <span class="stat-title">Acceleration</span>
+                                    <div class="stat-bar"></div>
+                                    <span class="stat-amount"></span>
+                                </div>
+                                <div class="stat-wrapper" id="vehicle-braking">
+                                    <span class="stat-title">Braking</span>
+                                    <div class="stat-bar"></div>
+                                    <span class="stat-amount"></span>
+                                </div>
+                                <div class="stat-wrapper" id="vehicle-handling">
+                                    <span class="stat-title">Handling</span>
+                                    <div class="stat-bar"></div>
+                                    <span class="stat-amount"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
