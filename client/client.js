@@ -2,6 +2,7 @@ let wait = false;
 let esxEnabled = false;
 let ESX = false;
 let callbacks = {};
+let helpTextShown = false;
 
 // Register client events
 RegisterNetEvent('jsfour-computer:toNUI');
@@ -14,6 +15,7 @@ RegisterNuiCallbackType('jsfour-computer:esx');
 RegisterNuiCallbackType('jsfour-computer:close');
 RegisterNuiCallbackType('jsfour-computer:tempData');
 
+// Answer from the server
 onNet('jsfour-computer:callback', ( result, id ) => {
     callbacks[id](result);
     delete callbacks[id];
@@ -27,6 +29,10 @@ function serverCallback( name, data, cb ) {
     emitNet(name, data);
 }
 
+/* 
+    Loop through every NUI callback name in the config and register them. 
+    I'm doing this since they're all doing the same thing and because I want the callback system to work properly
+*/
 for ( let i = 0; i < NUICallbacks.length; i++ ) {
     setTimeout(() => {
         let name = NUICallbacks[i];
@@ -99,6 +105,13 @@ setImmediate(() => {
     SetNuiFocus(false, false);
 });
 
+// A function to display the marker text in the left corner. If you have your own notification system this is where you could add it
+function ShowHelp() {
+    SetTextComponentFormat('STRING')
+	AddTextComponentString(markerHelpText)
+	DisplayHelpTextFromStringLabel(0, 0, 1, -1)
+}
+
 // Keypress event and display marker if enabled in the config. Also loads in ESX if it's installed
 setTick(() => {
     if ( esxEnabled ) {
@@ -112,14 +125,19 @@ setTick(() => {
     if ( displayMarkers ) {
         if ( !wait ) {
             if ( checkDistance() ) {
-                // TODO: hints
                 let location = locations[checkDistance().key];
+
+                if ( markerHelpText && !helpTextShown ) { 
+                    ShowHelp();
+                    helpTextShown = true;
+                }
+
                 DrawMarker(location.marker.type, location.coords.x, location.coords.y, location.coords.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, location.marker.size.x, location.marker.size.y, location.marker.size.z, location.marker.color.r, location.marker.color.g, location.marker.color.b, 100, location.marker.animate, true, 2, false, false, false, false);
             } else {
                 wait = true;
+                helpTextShown = false;
     
                 setTimeout(() => {
-
                     wait = false;
                 }, 1000);
             }
