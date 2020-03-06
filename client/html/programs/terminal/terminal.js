@@ -24,16 +24,39 @@ function terminalCmd( cmds ) {
 
     switch( cmd[0] ) {
         case 'ipconfig':
-            terminalText(`Ethernet adapter Ethernet: <br/>,
-            Connection-specific DNS Suffix  . : lan,
-            IPv6 Address. . . . . . . . . . . . . . . . . . : fd1a:b211:4323:0:73fb:4270:4f0d:8f31,
-            Temporary IPv6 Address. . . . . . . . : fd1a:b321:4412:1:c2f4:44ab:2fe4:a772,
-            Link-local IPv6 Address . . . . . . . . : fe70::42af:2143:3b1a:5b33%6,
-            IPv4 Address. . . . . . . . . . . . . . . . . . : 192.168.1.100,
-            Subnet Mask . . . . . . . . . . . . . . . . . : 255.255.255.0,
-            Default Gateway . . . . . . . . . . . . . . : 192.168.1.1`);
-
-            terminalText('');
+            if ( cmd[1] && cmd[1] === '/all' ) {
+                terminalText(`Ethernet adapter Ethernet: <br/>,
+                    Connection-specific DNS Suffix  . : lan,
+                    Description. . . . . . . . . . . . . . . . . . . : Realtek PCIe GBE Family Controller,
+                    Physical Address . . . . . . . . . . . . . . : 0D-1A-1C-BA-FA-0C,
+                    DHCP Enabled . . . . . . . . . . . . . . . . : Yes,
+                    Autoconfiguration Enabled . . . . . : Yes,
+                    IPv6 Address. . . . . . . . . . . . . . . . . . : fd1a:b211:4323:0:73fb:4270:4f0d:8f31,
+                    Temporary IPv6 Address. . . . . . . . : fd1a:b321:4412:1:c2f4:44ab:2fe4:a772,
+                    Link-local IPv6 Address . . . . . . . . : fe70::42af:2143:3b1a:5b33%6,
+                    IPv4 Address. . . . . . . . . . . . . . . . . . : 192.168.1.100,
+                    Subnet Mask . . . . . . . . . . . . . . . . . : 255.255.255.0,
+                    Lease Obainted. . . . . . .  . . . . . . . . : 2020-03-03 08:14:00,
+                    Lease Expires . . . . . . . . . . . . . . . . : 2020-03-03 22:22:22,
+                    Default Gateway . . . . . . . . . . . . . . : 192.168.1.1,
+                    DHCP Server . . . . . . . . . . . . . . . . . : 192.168.1.1,
+                    DHCPv6 IAID . . . . . . . . . . . . . . . . . : 317237474,
+                    DHCPv6 Client DUID . . . . . . . . . : 00-01-02-03-04-05-06-07-08-09-10-AB,
+                    DNS servers . . . . . . . . . . . . . . . . . : 192.168.1.1`);
+        
+                terminalText('');
+            } else {
+                terminalText(`Ethernet adapter Ethernet: <br/>,
+                    Connection-specific DNS Suffix  . : lan,
+                    IPv6 Address. . . . . . . . . . . . . . . . . . : fd1a:b211:4323:0:73fb:4270:4f0d:8f31,
+                    Temporary IPv6 Address. . . . . . . . : fd1a:b321:4412:1:c2f4:44ab:2fe4:a772,
+                    Link-local IPv6 Address . . . . . . . . : fe70::42af:2143:3b1a:5b33%6,
+                    IPv4 Address. . . . . . . . . . . . . . . . . . : 192.168.1.100,
+                    Subnet Mask . . . . . . . . . . . . . . . . . : 255.255.255.0,
+                    Default Gateway . . . . . . . . . . . . . . : 192.168.1.1`);
+        
+                terminalText('');
+            }
             break;
         case 'ping':
             let ip = cmd[1];
@@ -69,12 +92,13 @@ function terminalCmd( cmds ) {
         case 'cmdlist':
         case 'commands':
             terminalText(`Command list:, 
+                <span>clear</span>,
                 <span>ipconfig</span>,
                 <span>ping [ip]</span>`);
                 terminalText('');
             break;
         default:
-            terminalText('Command not found.. Use help');
+            terminalText('Command not found.. Use /help');
     }
 }
 

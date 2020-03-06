@@ -5,7 +5,7 @@ function hideWindow( window ) {
     let windows = window.replace(/\n/g, '').replace(/\s/g, '').split(',');
 
     for ( i in windows ) {
-        if ( windows[i] === 'windows-start' || windows[i] === 'volume-control' || windows[i] === 'calendar' ) { 
+        if ( windows[i] === 'windows-start' || windows[i] === 'volume-control' || windows[i] === 'calendar' || windows[i] === 'network-window' || windows[i] === 'wifi-window'  ) { 
             $( `#${windows[i]}` ).animate({
                 height: '0',
             }, 200, () => {
@@ -22,6 +22,18 @@ function hideWindow( window ) {
                 height: '0',
             }, 200, () => {
                 $( '#windows-start' ).hide();
+            });
+
+            $( '#network-window' ).animate({
+                height: '0',
+            }, 200, () => {
+                $( '#network-window' ).hide();
+            });
+
+            $( '#wifi-window' ).animate({
+                height: '0',
+            }, 200, () => {
+                $( '#wifi-window' ).hide();
             });
 
             $( '#volume-control' ).animate({
@@ -95,9 +107,23 @@ function cInterval() {
 // .click, requires the attr "action"
 $('body').on('click', '.click', function () {
     switch ( $(this).attr('action') ) {
+        case 'wifi-window':
+            hideWindow( 'volume-control, notifications, calendar' );
+
+            $('#wifi-window').show().animate({
+                height: $('#wifi-window').height() ? 0 : 250
+            }, 200);
+            break;
+        case 'network-window':
+            hideWindow( 'volume-control, notifications, calendar' );
+
+            $('#network-window').show().animate({
+                height: $('#network-window').height() ? 0 : 115
+            }, 200);
+            break;
         case 'calendar':
             // Show calendar
-            hideWindow( 'volume-control, notifications' );
+            hideWindow( 'volume-control, notifications, network-window' );
 
             calendarOpen = calendarOpen ? false : true;
 
@@ -113,7 +139,7 @@ $('body').on('click', '.click', function () {
             break;
         case 'volume':
             // Show volume control
-            hideWindow( 'calendar, notifications' );
+            hideWindow( 'calendar, notifications, network-window' );
 
             $('#volume-control').show().animate({
                 height: $('#volume-control').height() ? 0 : 45
@@ -130,7 +156,7 @@ $('body').on('click', '.click', function () {
             break;
         case 'notifications':
             // Show notificaitons
-            hideWindow( 'volume-control, calendar' );
+            hideWindow( 'volume-control, calendar, network-window' );
 
             $('#notification').animate({
                 width: 0

@@ -289,11 +289,9 @@ body, html {
     z-index: -1;
 }
 
-#computer-taskbar .click:hover {
+#computer-taskbar .click:not(.no-click-hover):hover {
     background: rgba(255, 255, 255, 0.1);
 }
-
-
 
 #computer-taskbar .small-border::after {
     content: ' ';
@@ -307,7 +305,7 @@ body, html {
 
 #taskbar-icons {
     float: right;
-    width: 786px;
+    width: 752px;
     margin-right: 72px;
 }
 
@@ -359,6 +357,147 @@ body, html {
     background: rgba(255, 255, 255, 0.1) !important;
 }
 
+#taskbar-network {
+    float: left;
+    margin: 7px 42px 0 -26px !important;
+    padding-top: 7px !important;
+    width: 18px !important;
+    height: 17px !important;
+    background: url(../images/network.png);
+    position: relative;
+}
+
+#taskbar-network:hover::after {
+    content: ' ';
+    position: absolute;
+    right: -8px;
+    bottom: -9px;
+    width: 35px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+#taskbar-wifi {
+    float: left;
+    margin: 7px 42px 0 -26px !important;
+    padding-top: 7px !important;
+    width: 18px !important;
+    height: 17px !important;
+    background: url(../images/wifi.png);
+    position: relative;
+}
+
+#taskbar-wifi:hover::after {
+    content: ' ';
+    position: absolute;
+    right: -8px;
+    bottom: -9px;
+    width: 35px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+#network-window {
+    position: absolute;
+    right: 0;
+    bottom: 35px;
+    display: none;
+    height: 0;
+    width: 220px;
+    background: url(../images/blurr-dark.png);
+    color: #ffffff;  
+    overflow: hidden;
+}
+
+#network-status-wrapper {
+    padding: 10px;
+}
+.wifi-connection:hover,
+#network-status-wrapper:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.wifi-connection:active,
+#network-status-wrapper:active {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+#network-info-wrapper {
+    padding: 0 10px 10px 10px;
+}
+
+#network-window-padding {
+    padding: 10px;
+}
+
+#wifi-window p,
+#network-window p {
+    font-size: 12px;
+}
+
+#network-window a:hover {
+    color: #a7a7a7;
+}
+
+#network-window span {
+    font-size: 10px;
+    line-height: 14px;
+    display: block;
+}
+
+.wifi-connection-status,
+#network-connection-status {
+    color: #a7a7a7;
+}
+
+.wifi-icon-wrapper,
+#network-icon-wrapper {
+    float: left;
+    margin-right: 10px;
+    padding: 8px;
+}
+
+#network-status {
+    width: 200px;
+}
+
+.network-icon {
+    width: 18px !important;
+    height: 17px !important;
+    background: url(../images/network.png);
+}
+
+.wifi-connection {
+    padding: 8px;
+}
+
+.wifi-icon {
+    width: 18px !important;
+    height: 17px !important;
+    background: url(../images/wifi.png);
+}
+
+.wifi-status {
+    width: 200px;
+}
+
+#wifi-window {
+    position: absolute;
+    right: 0;
+    bottom: 35px;
+    display: none;
+    height: 0;
+    width: 220px;
+    background: url(../images/blurr-dark.png);
+    color: #ffffff;  
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#wifi-window::-webkit-scrollbar {
+    width: 0 !important;
+}
+
 #taskbar-minimize {
     height: 35px !important;
     width: 6px !important;
@@ -366,6 +505,7 @@ body, html {
     position: absolute;
     right: 0;
     bottom: 0;
+    margin-right: 0 !important;
 }
 
 #calendar {
@@ -599,8 +739,7 @@ body, html {
     height: 0;
     width: 220px;
     background: url(../images/blurr-dark.png);
-    color: #ffffff;
-    
+    color: #ffffff;  
     overflow: hidden;
 }
 
