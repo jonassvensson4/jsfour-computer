@@ -53,7 +53,9 @@ function fetchPosts() {
     });
 }
 
-fetchPosts();
+setTimeout(() => {
+    fetchPosts();
+}, 200);
 
 function refreshforum() {
     fetchPosts();

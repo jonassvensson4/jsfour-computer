@@ -176,6 +176,7 @@ if ( !jsloaded.includes('medicalrecords') ) {
     $('body').on('click', '.mr-back', function () {
         $( _page ).fadeOut('fast', () => {
             _page = '.medicalrecords-search';
+            fetchUserRecords( 'all' );
             $( _page ).fadeIn();
         });
     });

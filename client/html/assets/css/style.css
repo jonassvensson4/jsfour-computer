@@ -349,10 +349,6 @@ body, html {
     position: relative;
 }
 
-#taskbar-notifications:hover {
-    background: url(../images/notifications.png) !important;
-}
-
 #taskbar-notifications:hover::after {
     content: ' ';
     position: absolute;
@@ -782,6 +778,11 @@ body, html {
 
 #tablet-programs .program-wrapper {
     height: 100% !important;
+}
+
+::selection {
+    color: none;
+    background: none;
 }
 
 /*

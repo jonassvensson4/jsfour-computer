@@ -4,6 +4,7 @@ let currentMail = 0;
 let unread = {};
 let userMails = {};
 let sentNotify = false;
+let mailRefreshCooldown = false;
 
 // Fetch mails by email
 function fetchMails( mail ) {
@@ -24,10 +25,7 @@ function fetchMails( mail ) {
     })
     .then( response => response.json() )
     .then( data => {
-        if ( data != 'false' && data.length > 0 ) {
-            if ( !tempdata ) {
-                tempdata = data;
-            }
+        if ( data != 'false' && data.length > 0 ) { 
             // data contains all the mails
             Object.keys( data ).forEach(( k ) => {
                 // Store the mails in an object where the id is the key
@@ -72,27 +70,25 @@ function fetchMails( mail ) {
                     read = 'inbox-unread';
                 }
 
-                if ( tempdata === data ) {
-                    // Element to append
-                    let div = `<div class="mail-inbox-content ${ read }" identifier="${ data[k].id }">
-                        <img class="inbox-avatar circle" src="${ data[k].avatar }" />
-                        <p class="inbox-name">${ name }</p>
-                        <p class="inbox-title">${ title }</p>
-                        <p class="inbox-text">${ text }</p>
-                    </div>`;
+                // Element to append
+                let div = `<div class="mail-inbox-content ${ read }" identifier="${ data[k].id }">
+                    <img class="inbox-avatar circle" src="${ data[k].avatar }" />
+                    <p class="inbox-name">${ name }</p>
+                    <p class="inbox-title">${ title }</p>
+                    <p class="inbox-text">${ text }</p>
+                </div>`;
 
-                    // Checks if the user has sent the email or not to append it to the sent folder
-                    if ( mail != data[k].from ) {
-                        $( `#mail-inbox-${ data[k].folder }` ).prepend( div );
-                    } else if ( mail === data[k].from && mail === data[k].to ) {
-                        $( `#mail-inbox-${ data[k].folder }` ).prepend( div );
-                    } else {
-                        $( `#mail-inbox-sent` ).prepend( div );
-                    }
+                // Checks if the user has sent the email or not to append it to the sent folder
+                if ( mail != data[k].from ) {
+                    $( `#mail-inbox-${ data[k].folder }` ).prepend( div );
+                } else if ( mail === data[k].from && mail === data[k].to ) {
+                    $( `#mail-inbox-${ data[k].folder }` ).prepend( div );
                 } else {
-                    if ( Object.keys( data ).length === parseInt( k ) + 1 ) {
-                        tempdata = false;
-                    } 
+                    if ( data[k].folder != 'deleted' ) {
+                        $( `#mail-inbox-sent` ).prepend( div );
+                    } else {
+                        $( `#mail-inbox-deleted` ).prepend( div );
+                    }
                 }
             });
 
@@ -105,6 +101,7 @@ function fetchMails( mail ) {
                     // Send mail after 1.2 sec to give the user time to login
                     setTimeout(() => {
                         notify('New mail!', 'mail', 'mail');
+                        sentNotify = false;
                     }, 1200);
                 }
             });
@@ -215,7 +212,15 @@ function changeEmail( email, i ) {
 }
 
 function refreshmail() {
-    fetchMails( currentEmail );
+    if ( !mailRefreshCooldown ) {
+        fetchMails( currentEmail );
+
+        mailRefreshCooldown = true;
+
+        setTimeout(() => {
+            mailRefreshCooldown = false;
+        }, 400);
+    }
 }
 
 $('#mail-inbox, #mail-send, #mail-toggle, #mail-send-page, #mail-menu-emails, .changeFolder').click(() => {
@@ -274,50 +279,67 @@ $('#mail-toggle').click(() => {
 });
 
 $('body').on('click', '.mail-inbox-content', function() {
-    $('#mail-send').hide();
-    $( '.inbox-active' ).removeClass('inbox-active');
-    if ( currentMail === $( this ).attr( 'identifier' ) ) {
-        $('#mail-email').toggle();
-    } else {
-        currentMail = $( this ).attr( 'identifier' );
-
-        $('#email-avatar').attr('src', userMails[currentMail].avatar);
-        $('#email-title').text( userMails[currentMail].title );
-        $('#email-name').text( `${ userMails[currentMail].name } <${ userMails[currentMail].from }>` );
-        $('#email-date').text( userMails[currentMail].date );
-        $('#email-to span').text( userMails[currentMail].to );
-        $('#email-text').text( userMails[currentMail].text );
-        $('#mail-delete').attr('identifier', currentMail);
-
-        $('#mail-email').show();
-
-        if ( $( this ).hasClass('inbox-unread') ) {
-            unread[currentEmail]--;
-
-            $('#mail-menu-emails .mail-menu-content').each( function () {
-                if ( currentEmail === $( this ).find('.mail-menu-email').text() ) {
-                    if ( unread[currentEmail] === 0 ) {
-                        $( this ).find('.mail-unread-count').text('');
-                    } else {
-                        $( this ).find('.mail-unread-count').text( unread[currentEmail] );
-                    }
-                }
-            });
-
-            fetch(`https://${ GetParentResourceName() }/jsfour-computer:updateMailRead`, {
-                method: 'POST',
-                body: JSON.stringify({
-                    type: 'updateMailRead',
-                    data: {
-                        '@id': currentMail
-                    }
-                })
-            });
+    if ( event.shiftKey ) {
+        let parent = $(this).parent('.afolder');
+        let start = $('.inbox-active').index();
+        let clicked = $(this).index();
+ 
+        if ( start < clicked ) {
+            for ( let i = start; i < clicked + 1; i++ ) {
+                parent.find('.mail-inbox-content').eq(i).addClass('inbox-active');
+            }
+        } else {
+            for ( let i = start; i > clicked - 1; i-- ) {
+                parent.find('.mail-inbox-content').eq(i).addClass('inbox-active');
+            }
         }
+    } else {
+        $('#mail-send').hide();
+        $( '.inbox-active' ).removeClass('inbox-active');
+    
+        if ( currentMail === $( this ).attr( 'identifier' ) ) {
+            $('#mail-email').toggle();
+        } else {
+            currentMail = $( this ).attr( 'identifier' );
+    
+            $('#email-avatar').attr('src', userMails[currentMail].avatar);
+            $('#email-title').text( userMails[currentMail].title );
+            $('#email-name').text( `${ userMails[currentMail].name } <${ userMails[currentMail].from }>` );
+            $('#email-date').text( userMails[currentMail].date );
+            $('#email-to span').text( userMails[currentMail].to );
+            $('#email-text').text( userMails[currentMail].text );
+            $('#mail-delete').attr('identifier', currentMail);
+    
+            $('#mail-email').show();
+    
+            if ( $( this ).hasClass('inbox-unread') ) {
+                unread[currentEmail]--;
+    
+                $('#mail-menu-emails .mail-menu-content').each( function () {
+                    if ( currentEmail === $( this ).find('.mail-menu-email').text() ) {
+                        if ( unread[currentEmail] === 0 ) {
+                            $( this ).find('.mail-unread-count').text('');
+                        } else {
+                            $( this ).find('.mail-unread-count').text( unread[currentEmail] );
+                        }
+                    }
+                });
+    
+                fetch(`https://${ GetParentResourceName() }/jsfour-computer:updateMailRead`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        type: 'updateMailRead',
+                        data: {
+                            '@id': currentMail
+                        }
+                    })
+                });
+            }
+        }
+    
+        $( this ).removeClass('inbox-unread');
+        $( this ).addClass('inbox-active');
     }
-
-    $( this ).removeClass('inbox-unread');
-    $( this ).addClass('inbox-active');
 });
 
 $('#mail-send-page').click(() => {
@@ -338,40 +360,43 @@ $('#mail-email-header p').click( function() {
                 case 'sent':
                 case 'junk':
                 case 'inbox':
-                    fetch(`https://${ GetParentResourceName() }/jsfour-computer:updateMailFolder`, {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            type: 'updateMailFolder',
-                            data: {
-                                '@id': $( this ).attr('identifier'),
-                                '@folder': 'deleted'
-                            }
+                    $('#mail-email').hide();
+                    $('.inbox-active').each(function() {
+                        let elem = $(this);
+
+                        fetch(`https://${ GetParentResourceName() }/jsfour-computer:updateMailFolder`, {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                type: 'updateMailFolder',
+                                data: {
+                                    '@id': elem.attr('identifier'),
+                                    '@folder': 'deleted'
+                                }
+                            })
                         })
-                    })
-                    .then(() => {
-                        let div = `<div class="mail-inbox-content" identifier="${ $( this ).attr('identifier') }">
-                            <img class="inbox-avatar circle" src="${ $('#email-avatar').attr('src') }" />
-                            <p class="inbox-name">${ $('#email-name').text() }</p>
-                            <p class="inbox-title">${ $('#email-title').text() }</p>
-                            <p class="inbox-text">${ $('#email-text').text() }</p>
-                        </div>`;
-    
-                        $( '.inbox-active' ).remove();
-                        $( `#mail-inbox-deleted` ).prepend( div );
+                        .then(() => {
+                            $( `#mail-inbox-deleted` ).prepend( elem );
+                            $( '.inbox-active' ).removeClass('inbox-active');
+                        });
                     });
                     break;
                 case 'deleted':
-                    fetch(`https://${ GetParentResourceName() }/jsfour-computer:deleteMail`, {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            type: 'deleteMail',
-                            data: {
-                                '@id': $( this ).attr('identifier')
-                            }
+                    $('#mail-email').hide();
+                    $('.inbox-active').each(function() {
+                        let elem = $(this);
+
+                        fetch(`https://${ GetParentResourceName() }/jsfour-computer:deleteMail`, {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                type: 'deleteMail',
+                                data: {
+                                    '@id': elem.attr('identifier')
+                                }
+                            })
                         })
-                    })
-                    .then(() => {
-                        $( '.inbox-active' ).remove();
+                        .then(() => {
+                            $( '.inbox-active' ).remove();
+                        });
                     });
                     break;
             }

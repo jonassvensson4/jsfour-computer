@@ -121,6 +121,7 @@
     border-left: 4px solid transparent;
     color: #5f5f5f;
     font-size: 12px;
+    min-height: 75px
 }
 
 .mail-inbox-content:hover {

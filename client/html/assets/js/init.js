@@ -556,6 +556,7 @@ function notify( text, icon, program ) {
     </div>`;
 
     $('#notifications-inner-wrapper').prepend( appendElem );
+    $('#taskbar-notifications').css({ background: 'url(assets/images/got_notifications.png)' });
     
     nElem.animate({
         width: 200

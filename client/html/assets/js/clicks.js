@@ -71,10 +71,7 @@ $('body').on('input', '#volume-range', function() {
 function startProgram( program ) {
     hideWindow( 'all' );
 
-    if ( $(`.icon-${program}-small`).hasClass('small-active') ) {
-        $('.small-active').removeClass('small-active');
-        $(`.program-${program}`).closest('.program-wrapper').hide();
-    } else {
+    if ( !$(`.icon-${program}-small`).hasClass('small-active') ) {
         $(`.program-${program}`).closest('.program-wrapper').show();
 
         $('.program-wrapper').removeClass('program-active');
@@ -139,7 +136,7 @@ $('body').on('click', '.click', function () {
                 width: 0
             }, 200);
 
-            $( this ).attr('src', 'assets/images/notifications.png');
+            $(this).css({ background: 'url(assets/images/notifications.png)' });
 
             $('#notifications').show().animate({
                 width: $('#notifications').width() ? 0 : 220
