@@ -40,7 +40,11 @@ Feel free to make forks and post any updates in the original forum thread. **Do 
 ##### INFO
 * The SQL file will create an admin user, the username and the password is set to `admin`. It's recommended to change this in the user settings inside the computer..
 * The passwords are **not** encrypted, please tell your users to use a simple password, their name or something in case of a leak.
-* Yes I'm bad at designing stuff, shut uuuup.
+
+### DEFAULT LOCATIONS
+![](https://i.imgur.com/lMWzohx.png)
+
+*You'll have to add the physical computer to some of the locations by yourself. I'm not including them in this resource since most of the servers have their own versions of every location.*
 
 ### ADD PROGRAMS
 I **won't** provide any personal support regarding adding more programs. Feel free to create a pull request if you want to share a program with others.
