@@ -123,15 +123,15 @@
                             <div id="network-window">
                                 <div id="network-status-wrapper">
                                     <div id="network-icon-wrapper">
-                                        <div class="network-icon"></div>
+                                        <div class="icons-system icons-system-ethernet"></div>
                                     </div>
-                                    <div id="network-status">
+                                    <div id="network-status" class="click" action="settings" tab="ethernet">
                                         <p>Ethernet 2</p>
                                         <p id="network-connection-status">Connected</p>
                                     </div>
                                 </div>
                                 <div id="network-info-wrapper">
-                                    <a href="#">Network & Internet settings</a>
+                                    <a href="#" class="click" action="settings" tab="status">Network & Internet settings</a>
                                     <span>Change settings, such as making a connection metered.</span>
                                 </div>
                             </div>
@@ -158,13 +158,13 @@
                             <div id="taskbar-right" class="right">
                                 <i id="signout" class="material-icons click hide" action="signout">exit_to_app</i>
                                 <!-- <div id="taskbar-wifi" class="click no-click-hover" action="wifi-window"></div> -->
-                                <div id="taskbar-network" class="click no-click-hover network" action="network-window"></div>
+                                <div id="taskbar-network" class="click no-click-hover icons-system icons-system-ethernet" action="network-window"></div>
                                 <i id="volume-icon" class="material-icons click" action="volume">volume_up</i>
                                 <div id="taskbar-date-wrapper" class="click" action="calendar">
                                     <p id="taskbar-time"></p>
                                     <p id="taskbar-date"></p>
                                 </div>
-                                <div id="taskbar-notifications" class="click no-click-hover" action="notifications"></div>
+                                <div id="taskbar-notifications" class="click no-click-hover icons-system icons-system-notification" action="notifications"></div>
                                 <div id="taskbar-minimize" class="click" action="windows-minimize-all"></div>
                             </div>
                             <div id="taskbar-append"><p>Append to taskbar</p></div>

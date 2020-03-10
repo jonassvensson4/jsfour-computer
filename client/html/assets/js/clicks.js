@@ -107,6 +107,9 @@ function cInterval() {
 // .click, requires the attr "action"
 $('body').on('click', '.click', function () {
     switch ( $(this).attr('action') ) {
+        case 'settings':
+            startProgram('settings');
+            break;
         case 'wifi-window':
             hideWindow( 'volume-control, notifications, calendar' );
 
@@ -162,7 +165,7 @@ $('body').on('click', '.click', function () {
                 width: 0
             }, 200);
 
-            $(this).css({ background: 'url(assets/images/notifications.png)' });
+            $(this).css({ backgroundPosition: '0px 0px' });
 
             $('#notifications').show().animate({
                 width: $('#notifications').width() ? 0 : 220
@@ -212,7 +215,11 @@ $('body').on('click', '.click', function () {
             
             let e = $(`#desktop .program-${program}`).closest('.program-wrapper');
 
-            if ( !programs[program].icons.taskbar ) {
+            if ( programs[program].icons ) {
+                if ( !programs[program].icons.taskbar ) {
+                    $(`.icon-${program}-small`).closest('.click').remove();
+                }
+            } else {
                 $(`.icon-${program}-small`).closest('.click').remove();
             }
 

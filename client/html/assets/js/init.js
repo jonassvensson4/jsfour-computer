@@ -203,7 +203,7 @@ function loadPrograms() {
                                     let icon = `<div title="${ programs[k].title }" class="icon click program-${ k }-icon" action="start-program" program="${ k }"><span class="icons icon-${ k }"></span></div>`;
                         
                                     // Will append the icon to the start menu if set to true in the config
-                                    if ( programs[k].icons.start ) {
+                                    if ( programs[k].icons && programs[k].icons.start ) {
                                         $('#windows-start').append( icon );
                                     }
 
@@ -234,7 +234,7 @@ function loadPrograms() {
                                     }
                                     
                                     // Will append the icon to the desktop if set to true in the config
-                                    if ( programs[k].icons.desktop ) {
+                                    if ( programs[k].icons && programs[k].icons.desktop ) {
                                         if ( loggedInUser.iconslots ) {
                                             if ( k in loggedInUser.iconslots ) {
                                                 $( `.${ loggedInUser.iconslots[k] }` ).append( icon );
@@ -284,7 +284,7 @@ function loadPrograms() {
                                     }
                         
                                     // Will append the icon to the taskbar if set to true in the config
-                                    if ( programs[k].icons.taskbar ) {
+                                    if ( programs[k].icons && programs[k].icons.taskbar ) {
                                         $('#taskbar-icons').append(`<div title="${programs[k].title}" class="icon click" action="start-program" program="${k}"><span class="icons icon-${k}-small"></span></div>`);
                                     }
 
@@ -556,7 +556,7 @@ function notify( text, icon, program ) {
     </div>`;
 
     $('#notifications-inner-wrapper').prepend( appendElem );
-    $('#taskbar-notifications').css({ background: 'url(assets/images/got_notifications.png)' });
+    $('#taskbar-notifications').css({ backgroundPosition: '0px -37px' });
     
     nElem.animate({
         width: 200

@@ -1,0 +1,118 @@
+.program-settings-header {
+    margin-bottom: -22px;
+    color: #ffffff;
+    position: relative;
+    z-index: 10;
+}
+
+.program-settings-header .program-close,
+.program-settings-header .program-fullscreen,
+.program-settings-header .program-minimize,
+.program-settings-header .program-refresh {
+    color: #000000 !important;
+}
+
+.program-settings {
+    height: 100%;
+    width: 100%;
+    color: #000000;
+}
+
+.icon-settings {
+    background-position: -960px 0;
+}
+
+.icon-settings:hover {
+    background-position: -960px -60px;
+}
+
+.icon-settings:active {
+    background-position: -960px -120px;
+}
+
+.icon-settings-small {
+    background-position: -972px -193px;
+}
+
+#settings-menu {
+    opacity: 0.95;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 190px;
+    background: url(../../assets/images/blurr-dark.png)
+}
+
+#settings-menu h6 {
+    font-size: 12px;
+    color: #ffffff;
+    margin: 0;
+    padding: 10px;
+}
+
+#settings-menu ul {
+    margin-top: 40px;
+    position: relative;
+}
+
+#settings-menu li {
+    width: 100%;
+    height: 35px;
+    border-left: 4px solid transparent;
+}
+
+#settings-menu .active-tab {
+    border-left: 4px solid #039be5;
+}
+
+#settings-menu li:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+#settings-menu li:active {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+#settings-menu li span:nth-child(odd) {
+    float: left;
+}
+
+#settings-menu li span:nth-child(even) {
+    color: #ffffff;
+    font-size: 12px;
+    line-height: 35px;
+}
+
+#settings-content {
+    position: absolute;
+    top: 0;
+    background: #ffffff;
+    width: 100%;
+    height: 100%;
+    margin-left: 190px;
+}
+
+.icons-system-home {
+    background-position: -105px -175px;
+}
+
+.icons-system-vpn {
+    background-position: -105px 0px;
+}
+
+.icons-system-proxy {
+    background-position: -105px -35px;
+}
+
+.icons-system-status {
+    background-position: -105px -70px;
+}
+
+.icons-system-remote-connection {
+    background-position: -105px -140px;
+}
+
+.icons-system-data-usage {
+    background-position: -105px -105px;
+}

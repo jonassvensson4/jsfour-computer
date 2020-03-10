@@ -304,9 +304,9 @@ body, html {
 }
 
 #taskbar-icons {
-    float: right;
     width: 752px;
-    margin-right: 72px;
+    margin: -40px 0 0 35px;
+    height: 35px;
 }
 
 #taskbar-icons .icons {
@@ -339,39 +339,63 @@ body, html {
 
 #taskbar-notifications {
     float: right;
-    margin: 7px 0 0 12px;
     padding-top: 7px !important;
-    width: 18px !important;
-    height: 17px !important;
-    background: url(../images/notifications.png);
     position: relative;
+}
+
+.icons-system-notification {
+    background-position: -70px 0;
 }
 
 #taskbar-notifications:hover::after {
     content: ' ';
     position: absolute;
-    right: -8px;
-    bottom: -9px;
+    right: 0;
+    top: -2px;
     width: 35px;
     height: 35px;
     background: rgba(255, 255, 255, 0.1) !important;
 }
 
+#network-status, 
+#network-info-wrapper a {
+    display: block !important;
+    width: auto !important;
+    height: auto !important;
+}
+
+#network-info-wrapper a {
+    float: left;
+}
+
+#network-status,
+#network-info-wrapper a:hover {
+    background: none !important;
+}
+
+.icons-system {
+    background: url(../images/icons-system.png);
+    display: block !important;
+    width: 35px !important;
+    height: 35px !important;
+    position: relative !important;
+}
+
+.icons-system-ethernet {
+    background-position: -35px 0;
+}
+
 #taskbar-network {
     float: left;
-    margin: 7px 42px 0 -26px !important;
-    padding-top: 7px !important;
-    width: 18px !important;
-    height: 17px !important;
-    background: url(../images/network.png);
+    margin-right: 35px !important;
     position: relative;
 }
 
 #taskbar-network:hover::after {
     content: ' ';
     position: absolute;
-    right: -8px;
-    bottom: -9px;
+    right: -2px;
+    top: -2px;
     width: 35px;
     height: 35px;
     background: rgba(255, 255, 255, 0.1) !important;
@@ -412,6 +436,7 @@ body, html {
 #network-status-wrapper {
     padding: 10px;
 }
+
 .wifi-connection:hover,
 #network-status-wrapper:hover {
     background: rgba(255, 255, 255, 0.15);
@@ -455,6 +480,10 @@ body, html {
     float: left;
     margin-right: 10px;
     padding: 8px;
+}
+
+#network-icon-wrapper .icons-system {
+    margin-top: -6px;
 }
 
 #network-status {
@@ -605,7 +634,7 @@ body, html {
     display: none;
     position: absolute;
     background: url(../images/blurr-dark.png);
-    width: 134px;
+    width: 130px;
     height: 0;
     bottom: 35px;
     overflow: auto;
@@ -647,10 +676,11 @@ body, html {
 }
 
 #signout {
+    margin-top: -2px;
     font-size: 17px;
     float: left;
-    margin: -2px 0 0 -69px;
-    padding-top: 9px !important;
+    margin-left: -39px;
+    padding-top: 11px !important;
 }
 
 #notification {
@@ -725,10 +755,11 @@ body, html {
 }
 
 #volume-icon {
+    margin-top: -2px;
     font-size: 17px;
     float: left !important;
-    margin: -2px 0 0 -34px; 
-    padding-top: 9px !important;
+    margin-left: -35px; 
+    padding-top: 10px !important;
 }
 
 #volume-control {
@@ -815,7 +846,6 @@ body, html {
     width: 60px;
     height: 60px;
     left: 0;
-    top: 0;
     background: rgba(103, 119, 133, 0.2);
 }
 

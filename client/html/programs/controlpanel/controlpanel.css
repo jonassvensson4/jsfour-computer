@@ -1,0 +1,127 @@
+.program-controlpanel-header {
+    background: #0078d7;
+    color: #ffffff;
+}
+
+.program-controlpanel {
+    height: 100%;
+    width: 100%;
+    color: #000000;
+    background: rgb(253, 253, 255);
+}
+
+.icon-controlpanel {
+    background-position: -900px 0;
+}
+
+.icon-controlpanel:hover {
+    background-position: -900px -60px;
+}
+
+.icon-controlpanel:active {
+    background-position: -900px -120px;
+}
+
+.icon-controlpanel-small {
+    background-position: -912px -193px;
+}
+
+.icons-system-and-security {
+    background-position: -140px 0;
+}
+
+.icons-system-user-accounts {
+    background-position: -140px -140px;
+}
+
+.icons-system-appearance {
+    background-position: -140px -175px;
+}
+
+.icons-system-network-and-internet {
+    background-position: -140px -35px;
+}
+
+.icons-system-time {
+    background-position: -140px -210px;
+}
+
+.icons-system-hardware {
+    background-position: -140px -70px;
+}
+
+.icons-system-program {
+    background-position: -140px -105px;
+}
+
+.icons-system-access {
+    background-position: -140px -245px;
+}
+
+.icons-system-admin {
+    background-position: -175px 0;
+}
+
+.program-controlpanel h6 {
+    color: #2d6db1;
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 25px;
+}
+
+.controlpanel-content-wrapper .icons-system-admin {
+    float: left;
+    background-position: -175px -10px;
+    margin: 0 -5px 0 -10px;
+}
+
+.controlpanel-category span {
+    color: #04971c;
+}
+
+.controlpanel-category span:hover {
+    color: #29ce45;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.controlpanel-category li {
+    color: #0066cc;
+    font-size: 11px;
+}
+
+.controlpanel-category li:hover {
+    cursor: pointer;
+    color: #4a9aeb;
+    text-decoration: underline;
+}
+
+.controlpanel-category {
+    position: relative;
+    padding: 4px;
+    border-radius: 2px;
+}
+
+.controlpanel-category:hover {
+    background-color: #e5f3ff;
+}
+
+.controlpanel-icon-wrapper {
+    float: left;
+}
+
+.controlpanel-content-wrapper{
+    margin-left: 50px;
+}
+
+.c-m30 {
+    margin-top: -30px;
+}
+
+.c-m50 {
+    margin-top: -50px;
+}
+
+.c-m60 {
+    margin-top: -60px;
+}

@@ -216,4 +216,38 @@ const programs = {
             fullscreen: false
         }
     },
+    'controlpanel': {
+        'title': 'Control Panel',
+        'icons': {
+            start: true
+        },
+        'options': {
+            allowMinimize: true,
+            allowResize: true
+        },
+        'access': {
+            group: 'all',
+            job: ['all']
+        },
+        'onStart': {
+            fullscreen: false
+        }
+    },
+    'settings': {
+        'title': 'Settings',
+        'options': {
+            allowMinimize: true
+        },
+        'access': {
+            group: 'all',
+            job: ['all']
+        },
+        'onStart': {
+            fullscreen: false,
+            width: '610px',
+            height: '450px',
+            top: '50px',
+            right: '50px'
+        }
+    },
 }
