@@ -6,7 +6,6 @@ let helpTextShown = false;
 
 // Register client events
 RegisterNetEvent('jsfour-computer:toNUI');
-RegisterNetEvent('jsfour-computer:esxStatus');
 RegisterNetEvent('jsfour-computer:callback');
 
 // Register NUI callbacks
@@ -60,17 +59,15 @@ onNet('jsfour-computer:toNUI', ( data ) => {
 
 // Get the ESX status from the server
 setTimeout(() => {
-    serverCallback('jsfour-computer:esxStatus', 'esxStatus', ( status ) => {
+    serverCallback('jsfour-computer:esxStatus', {}, ( status ) => {
         esxEnabled = status;
-    
-        setTimeout(() => {
-            SendNuiMessage(JSON.stringify({
-                action: 'esxStatus',
-                status: esxEnabled,
-            }));
-        }, 100)
-    });    
-}, 1000);
+
+        SendNuiMessage(JSON.stringify({
+            action: 'esxStatus',
+            status: esxEnabled
+        }));
+    }); 
+}, 2000); 
 
 // Check distance between the player and the locations
 function checkDistance( pos ) {

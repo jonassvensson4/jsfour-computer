@@ -954,6 +954,10 @@ body, html {
     background: none;
 }
 
+input::selection {
+    background: rgba(0, 0, 0, 0.2);
+}
+
 /*
     800x600
     1024x768

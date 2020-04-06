@@ -78,6 +78,7 @@ $('body').on('click', '#program-groups-users span', function () {
         $('#groups-delete-collapsible').collapsible('close');
 
         $('#groups-update-username').val( $(this).attr('username') );
+        $('#groups-update-username').attr( 'oldUsername', $(this).attr('username') );
         $('#groups-update-username').attr( 'identifier', $(this).attr('identifier') );
         $('#groups-update-username').attr( 'avatar', $(this).attr('avatar') );
 
@@ -122,13 +123,20 @@ function updateRows( type ) {
         fetchType = 'updateUser';
         rows['@new'] = rows['@password'];
         rows['@id'] = $('#groups-update-username').attr( 'identifier' );
-        rows['@email'] = `${ $('#groups-register-username').val().toLowerCase() }@${ $('#groups-register-job').val().toLowerCase() }.com`;
+        rows['@email'] = `${ $('#groups-update-username').val().toLowerCase() }@${ $('#groups-update-job').val().toLowerCase() }.com`;
     } else {
         rows['@email'] = `${ $('#groups-register-username').val().toLowerCase() }@${ $('#groups-register-job').val().toLowerCase() }.com`;
         rows['@avatar'] = `https://via.placeholder.com/50/${ (Math.random()*0xFFFFFF<<0).toString(16) }/?text=${ $('#groups-register-username').val().toUpperCase()[0] }` ;
     }
 
-    rows['@uniqueValue'] = '@username';
+    if ( $('#groups-update-username').val() != $('#groups-update-username').attr('oldUsername') ) {
+        rows['@uniqueValue'] = '@username';
+    }
+
+    if ( $('#groups-update-group').val().toLowerCase() === 'null' ) {
+        rows['@group'] = 'user';
+        $('#groups-update-group').val('user');
+    }
 
     fetch(`https://${ GetParentResourceName() }/jsfour-computer:${ fetchType }`, {
         method: 'POST',

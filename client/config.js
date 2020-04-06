@@ -105,6 +105,5 @@ const NUICallbacks = [
     'jsfour-computer:addForumPost',
     'jsfour-computer:deleteForumPost',
     'jsfour-computer:getSocieties',
-    'jsfour-computer:updateUser',
     'jsfour-computer:updateForumAvatar',
 ];

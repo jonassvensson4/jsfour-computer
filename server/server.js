@@ -230,8 +230,8 @@ onNet('jsfour-computer:executeQuery', ( data ) => {
 });
 
 // Get the ESX status in a callback
-onNet('jsfour-computer:esxStatus', () => {
-    emitNet('jsfour-computer:esxStatus', source, HasESX());
+onNet('jsfour-computer:esxStatus', ( data ) => {
+    emitNet('jsfour-computer:callback', source, HasESX(), data.CallbackID);
 });
 
 // Run a SQL query
@@ -248,6 +248,9 @@ onNet('jsfour-computer:query', async ( data ) => {
                 // No values found, insert/update it and return true
                 executeQuery( queries[data.type].sql, queries[data.type].query, data.data );
                 emitNet('jsfour-computer:callback', _source, true, data.CallbackID);
+            } else {
+                // Value exist, return false
+                emitNet('jsfour-computer:callback', _source, false, data.CallbackID); 
             }
         } else {
             // No @unqueValue, just insert/update it withouth checking and return true
