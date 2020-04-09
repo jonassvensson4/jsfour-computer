@@ -681,7 +681,7 @@ $(() => {
                 data = JSON.parse(text);
 
                 if ( data != 'false' && data.length > 0 ) {
-                    if ( data[0].job === markerLocationJob || username === 'admin' ) {
+                    if ( data[0].job === markerLocationJob || markerLocationJob === undefined || username === 'admin' ) {
                         loggedInUser = data[0];
                         loggedInUser.iconslots = JSON.parse(loggedInUser.iconslots);
                         loadedPrograms = [];
