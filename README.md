@@ -1,3 +1,5 @@
+Put on hold since I'm no longer making scripts for FiveM. I haven't touched this script for almost a year now. That's why I will archive this repo.
+
 # jsfour-computer
 
 A usable computer in-game. You can easily add your own programs by following the guide down below. To be able to do this you need to have some knowledge in html, javascript and css. **I will not** help you add programs.
